@@ -3,130 +3,317 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0b0c" />
-  <title>Serlzo Investments — Login</title>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — Login</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    body { background: var(--white); }
-    .auth-wrap { max-width: 440px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
-
-    .auth-hero {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--sky) 100%);
-      padding: 60px 32px 48px; text-align: center; color: #fff;
-      position: relative; overflow: hidden;
-    }
-    .auth-hero::before {
-      content: ''; position: absolute; top: -60px; right: -60px;
-      width: 200px; height: 200px; background: rgba(255,255,255,.08);
-      border-radius: 50%;
-    }
-    .auth-hero::after {
-      content: ''; position: absolute; bottom: -40px; left: -40px;
-      width: 140px; height: 140px; background: rgba(255,255,255,.06);
-      border-radius: 50%;
-    }
-    .logo { font-size: 36px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 8px; position: relative; z-index: 1; }
-    .logo-sub { font-size: 14px; opacity: .8; position: relative; z-index: 1; }
-
-    .auth-body { flex: 1; padding: 28px 24px 40px; }
-    .auth-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-    .auth-sub   { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
-
-    .forgot { font-size: 13px; color: var(--purple); font-weight: 600; text-align: right; display: block; margin-top: -8px; margin-bottom: 20px; }
-    .auth-switch { text-align: center; font-size: 14px; color: var(--muted); margin-top: 20px; }
-    .auth-switch a { color: var(--purple); font-weight: 700; }
-
-    .divider-row { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
-    .divider-row span { font-size: 12px; color: var(--muted); white-space: nowrap; }
-    .divider-row::before, .divider-row::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  
+  <style>
+    /* Premium Login Page Overrides */
+    body { 
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0056b3 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Subtle background ambient glows */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); /* Green accent glow */
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .auth-wrap { 
+      width: 100%;
+      max-width: 440px; 
+      position: relative;
+      z-index: 10;
+      animation: fadeUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    .auth-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 28px;
+      padding: 40px 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .logo { 
+      font-size: 32px; 
+      font-weight: 800; 
+      letter-spacing: -0.5px; 
+      color: #0f172a;
+      margin-bottom: 8px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .logo-dot {
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, #007bff, #10b981); /* Blue to Green accent */
+      border-radius: 4px;
+      transform: rotate(45deg);
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+    }
+
+    .logo-sub { 
+      font-size: 15px; 
+      color: #64748b; 
+      font-weight: 500;
+    }
+
+    .auth-title { 
+      font-size: 24px; 
+      font-weight: 800; 
+      color: #0f172a; 
+      margin-bottom: 8px; 
+      text-align: center;
+    }
+    
+    .auth-sub { 
+      font-size: 15px; 
+      color: #64748b; 
+      margin-bottom: 32px; 
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .field { margin-bottom: 20px; }
+    
+    .field-label { 
+      display: block; 
+      margin-bottom: 8px; 
+      color: #334155; 
+      font-size: 14px; 
+      font-weight: 700; 
+    }
+    
+    .field-input { 
+      width: 100%; 
+      min-height: 52px; 
+      padding: 0 16px; 
+      color: #0f172a; 
+      background: #f8fafc; 
+      border: 1.5px solid #e2e8f0; 
+      border-radius: 14px; 
+      outline: none; 
+      font-size: 15px; 
+      font-weight: 500;
+      transition: all 0.2s ease; 
+    }
+    
+    .field-input::placeholder { color: #94a3b8; }
+    
+    .field-input:focus { 
+      border-color: #007bff; 
+      background: #ffffff; 
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1); 
+    }
+
+    .forgot { 
+      font-size: 14px; 
+      color: #007bff; 
+      font-weight: 700; 
+      text-align: right; 
+      display: block; 
+      margin-top: -8px; 
+      margin-bottom: 24px; 
+      transition: color 0.2s ease;
+    }
+    .forgot:hover { color: #0056b3; }
+
+    .btn-primary { 
+      width: 100%; 
+      min-height: 54px;
+      color: #ffffff; 
+      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%); 
+      border: none;
+      border-radius: 14px; 
+      font-size: 16px; 
+      font-weight: 800; 
+      letter-spacing: 0.3px;
+      box-shadow: 0 10px 20px -5px rgba(0, 86, 179, 0.4);
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 15px 25px -5px rgba(0, 86, 179, 0.5); 
+    }
+    
+    .btn-primary:active { 
+      transform: translateY(0); 
+    }
+
+    .auth-switch { 
+      text-align: center; 
+      font-size: 15px; 
+      color: #64748b; 
+      margin-top: 28px; 
+      font-weight: 500;
+    }
+    
+    .auth-switch a { 
+      color: #007bff; 
+      font-weight: 800; 
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .auth-switch a:hover { color: #0056b3; }
+
+    .alert { 
+      padding: 14px 16px; 
+      border-radius: 12px; 
+      font-size: 14px; 
+      font-weight: 600; 
+      margin-bottom: 24px; 
+      display: none; 
+    }
+    .alert.show { display: block; animation: fadeUp 0.3s ease both; }
+    .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+    @keyframes fadeUp { 
+      from { opacity: 0; transform: translateY(15px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+
+    @media (max-width: 480px) {
+      .auth-card { padding: 32px 24px; border-radius: 24px; }
+      .logo { font-size: 28px; }
+    }
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
-<div class="auth-wrap">
-  <div class="auth-hero">
-    <div class="logo">Serlzo Investments</div>
-    <div class="logo-sub">Invest with confidence.</div>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="logo">
+          <span class="logo-dot"></span>
+          CardinalStone
+        </div>
+        <div class="logo-sub">Premium wealth management & investments.</div>
+      </div>
+
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-sub">Sign in to your CardinalStone account to continue.</div>
+
+      <div id="alert" class="alert"></div>
+
+      <div class="field">
+        <label class="field-label" for="email">Email Address</label>
+        <input class="field-input" type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password">Password</label>
+        <input class="field-input" type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+      </div>
+
+      <a href="forgot-password.html" class="forgot">Forgot password?</a>
+
+      <button class="btn btn-primary" id="loginBtn">Sign In</button>
+
+      <div class="auth-switch">
+        Don't have an account? <a href="register.html">Create one</a>
+      </div>
+    </div>
   </div>
 
-  <div class="auth-body">
-    <div class="auth-title">Welcome back</div>
-    <div class="auth-sub">Sign in to your Serlzo Investments account</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="assets/js/serlzo.js" defer></script>
+  <script src="assets/js/supabase.js" defer></script>
+  <script src="assets/js/icons.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      if (window.SerlzoReady) await window.SerlzoReady;
 
-    <div id="alert" class="alert"></div>
+      // Already logged in?
+      if (window.sb) {
+        window.sb.auth.getSession().then(function (r) {
+          if (r.data?.session) location.href = "/dashboard.html";
+        });
+      }
 
-    <div class="field">
-      <label class="field-label">Email Address</label>
-      <input class="field-input" type="email" id="email" placeholder="you@example.com" autocomplete="email" />
-    </div>
+      document.getElementById("loginBtn").addEventListener("click", async function () {
+        var btn   = this;
+        var email = document.getElementById("email").value.trim();
+        var pass  = document.getElementById("password").value;
+        var alert = document.getElementById("alert");
 
-    <div class="field">
-      <label class="field-label">Password</label>
-      <input class="field-input" type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
-    </div>
+        if (!email || !pass) {
+          alert.textContent = "Please fill in all fields.";
+          alert.className = "alert alert-error show"; 
+          return;
+        }
 
-    <a href="forgot-password.html" class="forgot">Forgot password?</a>
+        if (!window.sb) {
+          alert.textContent = "CardinalStone access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY.";
+          alert.className = "alert alert-error show";
+          return;
+        }
 
-    <button class="btn btn-primary" id="loginBtn">Sign In</button>
+        btn.disabled = true; 
+        btn.textContent = "Signing in…";
+        alert.className = "alert";
 
-    <div class="auth-switch">
-      Don't have an account? <a href="register.html">Create one</a>
-    </div>
-  </div>
-</div>
+        var { data, error } = await window.sb.auth.signInWithPassword({ email, password: pass });
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="assets/js/serlzo.js" defer></script>
-<script src="assets/js/supabase.js" defer></script>
-<script src="assets/js/icons.js" defer></script>
-<script>
-document.addEventListener("DOMContentLoaded", async function () {
-  if (window.SerlzoReady) await window.SerlzoReady;
+        if (error) {
+          alert.textContent = error.message || "Invalid credentials.";
+          alert.className = "alert alert-error show";
+          btn.disabled = false; 
+          btn.textContent = "Sign In"; 
+          return;
+        }
 
-  // Already logged in?
-  window.sb?.auth.getSession().then(function (r) {
-    if (r.data?.session) location.href = "/dashboard.html";
-  });
+        location.href = "/dashboard.html";
+      });
 
-  document.getElementById("loginBtn").addEventListener("click", async function () {
-    var btn   = this;
-    var email = document.getElementById("email").value.trim();
-    var pass  = document.getElementById("password").value;
-    var alert = document.getElementById("alert");
-
-    if (!email || !pass) {
-      alert.textContent = "Please fill in all fields.";
-      alert.className = "alert alert-error show"; return;
-    }
-
-    if (!window.sb) {
-      alert.textContent = window.SerlzoConfig?.error || "Serlzo Investments access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel.";
-      alert.className = "alert alert-error show";
-      return;
-    }
-
-    btn.disabled = true; btn.textContent = "Signing in…";
-    alert.className = "alert";
-
-    var { data, error } = await window.sb.auth.signInWithPassword({ email, password: pass });
-
-    if (error) {
-      alert.textContent = error.message || "Invalid credentials.";
-      alert.className = "alert alert-error show";
-      btn.disabled = false; btn.textContent = "Sign In"; return;
-    }
-
-    location.href = "/dashboard.html";
-  });
-
-  // Enter key
-  document.getElementById("password").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") document.getElementById("loginBtn").click();
-  });
-});
-</script>
+      // Enter key support
+      document.getElementById("password").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") document.getElementById("loginBtn").click();
+      });
+      
+      document.getElementById("email").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") document.getElementById("loginBtn").click();
+      });
+    });
+  </script>
 </body>
-  </html>
-  
+</html>
