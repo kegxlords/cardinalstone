@@ -2,98 +2,402 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Plans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — Plans</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
+  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  
   <style>
-    .tabs { display:flex; gap:8px; padding:16px; overflow-x:auto; scrollbar-width:none; }
-    .tabs::-webkit-scrollbar{display:none}
+    /* BULLETPROOF LIGHT PLANS PAGE OVERRIDES */
+    body {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    * { -webkit-tap-highlight-color: transparent; }
+
+    .page-wrap {
+      width: 100%;
+      max-width: 100%;
+      padding-bottom: 100px;
+      background: transparent !important;
+    }
+
+    /* Top Bar */
+    .topbar-premium {
+      background: #ffffff !important;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+    .topbar-title { font-size: 18px; font-weight: 800; color: #0f172a !important; }
+
+    .vip-badge {
+      background: linear-gradient(135deg, #007bff, #10b981);
+      color: #ffffff !important;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Premium Tabs */
+    .tabs { 
+      display: flex; 
+      gap: 10px; 
+      padding: 16px; 
+      overflow-x: auto; 
+      scrollbar-width: none; 
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    
     .tab {
-      flex-shrink:0; padding:8px 20px; border-radius:30px;
-      font-size:13px; font-weight:700; cursor:pointer;
-      border:2px solid var(--border); background:var(--card); color:var(--muted);
-      transition:all .15s;
+      flex-shrink: 0; 
+      padding: 10px 20px; 
+      border-radius: 30px;
+      font-size: 13px; 
+      font-weight: 700; 
+      cursor: pointer;
+      border: 1.5px solid #e2e8f0; 
+      background: #ffffff; 
+      color: #64748b;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
-    .tab.on { background:var(--purple); border-color:var(--purple); color:#fff; }
+    .tab:hover { border-color: #cbd5e1; color: #0f172a; }
+    .tab.on { 
+      background: #0056b3; 
+      border-color: #0056b3; 
+      color: #ffffff !important; 
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.25); 
+    }
 
+    /* VIP Lock Info Card */
     .vip-lock {
-      background:linear-gradient(135deg,var(--purple-light),var(--sky-light));
-      border-radius:var(--radius); margin:0 16px 16px; padding:14px 16px;
-      border:1.5px solid var(--purple-light);
+      background: #eff6ff; 
+      border: 1px solid #bfdbfe; 
+      border-radius: 16px; 
+      margin: 16px; 
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
     }
-    .vip-lock h3 { font-size:14px; color:var(--purple); margin-bottom:4px; }
-    .vip-lock p  { font-size:12px; color:var(--muted); }
+    .vip-lock-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: #ffffff; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #2563eb;
+    }
+    .vip-lock-icon svg { width: 20px; height: 20px; }
+    .vip-lock-content h3 { font-size: 15px; font-weight: 800; color: #1e3a8a; margin-bottom: 4px; }
+    .vip-lock-content p { font-size: 13px; color: #3b82f6; line-height: 1.5; margin-bottom: 8px; }
+    .vip-lock-content a { 
+      color: #0056b3; font-weight: 700; font-size: 13px; text-decoration: none; 
+      display: inline-flex; align-items: center; gap: 4px;
+    }
 
-    .product-card { margin:0 16px 14px; }
-    .product-header { padding:18px 16px; position:relative; }
-    .product-type-badge {
-      position:absolute; top:12px; right:12px;
-      padding:3px 10px; border-radius:20px;
-      font-size:10px; font-weight:800;
-      background:rgba(255,255,255,.2); color:#fff;
+    /* Product Cards */
+    .product-card { 
+      background: #ffffff !important; 
+      border: 1px solid #e2e8f0 !important; 
+      border-radius: 20px !important; 
+      overflow: hidden; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+      margin: 0 16px 16px; 
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .product-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); }
-    .pstat { background:var(--card); padding:12px; text-align:center; }
-    .pstat-val { font-size:15px; font-weight:800; color:var(--purple); }
-    .pstat-lbl { font-size:10px; color:var(--muted); margin-top:2px; text-transform:uppercase; }
-    .product-footer { padding:14px 16px; border-top:1px solid var(--border); }
-    .bought-chip {
-      display:flex; align-items:center; justify-content:center; gap:6px;
-      padding:12px; border-radius:30px; background:var(--bg);
-      font-size:14px; font-weight:700; color:var(--muted);
+    .product-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+
+    .product-header { 
+      padding: 24px 20px; 
+      position: relative; 
+      background: linear-gradient(135deg, #0056b3, #007bff);
+    }
+    .product-header.locked {
+      background: linear-gradient(135deg, #94a3b8, #cbd5e1);
+    }
+
+    .product-type-badge {
+      position: absolute; top: 16px; right: 16px;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      background: rgba(255,255,255,0.2); 
+      color: #ffffff !important;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .product-name { color: rgba(255,255,255,0.9); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .product-price { color: #ffffff !important; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+
+    .product-stats { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 1px; 
+      background: #f1f5f9; /* Creates the divider lines */
+    }
+    .pstat { 
+      background: #ffffff; 
+      padding: 16px 8px; 
+      text-align: center; 
+    }
+    .pstat-val { font-size: 16px; font-weight: 800; color: #0f172a !important; }
+    .pstat-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+
+    .product-footer { padding: 16px 20px; border-top: 1px solid #f1f5f9; }
+
+    .btn-buy {
+      width: 100%; padding: 14px; border-radius: 14px; border: none;
+      font-size: 15px; font-weight: 800; cursor: pointer;
+      background: linear-gradient(135deg, #0056b3, #007bff);
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+      transition: all 0.2s ease;
+    }
+    .btn-buy:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 86, 179, 0.3); }
+    .btn-buy:active { transform: scale(0.98); }
+    .btn-buy:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .bought-chip, .locked-chip {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px; border-radius: 14px; 
+      font-size: 14px; font-weight: 700;
+    }
+    .bought-chip { background: #f0fdf4; color: #16a34a !important; border: 1px solid #bbf7d0; }
+    .locked-chip { background: #f8fafc; color: #64748b !important; border: 1px solid #e2e8f0; }
+
+    /* Empty State */
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b !important; }
+    .empty-state-icon {
+      width: 64px; height: 64px; margin: 0 auto 16px;
+      background: #f8fafc; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+
+    /* Loader */
+    .loader-wrap { padding: 60px 20px; display: flex; align-items: center; justify-content: center; }
+    .loader {
+      width: 32px; height: 32px; border: 3px solid #f1f5f9;
+      border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Premium Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); 
+      backdrop-filter: blur(4px); z-index: 200;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.show { display: flex; }
+    
+    .modal-content {
+      background: #ffffff; border-radius: 24px; padding: 28px; 
+      width: 100%; max-width: 420px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes modalPop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+    .modal-title { font-size: 20px; font-weight: 800; color: #0f172a !important; margin-bottom: 4px; }
+    .modal-sub { font-size: 14px; color: #64748b !important; margin-bottom: 20px; }
+    
+    .modal-details {
+      background: #f8fafc; border-radius: 16px; padding: 16px; margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+    }
+    .modal-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .modal-row:last-child { margin-bottom: 0; }
+    .modal-label { color: #64748b !important; font-size: 14px; font-weight: 500; }
+    .modal-value { color: #0f172a !important; font-size: 14px; font-weight: 800; }
+    .modal-value.danger { color: #ef4444 !important; }
+    .modal-value.success { color: #10b981 !important; }
+
+    .modal-alert {
+      padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 600;
+      margin-bottom: 16px; display: none;
+    }
+    .modal-alert.show { display: block; }
+    .modal-alert.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+    .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-modal {
+      padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease; border: none;
+    }
+    .btn-modal.cancel { background: #f1f5f9; color: #475569 !important; }
+    .btn-modal.cancel:hover { background: #e2e8f0; }
+    .btn-modal.confirm { background: linear-gradient(135deg, #0056b3, #007bff); color: #ffffff !important; }
+    .btn-modal.confirm:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3); }
+    .btn-modal.confirm:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* Bottom Navigation */
+    .bottom-nav-premium {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff !important;
+      border-top: 1px solid #e2e8f0 !important;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .nav-item-premium {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px; cursor: pointer; transition: all 0.2s ease;
+      border: none; background: none; color: #64748b !important;
+      font-size: 11px; font-weight: 600;
+    }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #0f172a; color: #ffffff !important;
+      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 480px) {
+      .product-price { font-size: 28px; }
+      .tabs { padding: 12px 16px; gap: 8px; }
+      .tab { padding: 8px 16px; font-size: 12px; }
     }
   </style>
-  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
-  <div class="topbar">
-    <span class="topbar-title"> Plans</span>
-    <span class="vip-badge vip-0" data-vip style="font-size:11px">Customer</span>
+  <!-- Top Bar -->
+  <div class="topbar-premium">
+    <span class="topbar-title">Investment Plans</span>
+    <span class="vip-badge" data-vip>Member</span>
   </div>
 
+  <!-- Tabs -->
   <div class="tabs" id="tabs">
-    <button class="tab on" data-tab="newbie" onclick="switchTab(this,'newbie')"> Newbie</button>
-    <button class="tab" data-tab="vip1"    onclick="switchTab(this,'vip1')"> Service tier 1</button>
-    <button class="tab" data-tab="vip2"    onclick="switchTab(this,'vip2')"> Service tier 2</button>
-    <button class="tab" data-tab="vip3"    onclick="switchTab(this,'vip3')"> Service tier 3</button>
-    <button class="tab" data-tab="vip4"    onclick="switchTab(this,'vip4')">Service tier 4</button>
+    <button class="tab on" data-tab="newbie" onclick="switchTab(this,'newbie')">Newbie</button>
+    <button class="tab" data-tab="vip1" onclick="switchTab(this,'vip1')">Tier 1</button>
+    <button class="tab" data-tab="vip2" onclick="switchTab(this,'vip2')">Tier 2</button>
+    <button class="tab" data-tab="vip3" onclick="switchTab(this,'vip3')">Tier 3</button>
+    <button class="tab" data-tab="vip4" onclick="switchTab(this,'vip4')">Tier 4</button>
   </div>
 
   <!-- Service tier requirements info -->
   <div class="vip-lock" id="vipInfo" style="display:none">
-    <h3 id="vipInfoTitle">Service tier 1 Required</h3>
-    <p id="vipInfoDesc">Refer 3 active users to unlock Service tier 1 products.</p>
-    <a href="team.html" style="color:var(--purple);font-weight:700;font-size:13px;display:inline-block;margin-top:6px">View my team →</a>
+    <div class="vip-lock-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    <div class="vip-lock-content">
+      <h3 id="vipInfoTitle">Service Tier 1 Required</h3>
+      <p id="vipInfoDesc">Refer 3 active users to unlock Service Tier 1 products.</p>
+      <a href="team.html">
+        View my team 
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
   </div>
 
+  <!-- Products List -->
   <div id="productsList">
     <div class="loader-wrap"><div class="loader"></div></div>
   </div>
 </div>
 
 <!-- Confirm purchase modal -->
-<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:var(--white);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px">
-    <h3 style="font-size:18px;font-weight:800;margin-bottom:4px" id="modalTitle">Confirm Purchase</h3>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px" id="modalSub">Are you sure?</p>
-    <div style="background:var(--bg);border-radius:var(--radius-sm);padding:14px;margin-bottom:20px" id="modalDetails"></div>
-    <div id="modalAlert" class="alert"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" id="confirmBtn" onclick="confirmPurchase()">Confirm</button>
+<div id="modal" class="modal-backdrop">
+  <div class="modal-content">
+    <h3 class="modal-title" id="modalTitle">Confirm Purchase</h3>
+    <p class="modal-sub" id="modalSub">This product can only be purchased once.</p>
+    
+    <div class="modal-details" id="modalDetails">
+      <!-- Populated by JS -->
+    </div>
+    
+    <div id="modalAlert" class="modal-alert"></div>
+    
+    <div class="modal-actions">
+      <button class="btn-modal cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-modal confirm" id="confirmBtn" onclick="confirmPurchase()">Confirm</button>
     </div>
   </div>
 </div>
 
-<nav class="bottom-nav">
-  <button class="nav-item" onclick="location.href='dashboard.html'"><span class="nav-icon"></span>Home</button>
-  <button class="nav-item active" onclick="location.href='products.html'"><span class="nav-icon"></span>Plans</button>
-  <button class="nav-item" onclick="location.href='team.html'"><span class="nav-icon"></span>Household</button>
-  <button class="nav-item" onclick="location.href='profile.html'"><span class="nav-icon"></span>Profile</button>
+<!-- Bottom Navigation -->
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+    </div>
+    <span>Home</span>
+  </button>
+  <button class="nav-item-premium active" onclick="location.href='products.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+    </div>
+    <span>Plans</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='team.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    </div>
+    <span>Team</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+    </div>
+    <span>Alerts</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='profile.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </div>
+    <span>Profile</span>
+  </button>
 </nav>
+
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -144,9 +448,9 @@
     // Service tier lock check
     if(type==="vip" && userVip < vipLevel){
       var reqs={1:3,2:5,3:10,4:25};
-      document.getElementById("vipInfoTitle").textContent = "Service tier "+vipLevel+" Required";
-      document.getElementById("vipInfoDesc").textContent = "Refer "+reqs[vipLevel]+" active users to unlock Service tier "+vipLevel+" products. You're currently Service tier "+userVip+".";
-      vi.style.display="block";
+      document.getElementById("vipInfoTitle").textContent = "Service Tier "+vipLevel+" Required";
+      document.getElementById("vipInfoDesc").textContent = "Refer "+reqs[vipLevel]+" active users to unlock Service Tier "+vipLevel+" products. You're currently Tier "+userVip+".";
+      vi.style.display="flex";
     }
 
     var query = window.sb.from("products").select("*").eq("type",type).order("sort_order");
@@ -154,22 +458,20 @@
     var {data:prods} = await query;
 
     if(!prods||!prods.length){
-      el.innerHTML='<div class="empty"><div class="empty-icon"></div><p>No products available.</p></div>';
+      el.innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg></div><p>No plans available in this tier yet.</p></div>';
       return;
     }
 
     el.innerHTML = prods.map(function(p){
       var locked = p.status==="locked" || (type==="vip" && userVip<vipLevel);
       var bought = userPlans.includes(p.id);
-      var hdr = locked
-        ? 'background:linear-gradient(135deg,#8BA296,#CBD5E1)'
-        : 'background:linear-gradient(135deg,var(--purple),var(--sky))';
+      var hdrClass = locked ? 'product-header locked' : 'product-header';
 
-      return '<div class="product-card card">'+
-        '<div class="product-header" style="'+hdr+'">'+
-          '<div class="product-type-badge">'+(type==="vip"?"Service tier "+vipLevel:"Newbie")+'</div>'+
-          '<div style="color:#fff;font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.06em">'+p.name+'</div>'+
-          '<div style="color:#fff;font-size:28px;font-weight:800;margin-top:4px">'+window.SerlzoAuth.money(p.price)+'</div>'+
+      return '<div class="product-card">'+
+        '<div class="'+hdrClass+'">'+
+          '<div class="product-type-badge">'+(type==="vip"?"Tier "+vipLevel:"Newbie")+'</div>'+
+          '<div class="product-name">'+p.name+'</div>'+
+          '<div class="product-price">'+window.SerlzoAuth.money(p.price)+'</div>'+
         '</div>'+
         '<div class="product-stats">'+
           '<div class="pstat"><div class="pstat-val">'+window.SerlzoAuth.money(p.daily_income)+'</div><div class="pstat-lbl">Daily</div></div>'+
@@ -178,10 +480,10 @@
         '</div>'+
         '<div class="product-footer">'+
           (bought
-            ? '<div class="bought-chip">Already Purchased</div>'
+            ? '<div class="bought-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Already Purchased</div>'
             : locked
-              ? '<div class="bought-chip">'+(p.status==="locked"?"Locked by Admin":"Service tier "+vipLevel+" Required")+'</div>'
-              : '<button class="btn btn-primary" onclick="openModal(\''+p.id+'\',\''+p.name+'\','+p.price+')">Buy Now</button>'
+              ? '<div class="locked-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> '+(p.status==="locked"?"Locked by Admin":"Tier "+vipLevel+" Required")+'</div>'
+              : '<button class="btn-buy" onclick="openModal(\''+p.id+'\',\''+p.name+'\','+p.price+')">Buy Now</button>'
           )+
         '</div>'+
       '</div>';
@@ -191,47 +493,53 @@
   window.openModal = function(id, name, price){
     pendingPlanId = id;
     document.getElementById("modalTitle").textContent = "Buy " + name;
-    document.getElementById("modalSub").textContent = "This product can only be purchased once.";
+    document.getElementById("modalSub").textContent = "This plan can only be purchased once per account.";
     document.getElementById("modalDetails").innerHTML =
-      '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--muted)">Price</span><strong>'+window.SerlzoAuth.money(price)+'</strong></div>'+
-      '<div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Available account balance</span><strong style="color:'+(walletBal>=price?'var(--success)':'var(--danger)')+'">'+window.SerlzoAuth.money(walletBal)+'</strong></div>'+
-      (walletBal < price ? '<div style="margin-top:10px;font-size:12px;color:var(--danger)">Insufficient account balance. Please add funds first.</div>' : '');
-    document.getElementById("modalAlert").className="alert";
+      '<div class="modal-row"><span class="modal-label">Plan Price</span><strong class="modal-value">'+window.SerlzoAuth.money(price)+'</strong></div>'+
+      '<div class="modal-row"><span class="modal-label">Available Balance</span><strong class="modal-value '+(walletBal>=price?'success':'danger')+'">'+window.SerlzoAuth.money(walletBal)+'</strong></div>'+
+      (walletBal < price ? '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;font-size:13px;color:#ef4444;font-weight:600;display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Insufficient balance. Please deposit funds first.</div>' : '');
+    
+    document.getElementById("modalAlert").className="modal-alert";
     var modal=document.getElementById("modal");
-    modal.style.display="flex";
+    modal.classList.add("show");
     document.getElementById("confirmBtn").disabled = walletBal < price;
   };
 
   window.closeModal = function(){
-    document.getElementById("modal").style.display="none";
+    document.getElementById("modal").classList.remove("show");
     pendingPlanId="";
   };
 
   window.confirmPurchase = async function(){
     var btn=document.getElementById("confirmBtn");
     var alertEl=document.getElementById("modalAlert");
-    btn.disabled=true; btn.textContent="Purchasing…";
-    alertEl.className="alert";
+    btn.disabled=true; btn.textContent="Processing…";
+    alertEl.className="modal-alert";
 
     var {data,error} = await window.sb.rpc("purchase_product",{p_product_id:pendingPlanId});
 
     if(error||!data?.ok){
       alertEl.textContent = data?.error||error?.message||"Purchase failed.";
-      alertEl.className="alert alert-error show";
+      alertEl.className="modal-alert error show";
       btn.disabled=false; btn.textContent="Confirm"; return;
     }
 
     window.SerlzoAuth.toast("Plan purchased successfully!");
     closeModal();
-    // Refresh
+    
+    // Refresh data
     var {data:w}=await window.sb.from("wallets").select("balance").eq("user_id",userId).single();
     walletBal=w?.balance||0;
     var {data:up}=await window.sb.from("user_products").select("product_id").eq("user_id",userId);
     userPlans=(up||[]).map(function(x){return x.product_id;});
     await loadPlans(activeTab);
   };
+
+  // Close modal on backdrop click
+  document.getElementById("modal").addEventListener("click", function(e){
+    if(e.target === this) closeModal();
+  });
 })();
 </script>
 </body>
-  </html>
-  
+</html>
