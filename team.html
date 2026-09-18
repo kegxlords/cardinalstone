@@ -2,165 +2,398 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — My Household</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — My Team</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
+  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  
   <style>
+    /* BULLETPROOF LIGHT TEAM PAGE OVERRIDES */
+    body {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    * { -webkit-tap-highlight-color: transparent; }
+
+    .page-wrap {
+      width: 100%;
+      max-width: 100%;
+      padding-bottom: 100px;
+      background: transparent !important;
+    }
+
+    /* Premium Referral Hero */
     .ref-hero {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--sky) 100%);
-      padding: 24px 20px 40px; color: #fff;
+      background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+      padding: 28px 20px 50px;
+      text-align: center;
+      border-bottom: 1px solid #f1f5f9;
     }
+
+    .ref-hero-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #64748b !important;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
     .ref-code-box {
-      background: rgba(255,255,255,.15); border-radius: var(--radius-sm);
-      padding: 14px 16px; margin-top: 14px;
-      display: flex; align-items: center; justify-content: space-between;
+      background: #ffffff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.05);
     }
-    .ref-code { font-size: 20px; font-weight: 800; letter-spacing: .1em; }
+
+    .ref-code {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0056b3 !important;
+      letter-spacing: 0.1em;
+    }
+
     .copy-btn {
-      padding: 7px 14px; border-radius: 20px;
-      background: rgba(255,255,255,.25); color: #fff;
-      font-size: 12px; font-weight: 700; border: none; cursor: pointer;
-    }
-    .ref-link-box {
-      background: rgba(255,255,255,.1); border-radius: var(--radius-sm);
-      padding: 10px 14px; margin-top: 8px;
-      font-size: 12px; color: rgba(255,255,255,.8);
-      word-break: break-all;
-    }
-
-    .vip-progress {
-      background: var(--white); border-radius: var(--radius); margin: -20px 16px 16px;
-      padding: 16px; box-shadow: var(--shadow-md); position: relative; z-index: 5;
-    }
-    .vip-prog-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-    .vip-tiers { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-    .vip-tier {
-      border-radius: var(--radius-sm); padding: 10px 6px; text-align: center;
-      border: 2px solid var(--border);
-    }
-    .vip-tier.unlocked { border-color: var(--purple); background: var(--purple-light); }
-    .vip-tier .vt-label { font-size: 12px; font-weight: 700; color: var(--muted); }
-    .vip-tier.unlocked .vt-label { color: var(--purple); }
-    .vip-tier .vt-req { font-size: 10px; color: var(--muted); margin-top: 3px; }
-    .vip-tier .vt-icon { font-size: 20px; margin-bottom: 4px; }
-
-    .level-tabs { display: flex; gap: 8px; padding: 0 16px 12px; }
-    .ltab {
-      flex: 1; padding: 9px; border-radius: var(--radius-sm);
-      font-size: 12px; font-weight: 700; text-align: center;
-      border: 2px solid var(--border); background: var(--card); color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: #0056b3;
+      color: #ffffff !important;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .ltab.on { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .copy-btn:hover { background: #004494; }
+    .copy-btn:active { transform: scale(0.95); }
 
-    .member-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px 16px; border-bottom: 1px solid var(--border);
-      background: var(--card);
+    .ref-link-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #475569 !important;
+      word-break: break-all;
+      font-family: monospace;
     }
-    .member-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--purple-light); display: flex; align-items: center;
-      justify-content: center; font-size: 16px; flex-shrink: 0;
-    }
-    .member-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .member-date { font-size: 11px; color: var(--muted); margin-top: 1px; }
-    .member-status {
-      padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700;
-    }
-    .status-active { background: #f7f1e3; color: #0D6548; }
-    .status-inactive { background: var(--bg); color: var(--muted); }
 
+    .share-btn {
+      margin-top: 12px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      color: #0f172a !important;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .share-btn:hover { border-color: #cbd5e1; background: #f8fafc; }
+    .share-btn svg { width: 16px; height: 16px; color: #0056b3; }
+
+    /* VIP Progress Card */
+    .vip-progress {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 20px;
+      margin: -24px 16px 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      position: relative;
+      z-index: 10;
+    }
+
+    .vip-prog-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a !important;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .vip-prog-title span { color: #64748b !important; font-weight: 500; font-size: 12px; }
+
+    .vip-tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .vip-tier {
+      border-radius: 14px;
+      padding: 12px 6px;
+      text-align: center;
+      border: 1.5px solid #e2e8f0;
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+    .vip-tier.unlocked {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+    .vip-tier .vt-icon { font-size: 20px; margin-bottom: 6px; }
+    .vip-tier .vt-label { font-size: 11px; font-weight: 800; color: #64748b !important; }
+    .vip-tier.unlocked .vt-label { color: #059669 !important; }
+    .vip-tier .vt-req { font-size: 10px; color: #94a3b8 !important; margin-top: 4px; font-weight: 600; }
+
+    /* Stats Grid */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 16px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 16px;
+      padding: 16px 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .stat-val { font-size: 18px; font-weight: 800; color: #0056b3 !important; }
+    .stat-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+
+    /* Payments / Earnings Card */
     .payments-card {
-      background: var(--card); border-radius: var(--radius);
-      box-shadow: var(--shadow); margin: 0 16px 16px; overflow: hidden;
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 20px;
+      margin: 0 16px 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     .dc-header {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--sky) 100%);
-      padding: 16px; color: #fff;
+      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+      padding: 20px;
+      color: #ffffff !important;
     }
-    .dc-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; opacity: .8; }
-    .dc-amount { font-size: 28px; font-weight: 800; margin-top: 4px; }
-    .dc-sub { font-size: 12px; opacity: .8; margin-top: 4px; }
-    .dc-breakdown { display: grid; grid-template-columns: repeat(3,1fr); }
-    .dc-item { padding: 12px 8px; text-align: center; border-right: 1px solid var(--border); }
+    .dc-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+    .dc-amount { font-size: 32px; font-weight: 800; margin-top: 6px; letter-spacing: -0.5px; }
+    .dc-sub { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+    
+    .dc-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #f1f5f9; }
+    .dc-item { padding: 16px 8px; text-align: center; border-right: 1px solid #f1f5f9; }
     .dc-item:last-child { border-right: none; }
-    .dc-item-val { font-size: 14px; font-weight: 800; color: var(--purple); }
-    .dc-item-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .04em; }
+    .dc-item-val { font-size: 16px; font-weight: 800; color: #0f172a !important; }
+    .dc-item-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
+    
     .dc-salary-note {
-      padding: 10px 16px; font-size: 11px; color: var(--muted);
-      background: var(--bg); text-align: center; line-height: 1.5;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #475569 !important;
+      background: #f8fafc;
+      text-align: center;
+      line-height: 1.5;
+      border-top: 1px solid #f1f5f9;
     }
-    .dc-salary-note strong { color: var(--purple); }
+    .dc-salary-note strong { color: #0056b3 !important; }
+    .dc-salary-note a { color: #0056b3 !important; font-weight: 700; text-decoration: none; }
+
+    /* Level Tabs */
+    .level-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 16px;
+      margin-bottom: 16px;
+    }
+    .ltab {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      border: 1.5px solid #e2e8f0;
+      background: #ffffff;
+      color: #64748b !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ltab:hover { border-color: #cbd5e1; }
+    .ltab.on {
+      background: #0056b3;
+      border-color: #0056b3;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+    }
+
+    /* Member List */
+    .members-container { padding: 0 16px; }
+    .member-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.2s ease;
+    }
+    .member-item:last-child { border-bottom: none; }
+    .member-item:hover { background: #f8fafc; }
+
+    .member-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #eff6ff;
+      color: #2563eb !important;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; flex-shrink: 0;
+    }
+    .member-info { flex: 1; min-width: 0; }
+    .member-name { font-size: 14px; font-weight: 700; color: #0f172a !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .member-date { font-size: 12px; color: #64748b !important; margin-top: 2px; }
+    
+    .member-status {
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+    .status-active { background: #f0fdf4; color: #16a34a !important; border: 1px solid #bbf7d0; }
+    .status-inactive { background: #f8fafc; color: #64748b !important; border: 1px solid #e2e8f0; }
+
+    /* Empty State */
+    .empty-state { text-align: center; padding: 40px 20px; color: #64748b !important; }
+    .empty-state-icon {
+      width: 64px; height: 64px; margin: 0 auto 16px;
+      background: #f8fafc; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+
+    /* Loader */
+    .loader-wrap { padding: 40px 20px; display: flex; align-items: center; justify-content: center; }
+    .loader {
+      width: 32px; height: 32px; border: 3px solid #f1f5f9;
+      border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Bottom Navigation */
+    .bottom-nav-premium {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff !important;
+      border-top: 1px solid #e2e8f0 !important;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .nav-item-premium {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px; cursor: pointer; transition: all 0.2s ease;
+      border: none; background: none; color: #64748b !important;
+      font-size: 11px; font-weight: 600;
+    }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #0f172a; color: #ffffff !important;
+      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 480px) {
+      .stats-row { gap: 8px; padding: 0 12px; }
+      .stat-box { padding: 14px 6px; }
+      .stat-val { font-size: 16px; }
+      .level-tabs { padding: 0 12px; }
+      .members-container { padding: 0 12px; }
+      .vip-tiers { gap: 6px; }
+      .vip-tier .vt-label { font-size: 10px; }
+    }
   </style>
-  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
   <!-- Hero -->
   <div class="ref-hero">
-    <div style="font-size:13px;opacity:.8;margin-bottom:4px">Your Referral Code</div>
+    <div class="ref-hero-title">Your Referral Code</div>
     <div class="ref-code-box">
       <div class="ref-code" id="refCode">—</div>
       <button class="copy-btn" onclick="copyCode()">COPY</button>
     </div>
     <div class="ref-link-box" id="refLink">Loading…</div>
-    <div style="margin-top:10px;display:flex;gap:8px">
-      <button class="copy-btn" onclick="shareLink()"> Share Link</button>
-    </div>
+    <button class="share-btn" onclick="shareLink()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      Share Link
+    </button>
   </div>
 
   <!-- Service tier Progress -->
   <div class="vip-progress">
-    <div class="vip-prog-title">Service tier Level Progress <span id="activeRefs" style="color:var(--muted);font-weight:400;font-size:12px"></span></div>
+    <div class="vip-prog-title">
+      Tier Level Progress
+      <span id="activeRefs">(0 active investors)</span>
+    </div>
     <div class="vip-tiers">
       <div class="vip-tier" id="vt1">
-        <div class="vt-icon"></div>
-        <div class="vt-label">Service tier 1</div>
+        <div class="vt-icon">🥉</div>
+        <div class="vt-label">Tier 1</div>
         <div class="vt-req">3 refs</div>
       </div>
       <div class="vip-tier" id="vt2">
-        <div class="vt-icon"></div>
-        <div class="vt-label">Service tier 2</div>
+        <div class="vt-icon">🥈</div>
+        <div class="vt-label">Tier 2</div>
         <div class="vt-req">5 refs</div>
       </div>
       <div class="vip-tier" id="vt3">
-        <div class="vt-icon"></div>
-        <div class="vt-label">Service tier 3</div>
+        <div class="vt-icon">🥇</div>
+        <div class="vt-label">Tier 3</div>
         <div class="vt-req">10 refs</div>
       </div>
       <div class="vip-tier" id="vt4">
-        <div class="vt-icon"></div>
-        <div class="vt-label">Service tier 4</div>
+        <div class="vt-icon">💎</div>
+        <div class="vt-label">Tier 4</div>
         <div class="vt-req">25 refs</div>
       </div>
     </div>
   </div>
 
-  <!-- Earnings summary -->
-  <div class="section anim anim-1">
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-val" id="totalHousehold">0</div>
-        <div class="stat-lbl">Total Household</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val" id="activeHousehold">0</div>
-        <div class="stat-lbl">Active</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val" id="refEarnings">₦0</div>
-        <div class="stat-lbl">Earned</div>
-      </div>
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val" id="totalHousehold">0</div>
+      <div class="stat-lbl">Total Team</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" id="activeHousehold">0</div>
+      <div class="stat-lbl">Active</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" id="refEarnings">₦0</div>
+      <div class="stat-lbl">Earned</div>
     </div>
   </div>
 
   <!-- Total team payments -->
-  <div class="payments-card anim anim-1">
+  <div class="payments-card">
     <div class="dc-header">
-      <div class="dc-label">Total Household Payments</div>
+      <div class="dc-label">Total Team Payments</div>
       <div class="dc-amount" id="teamPaymentsTotal">₦0</div>
       <div class="dc-sub">Combined payments from your entire downline</div>
     </div>
@@ -179,7 +412,8 @@
       </div>
     </div>
     <div class="dc-salary-note">
-       Your monthly service credit is <strong>5%</strong> of this total — currently <strong id="salaryEstimate">₦0</strong>. <a href="monthly-salary.html" style="color:var(--purple);font-weight:700">Available from the 5th →</a>
+      Your monthly service credit is <strong>5%</strong> of this total — currently <strong id="salaryEstimate">₦0</strong>. <br/>
+      <a href="monthly-salary.html">Check eligibility →</a>
     </div>
   </div>
 
@@ -191,17 +425,65 @@
   </div>
 
   <!-- Customers list -->
-  <div id="membersList">
+  <div class="members-container" id="membersList">
     <div class="loader-wrap"><div class="loader"></div></div>
   </div>
 </div>
 
-<nav class="bottom-nav">
-  <button class="nav-item" onclick="location.href='dashboard.html'"><span class="nav-icon"></span>Home</button>
-  <button class="nav-item" onclick="location.href='products.html'"><span class="nav-icon"></span>Plans</button>
-  <button class="nav-item active" onclick="location.href='team.html'"><span class="nav-icon"></span>Household</button>
-  <button class="nav-item" onclick="location.href='profile.html'"><span class="nav-icon"></span>Profile</button>
+<!-- Bottom Navigation -->
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+    </div>
+    <span>Home</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='products.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+    </div>
+    <span>Plans</span>
+  </button>
+  <button class="nav-item-premium active" onclick="location.href='team.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    </div>
+    <span>Team</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+    </div>
+    <span>Alerts</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='profile.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </div>
+    <span>Profile</span>
+  </button>
 </nav>
+
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -220,19 +502,12 @@
     var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
     userId=s.user.id;
 
-    // Own profile (RLS allows this — user reading their own row)
     var {data:p}=await window.sb.from("profiles").select("referral_code,vip_level").eq("id",userId).single();
     refCode=p?.referral_code||"";
     document.getElementById("refCode").textContent=refCode;
     var link=location.origin+"/register.html?ref="+refCode;
     document.getElementById("refLink").textContent=link;
 
-    // Service tier tiers will be highlighted after API call below
-
-    // ── Household data from server-side API (bypasses RLS) ──────────────────
-    // Direct Supabase queries here always returned 0 because the
-    // "users_own_profile" RLS policy blocks users from reading
-    // other people's profile rows — even when referred_by = their own id.
     try {
       var r=await fetch("/api/team?user_id="+userId);
       var d=await r.json();
@@ -247,10 +522,9 @@
 
       document.getElementById("totalHousehold").textContent   = totalHousehold;
       document.getElementById("activeHousehold").textContent  = activeCount;
-      document.getElementById("activeRefs").textContent  = "("+activeCount+" active investors)";
+      document.getElementById("activeRefs").textContent  = "("+activeCount+" active)";
       document.getElementById("refEarnings").textContent = "₦"+(d.earned||0).toLocaleString();
 
-      // Total team payments + per-level breakdown + service credit estimate
       var teamPayments = d.total_team_payments || 0;
       document.getElementById("teamPaymentsTotal").textContent = "₦"+teamPayments.toLocaleString();
       document.getElementById("l1Payments").textContent = "₦"+(d.l1_payments||0).toLocaleString();
@@ -258,7 +532,6 @@
       document.getElementById("l3Payments").textContent = "₦"+(d.l3_payments||0).toLocaleString();
       document.getElementById("salaryEstimate").textContent = "₦"+Math.round(teamPayments*0.05).toLocaleString();
 
-      // Service tier tier highlights — show how close user is
       var thresholds = {1:3, 2:5, 3:10, 4:25};
       [1,2,3,4].forEach(function(n){
         var el = document.getElementById("vt"+n);
@@ -267,7 +540,7 @@
           el.classList.add("unlocked");
           el.querySelector(".vt-req").textContent = "Unlocked";
         } else {
-          el.querySelector(".vt-req").textContent = activeCount+"/"+thresholds[n]+" refs";
+          el.querySelector(".vt-req").textContent = activeCount+"/"+thresholds[n];
         }
       });
     } catch(e) {
@@ -275,10 +548,6 @@
       document.getElementById("totalHousehold").textContent="—";
       document.getElementById("activeHousehold").textContent="—";
       document.getElementById("teamPaymentsTotal").textContent="—";
-      document.getElementById("l1Payments").textContent="—";
-      document.getElementById("l2Payments").textContent="—";
-      document.getElementById("l3Payments").textContent="—";
-      document.getElementById("salaryEstimate").textContent="—";
     }
 
     renderLevel(1);
@@ -295,15 +564,16 @@
     var members=level===1?l1Customers:level===2?l2Customers:l3Customers;
     var el=document.getElementById("membersList");
     if(!members.length){
-      el.innerHTML='<div class="empty"><div class="empty-icon"></div><p>No household level '+level+' customers yet.</p></div>';
+      el.innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><p>No Level '+level+' members yet.<br>Share your link to grow your team!</p></div>';
       return;
     }
-    el.innerHTML='<div class="card" style="margin:0 16px">'+(members.map(function(m){
+    el.innerHTML='<div class="member-card">'+(members.map(function(m){
       var active=m.isActive!==false;
       var name=m.full_name||m.email||"User";
+      var initial=name.charAt(0).toUpperCase();
       return '<div class="member-item">'+
-        '<div class="member-avatar">'+name[0].toUpperCase()+'</div>'+
-        '<div style="flex:1">'+
+        '<div class="member-avatar">'+initial+'</div>'+
+        '<div class="member-info">'+
           '<div class="member-name">'+name+'</div>'+
           '<div class="member-date">Joined '+new Date(m.created_at).toLocaleDateString()+'</div>'+
         '</div>'+
@@ -319,7 +589,7 @@
   window.shareLink=function(){
     var link=location.origin+"/register.html?ref="+refCode;
     if(navigator.share){
-      navigator.share({title:"Join Serlzo Investments",text:"Join me on Serlzo Investments and earn daily! Use my code: "+refCode,url:link});
+      navigator.share({title:"Join CardinalStone",text:"Join me on CardinalStone and earn daily! Use my code: "+refCode,url:link});
     } else {
       navigator.clipboard.writeText(link).then(function(){window.SerlzoAuth.toast("Referral link copied!");});
     }
