@@ -2,65 +2,209 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — Profile</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
+  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  
   <style>
-    .profile-hero {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--sky) 100%);
-      padding: 28px 20px 48px; text-align: center; color: #fff;
-      position: relative;
+    /* BULLETPROOF LIGHT PROFILE PAGE OVERRIDES */
+    body {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: 'DM Sans', sans-serif;
     }
-    .avatar {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: rgba(255,255,255,.25); border: 3px solid rgba(255,255,255,.5);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; margin: 0 auto 12px;
-    }
-    .profile-name { font-size: 20px; font-weight: 800; }
-    .profile-email { font-size: 13px; opacity: .8; margin-top: 2px; }
-    .profile-ref { font-size: 12px; margin-top: 8px; opacity: .75; }
-    .profile-ref span { font-weight: 700; opacity: 1; }
 
+    * { -webkit-tap-highlight-color: transparent; }
+
+    .page-wrap {
+      width: 100%;
+      max-width: 100%;
+      padding-bottom: 100px;
+      background: transparent !important;
+    }
+
+    /* Premium Profile Hero */
+    .profile-hero {
+      background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+      padding: 32px 20px 60px;
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: #ffffff; 
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: #0056b3;
+    }
+    .avatar svg { width: 36px; height: 36px; }
+
+    .profile-name { font-size: 22px; font-weight: 800; color: #0f172a !important; }
+    .profile-email { font-size: 14px; color: #64748b !important; margin-top: 4px; }
+    .profile-ref { 
+      font-size: 13px; color: #64748b !important; margin-top: 12px; 
+      background: #f8fafc; display: inline-block; padding: 6px 14px; border-radius: 20px;
+      border: 1px solid #e2e8f0;
+    }
+    .profile-ref span { font-weight: 700; color: #0056b3 !important; }
+
+    .vip-badge {
+      background: linear-gradient(135deg, #007bff, #10b981);
+      color: #ffffff !important;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+      display: inline-block;
+    }
+
+    /* Stats Strip (Overlapping Hero) */
     .cards-strip {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-      margin: -24px 16px 20px; position: relative; z-index: 5;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin: -32px 16px 24px; position: relative; z-index: 10;
     }
     .strip-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow-md); padding: 12px 8px; text-align: center;
+      background: #ffffff !important; 
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+      padding: 16px 8px; text-align: center;
+      transition: transform 0.2s ease;
     }
-    .strip-val { font-size: 16px; font-weight: 800; color: var(--purple); }
-    .strip-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; }
+    .strip-card:hover { transform: translateY(-2px); }
+    .strip-val { font-size: 18px; font-weight: 800; color: #0056b3 !important; }
+    .strip-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
 
+    /* Section Titles */
     .section-title {
-      font-size: 11px; font-weight: 700; color: var(--muted);
-      text-transform: uppercase; letter-spacing: .08em;
-      padding: 0 16px; margin-bottom: 8px;
+      font-size: 12px; font-weight: 800; color: #64748b !important;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0 16px; margin-bottom: 12px; margin-top: 8px;
     }
+
+    /* Premium Menu Groups */
+    .menu-group {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 0 16px; margin-bottom: 24px;
+    }
+    .menu-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px; 
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    }
+    .menu-item:hover { 
+      border-color: #cbd5e1 !important; 
+      transform: translateX(4px); 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .menu-item:active { transform: scale(0.98); }
+
+    /* Menu Icons with Specific Colors */
+    .menu-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .menu-icon svg { width: 20px; height: 20px; }
+    
+    .menu-icon.blue { background: #eff6ff; color: #2563eb !important; }
+    .menu-icon.green { background: #f0fdf4; color: #16a34a !important; }
+    .menu-icon.orange { background: #fff7ed; color: #ea580c !important; }
+    .menu-icon.purple { background: #faf5ff; color: #9333ea !important; }
+    .menu-icon.red { background: #fef2f2; color: #dc2626 !important; }
+
+    .menu-content { flex: 1; min-width: 0; }
+    .menu-label { font-size: 14px; font-weight: 700; color: #0f172a !important; margin-bottom: 2px; }
+    .menu-sub { font-size: 12px; color: #64748b !important; font-weight: 500; }
+    .menu-arrow { color: #cbd5e1 !important; font-size: 20px; font-weight: 300; }
+
+    /* Logout Button */
     .logout-btn {
-      margin: 16px; width: calc(100% - 32px);
-      padding: 14px; border-radius: 50px; border: 2px solid var(--danger);
-      background: transparent; color: var(--danger);
+      margin: 24px 16px 16px; width: calc(100% - 32px);
+      padding: 16px; border-radius: 16px; 
+      border: 1.5px solid #fecaca;
+      background: #fef2f2; color: #dc2626 !important;
       font-size: 15px; font-weight: 700; cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .logout-btn:hover { background: #fee2e2; border-color: #fca5a5; }
+    .logout-btn:active { transform: scale(0.98); }
+    .logout-btn svg { width: 18px; height: 18px; }
+
+    /* Bottom Navigation */
+    .bottom-nav-premium {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff !important;
+      border-top: 1px solid #e2e8f0 !important;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .nav-item-premium {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px; cursor: pointer; transition: all 0.2s ease;
+      border: none; background: none; color: #64748b !important;
+      font-size: 11px; font-weight: 600;
+    }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #0f172a; color: #ffffff !important;
+      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 480px) {
+      .cards-strip { gap: 8px; margin: -24px 12px 20px; }
+      .strip-card { padding: 14px 6px; }
+      .strip-val { font-size: 16px; }
+      .menu-group { padding: 0 12px; }
+      .menu-item { padding: 14px; }
     }
   </style>
-  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
   <!-- Hero -->
   <div class="profile-hero">
-    <div class="avatar"></div>
+    <div class="avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </div>
     <div class="profile-name" data-auth="full_name">User</div>
     <div class="profile-email" data-auth="email">—</div>
-    <div class="profile-ref">Referral Code: <span data-auth="referral_code">—</span></div>
-    <div style="margin-top:10px">
-      <span class="vip-badge vip-0" data-vip>Customer</span>
-    </div>
+    <div class="profile-ref">Ref Code: <span data-auth="referral_code">—</span></div>
+    <br/>
+    <span class="vip-badge" data-vip>Member</span>
   </div>
 
   <!-- Stats strip -->
@@ -71,7 +215,7 @@
     </div>
     <div class="strip-card">
       <div class="strip-val" id="statHousehold">0</div>
-      <div class="strip-lbl">Household</div>
+      <div class="strip-lbl">Team</div>
     </div>
     <div class="strip-card">
       <div class="strip-val" id="statProds">0</div>
@@ -81,109 +225,220 @@
 
   <!-- ASSETS -->
   <div class="section-title">Assets</div>
-  <div class="section" style="margin-top:0">
-    <div class="menu-group">
-      <a class="menu-item" href="my-products.html">
-        <div class="menu-icon purple"></div>
-        <div class="flex-1"><div class="menu-label">My active plans</div><div class="menu-sub">View & collect daily income</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="bank-card.html">
-        <div class="menu-icon sky"></div>
-        <div class="flex-1"><div class="menu-label">Payment method</div><div class="menu-sub">Manage refund accounts</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-    </div>
+  <div class="menu-group">
+    <a class="menu-item" href="my-products.html">
+      <div class="menu-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">My Active Plans</div>
+        <div class="menu-sub">View & collect daily income</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="bank-card.html">
+      <div class="menu-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Payment Method</div>
+        <div class="menu-sub">Manage withdrawal accounts</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
   </div>
 
   <!-- HISTORY -->
-  <div class="section-title">Activity</div>
-  <div class="section" style="margin-top:0">
-    <div class="menu-group">
-      <a class="menu-item" href="recharge-history.html">
-        <div class="menu-icon green"></div>
-        <div class="flex-1"><div class="menu-label">Make a payment Activity</div><div class="menu-sub">All payment records</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="withdrawal-history.html">
-        <div class="menu-icon orange"></div>
-        <div class="flex-1"><div class="menu-label">Refund Activity</div><div class="menu-sub">All refund records</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-    </div>
+  <div class="section-title">History</div>
+  <div class="menu-group">
+    <a class="menu-item" href="recharge-history.html">
+      <div class="menu-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Deposit Activity</div>
+        <div class="menu-sub">All payment records</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="withdrawal-history.html">
+      <div class="menu-icon orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Withdrawal Activity</div>
+        <div class="menu-sub">All withdrawal records</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
   </div>
 
   <!-- ACTIVITIES -->
   <div class="section-title">Activities</div>
-  <div class="section" style="margin-top:0">
-    <div class="menu-group">
-      <a class="menu-item" href="daily-checkin.html">
-        <div class="menu-icon purple"></div>
-        <div class="flex-1"><div class="menu-label">Daily Check-In</div><div class="menu-sub">Claim ₦50 every day</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="monthly-salary.html">
-        <div class="menu-icon sky"></div>
-        <div class="flex-1"><div class="menu-label">Monthly Service credits</div><div class="menu-sub">5% of team payments — claim 5th</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="gift-code.html">
-        <div class="menu-icon green"></div>
-        <div class="flex-1"><div class="menu-label">Offer code</div><div class="menu-sub">Redeem bonus gift codes</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-    </div>
+  <div class="menu-group">
+    <a class="menu-item" href="daily-checkin.html">
+      <div class="menu-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Daily Check-In</div>
+        <div class="menu-sub">Claim your daily bonus</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="monthly-salary.html">
+      <div class="menu-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Monthly Service Credits</div>
+        <div class="menu-sub">Team performance rewards</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="gift-code.html">
+      <div class="menu-icon orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Offer Code</div>
+        <div class="menu-sub">Redeem bonus gift codes</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
   </div>
 
   <!-- SETTINGS -->
   <div class="section-title">Settings</div>
-  <div class="section" style="margin-top:0">
-    <div class="menu-group">
-      <a class="menu-item" href="change-password.html">
-        <div class="menu-icon sky"></div>
-        <div class="flex-1"><div class="menu-label">Change Password</div><div class="menu-sub">Keep your account secure</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="notifications.html">
-        <div class="menu-icon orange"></div>
-        <div class="flex-1"><div class="menu-label">Service alerts</div><div class="menu-sub" id="notifSub">—</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-    </div>
+  <div class="menu-group">
+    <a class="menu-item" href="change-password.html">
+      <div class="menu-icon red">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Change Password</div>
+        <div class="menu-sub">Keep your account secure</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="notifications.html">
+      <div class="menu-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Service Alerts</div>
+        <div class="menu-sub" id="notifSub">No new notifications</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
   </div>
 
   <!-- SERVICES -->
   <div class="section-title">Services</div>
-  <div class="section" style="margin-top:0">
-    <div class="menu-group">
-      <a class="menu-item" href="messages.html">
-        <div class="menu-icon purple"></div>
-        <div class="flex-1"><div class="menu-label">Support messages</div><div class="menu-sub" id="msgSub">From admin</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="contact.html">
-        <div class="menu-icon sky"></div>
-        <div class="flex-1"><div class="menu-label">Contact Support</div><div class="menu-sub">Get help from us</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-      <a class="menu-item" href="about.html">
-        <div class="menu-icon green"></div>
-        <div class="flex-1"><div class="menu-label">About Serlzo Investments</div><div class="menu-sub">Learn about our platform</div></div>
-        <div class="menu-arrow">›</div>
-      </a>
-    </div>
+  <div class="menu-group">
+    <a class="menu-item" href="messages.html">
+      <div class="menu-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Support Messages</div>
+        <div class="menu-sub" id="msgSub">From admin</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="contact.html">
+      <div class="menu-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Contact Support</div>
+        <div class="menu-sub">Get help from our team</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="about.html">
+      <div class="menu-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">About CardinalStone</div>
+        <div class="menu-sub">Learn about our platform</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
+    <a class="menu-item" href="banned.html" style="display:none;" id="bannedLink">
+      <div class="menu-icon red">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+      </div>
+      <div class="menu-content">
+        <div class="menu-label">Account Status</div>
+        <div class="menu-sub">Check restriction details</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </a>
   </div>
 
-  <button class="logout-btn" id="logoutBtn">Sign Out</button>
+  <button class="logout-btn" id="logoutBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+    Sign Out
+  </button>
   <div style="height:16px"></div>
 </div>
 
-<nav class="bottom-nav">
-  <button class="nav-item" onclick="location.href='dashboard.html'"><span class="nav-icon"></span>Home</button>
-  <button class="nav-item" onclick="location.href='products.html'"><span class="nav-icon"></span>Plans</button>
-  <button class="nav-item" onclick="location.href='team.html'"><span class="nav-icon"></span>Household</button>
-  <button class="nav-item active" onclick="location.href='profile.html'"><span class="nav-icon"></span>Profile</button>
+<!-- Bottom Navigation -->
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+    </div>
+    <span>Home</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='products.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+    </div>
+    <span>Plans</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='team.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    </div>
+    <span>Team</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+    </div>
+    <span>Alerts</span>
+  </button>
+  <button class="nav-item-premium active" onclick="location.href='profile.html'">
+    <div class="nav-icon-premium">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </div>
+    <span>Profile</span>
+  </button>
 </nav>
+
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -194,6 +449,7 @@
 <script>
 (function(){
   function waitSb(cb){if(window.sb&&window.SerlzoAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50);}
+  
   waitSb(async function(){
     var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
     var uid=s.user.id;
@@ -211,17 +467,22 @@
     var {count:mc}=await window.sb.from("messages").select("id",{count:"exact",head:true}).or("user_id.eq."+uid+",user_id.is.null").eq("is_read",false);
     if(mc>0){
       document.getElementById("msgSub").textContent=mc+" unread message"+(mc>1?"s":"");
+      document.getElementById("msgSub").style.color = "#dc2626";
+      document.getElementById("msgSub").style.fontWeight = "700";
     }
 
     var {count:nc}=await window.sb.from("notifications").select("id",{count:"exact",head:true}).eq("user_id",uid).eq("is_read",false);
     document.getElementById("notifSub").textContent=nc>0?(nc+" unread"):"No new notifications";
+    if(nc>0) {
+      document.getElementById("notifSub").style.color = "#dc2626";
+      document.getElementById("notifSub").style.fontWeight = "700";
+    }
 
     document.getElementById("logoutBtn").addEventListener("click",function(){
-      if(confirm("Sign out of Serlzo Investments?")) window.SerlzoAuth.logout();
+      if(confirm("Sign out of CardinalStone?")) window.SerlzoAuth.logout();
     });
   });
 })();
 </script>
 </body>
-  </html>
-  
+</html>
