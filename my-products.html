@@ -1,191 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — My active plans</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — My Active Plans</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    .collect-hero {
-      background: linear-gradient(135deg,var(--purple),var(--sky));
-      padding:24px 20px; color:#fff; text-align:center;
-    }
-    .collect-amount { font-size:40px; font-weight:800; margin:8px 0; }
-    .collect-btn {
-      background:#fff; color:var(--purple); border:none;
-      padding:13px 36px; border-radius:50px; font-size:16px; font-weight:800;
-      cursor:pointer; margin-top:14px; transition:opacity .15s;
-    }
-    .collect-btn:disabled { opacity:.4; cursor:not-allowed; }
-    .up-card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); margin:0 16px 12px; overflow:hidden; }
-    .up-header { padding:14px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-    .up-name { font-size:15px; font-weight:700; color:var(--text); }
-    .up-body { padding:14px 16px; }
-    .up-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
-    .us-val { font-size:14px; font-weight:800; color:var(--purple); }
-    .us-lbl { font-size:10px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
-    .prog-wrap { margin-bottom:4px; }
-    .prog-bar { height:6px; background:var(--bg); border-radius:6px; overflow:hidden; }
-    .prog-fill { height:100%; background:linear-gradient(90deg,var(--purple),var(--sky)); border-radius:6px; transition:width .4s; }
-    .prog-label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:4px; }
-    .status-done { background:#f7f1e3; color:#0D6548; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <style>
+    body { background: #ffffff !important; color: #0f172a !important; min-height: 100vh; padding-bottom: 90px; font-family: 'DM Sans', sans-serif; }
+    * { -webkit-tap-highlight-color: transparent; }
+    .page-wrap { width: 100%; max-width: 100%; padding-bottom: 100px; background: transparent !important; }
+    
+    .topbar-premium { background: #ffffff !important; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #e2e8f0 !important; }
+    .topbar-title { font-size: 18px; font-weight: 800; color: #0f172a !important; }
+    .back-btn-premium { width: 40px; height: 40px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #0f172a !important; text-decoration: none; font-size: 20px; font-weight: 700; transition: all 0.2s ease; }
+    .back-btn-premium:hover { background: #f1f5f9; transform: translateX(-2px); }
+
+    .summary-card { background: linear-gradient(135deg, #0056b3 0%, #007bff 100%); margin: 16px; padding: 24px; border-radius: 20px; color: #ffffff !important; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.2); }
+    .summary-label { font-size: 13px; opacity: 0.9; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .summary-val { font-size: 32px; font-weight: 800; margin: 8px 0 16px; letter-spacing: -0.5px; }
+    .summary-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2); }
+    .summary-stat-val { font-size: 18px; font-weight: 800; }
+    .summary-stat-lbl { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+    .section-label { padding: 24px 16px 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b !important; }
+
+    .plan-card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px; margin: 0 16px 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: transform 0.2s ease; }
+    .plan-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    
+    .plan-header { padding: 18px 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .plan-name { font-size: 16px; font-weight: 800; color: #0f172a !important; }
+    .plan-invested { font-size: 13px; color: #64748b !important; margin-top: 4px; }
+    .plan-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .badge-active { background: #f0fdf4; color: #16a34a !important; border: 1px solid #bbf7d0; }
+    .badge-completed { background: #f1f5f9; color: #64748b !important; border: 1px solid #e2e8f0; }
+
+    .plan-body { padding: 0 20px 20px; }
+    .plan-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .plan-stat-val { font-size: 16px; font-weight: 800; color: #0056b3 !important; }
+    .plan-stat-lbl { font-size: 11px; color: #64748b !important; text-transform: uppercase; font-weight: 600; }
+
+    .progress-wrap { margin-bottom: 16px; }
+    .progress-header { display: flex; justify-content: space-between; font-size: 12px; color: #64748b !important; margin-bottom: 6px; font-weight: 600; }
+    .progress-bar { height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #007bff, #10b981); border-radius: 4px; transition: width 0.5s ease; }
+
+    .btn-claim { width: 100%; padding: 14px; border-radius: 14px; border: none; background: linear-gradient(135deg, #10b981, #059669); color: #ffffff !important; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); transition: all 0.2s ease; }
+    .btn-claim:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); }
+    .btn-claim:disabled { background: #f1f5f9; color: #94a3b8 !important; box-shadow: none; cursor: not-allowed; transform: none; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b !important; }
+    .empty-state-icon { width: 64px; height: 64px; margin: 0 auto 16px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+    .empty-state a { color: #0056b3 !important; font-weight: 700; text-decoration: none; }
+
+    .bottom-nav-premium { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff !important; border-top: 1px solid #e2e8f0 !important; display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); z-index: 100; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03); }
+    .nav-item-premium { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px; cursor: pointer; transition: all 0.2s ease; border: none; background: none; color: #64748b !important; font-size: 11px; font-weight: 600; }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+    #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #0f172a; color: #ffffff !important; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
-  <div class="topbar">
-    <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title"> My active plans</span>
-    <div></div>
+  <div class="topbar-premium">
+    <a class="back-btn-premium" href="dashboard.html">‹</a>
+    <span class="topbar-title">My Active Plans</span>
+    <div style="width: 40px;"></div>
   </div>
 
-  <div class="collect-hero">
-    <div style="font-size:12px;opacity:.8;text-transform:uppercase;letter-spacing:.08em">Today's Income</div>
-    <div class="collect-amount" id="todayIncome">₦0.00</div>
-    <div style="font-size:13px;opacity:.75" id="collectSub">Loading…</div>
-    <button class="collect-btn" id="collectBtn" disabled onclick="collectAll()">Collect All</button>
+  <div class="summary-card">
+    <div class="summary-label">Total Active Investment</div>
+    <div class="summary-val" id="totalInvested">₦0.00</div>
+    <div class="summary-stats">
+      <div>
+        <div class="summary-stat-val" id="totalEarned">₦0.00</div>
+        <div class="summary-stat-lbl">Total Earned</div>
+      </div>
+      <div>
+        <div class="summary-stat-val" id="activeCount">0</div>
+        <div class="summary-stat-lbl">Active Plans</div>
+      </div>
+    </div>
   </div>
 
-  <div style="padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between">
-    <span style="font-size:15px;font-weight:700">Active energy plans</span>
-    <a href="products.html" style="font-size:13px;color:var(--purple);font-weight:600">+ Buy More</a>
+  <div class="section-label">Your Investments</div>
+  <div id="plansList">
+    <div class="loader-wrap" style="padding: 40px 20px; display: flex; justify-content: center;"><div class="loader" style="width: 32px; height: 32px; border: 3px solid #f1f5f9; border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;"></div></div>
   </div>
-
-  <div id="prodList"><div class="loader-wrap"><div class="loader"></div></div></div>
-
-  <div style="padding:16px 16px 8px;font-size:15px;font-weight:700;margin-top:4px">Completed</div>
-  <div id="doneList"></div>
-  <div style="height:16px"></div>
 </div>
+
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div><span>Home</span></button>
+  <button class="nav-item-premium active" onclick="location.href='products.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div><span>Plans</span></button>
+  <button class="nav-item-premium" onclick="location.href='team.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><span>Team</span></button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><span>Alerts</span></button>
+  <button class="nav-item-premium" onclick="location.href='profile.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Profile</span></button>
+</nav>
 <div id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
-<script src="assets/js/icons.js" defer></script>
 <script>
 (function(){
-  var uid="";
-  var accessToken="";
+  var userId="";
   function waitSb(cb){if(window.sb&&window.SerlzoAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50);}
+  
   waitSb(async function(){
     var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
-    uid=s.user.id;
-    accessToken=s.access_token||"";
-    await load();
+    userId=s.user.id;
+    
+    var {data:prods} = await window.sb.from("user_products").select("*, products(name, price)").eq("user_id",userId).order("created_at", {ascending: false});
+    
+    var list = document.getElementById("plansList");
+    if(!prods || prods.length === 0){
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg></div><p>No active plans yet.<br><a href="products.html">Browse Plans →</a></p></div>';
+      document.getElementById("totalInvested").textContent = "₦0";
+      document.getElementById("totalEarned").textContent = "₦0";
+      document.getElementById("activeCount").textContent = "0";
+      return;
+    }
+
+    var totalInv = 0, totalEarn = 0, active = 0;
+    list.innerHTML = prods.map(function(p){
+      var isActive = p.status === "active";
+      if(isActive) { active++; totalInv += Number(p.products?.price || 0); totalEarn += Number(p.total_collected || 0); }
+      var pct = p.duration_days ? Math.min(100, Math.round((p.days_collected / p.duration_days) * 100)) : 0;
+      var badge = isActive ? '<span class="plan-badge badge-active">Active</span>' : '<span class="plan-badge badge-completed">Completed</span>';
+      var btn = isActive ? '<button class="btn-claim" onclick="claimIncome(\''+p.id+'\')">Claim Daily Income</button>' : '<button class="btn-claim" disabled>Plan Completed</button>';
+      
+      return '<div class="plan-card">'+
+        '<div class="plan-header"><div><div class="plan-name">'+(p.products?.name || "Plan")+'</div><div class="plan-invested">Invested: '+window.SerlzoAuth.money(p.products?.price || 0)+'</div></div>'+badge+'</div>'+
+        '<div class="plan-body">'+
+          '<div class="plan-stats"><div><div class="plan-stat-val">'+window.SerlzoAuth.money(p.daily_income)+'</div><div class="plan-stat-lbl">Daily Income</div></div><div><div class="plan-stat-val">'+window.SerlzoAuth.money(p.total_collected || 0)+'</div><div class="plan-stat-lbl">Total Collected</div></div></div>'+
+          '<div class="progress-wrap"><div class="progress-header"><span>'+p.days_collected+' / '+p.duration_days+' Days</span><span>'+pct+'%</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div></div>'+
+          btn+
+        '</div></div>';
+    }).join("");
+
+    document.getElementById("totalInvested").textContent = "₦" + totalInv.toLocaleString();
+    document.getElementById("totalEarned").textContent = "₦" + totalEarn.toLocaleString();
+    document.getElementById("activeCount").textContent = active;
   });
 
-  async function load(){
-    var {data:prods}=await window.sb.from("user_products").select("*,products(name,description,type,vip_level)").eq("user_id",uid).order("created_at",{ascending:false});
-    var today=new Date().toISOString().slice(0,10);
-    function dateOnly(value){
-      if(!value) return "";
-      var raw=String(value).slice(0,10);
-      if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return "";
-      var parsed=new Date(raw+"T00:00:00");
-      return Number.isNaN(parsed.getTime()) ? "" : raw;
-    }
-    function addOneDay(value){
-      if(!value) return "";
-      var d=new Date(dateOnly(value)+"T00:00:00");
-      d.setDate(d.getDate()+1);
-      return d.toISOString().slice(0,10);
-    }
-    function formatDate(value){
-      var raw=dateOnly(value);
-      if(!raw) return "Date unavailable";
-      return new Date(raw+"T00:00:00").toLocaleDateString();
-    }
-    function claimableFrom(p){ return dateOnly(p.claimable_from)||addOneDay(p.purchased_on||p.created_at); }
-    function canClaim(p){
-      var last=dateOnly(p.last_collected_at||p.last_claim_date);
-      return claimableFrom(p)<=today && (!last||last<today);
-    }
-    var active=(prods||[]).filter(function(p){return p.status==="active";});
-    var done=(prods||[]).filter(function(p){return p.status==="completed";});
-    var collectible=active.filter(canClaim);
-    var totalToday=collectible.reduce(function(s,p){return s+Number(p.daily_income||0);},0);
-
-    document.getElementById("todayIncome").textContent=window.SerlzoAuth.money(totalToday);
-    document.getElementById("collectSub").textContent=collectible.length+" product"+(collectible.length!==1?"s":"")+" ready to collect";
-    document.getElementById("collectBtn").disabled=collectible.length===0;
-    if(collectible.length===0) document.getElementById("collectBtn").textContent="Already Collected Today";
-
-    var el=document.getElementById("prodList");
-    if(!active.length){
-      el.innerHTML='<div class="empty"><div class="empty-icon"></div><p>No active products.<br><a href="products.html" style="color:var(--purple);font-weight:700">Browse energy plans →</a></p></div>';
+  window.claimIncome = async function(planId){
+    var btn = event.target;
+    btn.disabled = true; btn.textContent = "Processing…";
+    var {data, error} = await window.sb.rpc("claim_daily_income", { p_plan_id: planId });
+    if(error || !data?.ok){
+      window.SerlzoAuth.toast(data?.error || error?.message || "Claim failed");
+      btn.disabled = false; btn.textContent = "Claim Daily Income";
     } else {
-      el.innerHTML=active.map(function(p){
-        var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;
-        var canCollect=canClaim(p);
-        var claimDate=claimableFrom(p);
-        var stateLabel=claimDate>today?"Starts tomorrow":(canCollect?"Ready":"Collected");
-        return '<div class="up-card">'+
-          '<div class="up-header">'+
-            '<div>'+
-              '<div class="up-name">'+p.products?.name+'</div>'+
-              '<div style="font-size:11px;color:var(--muted);margin-top:2px">Purchased '+formatDate(p.purchased_on||p.created_at)+(claimDate>today?' · '+formatDate(claimDate)+' claimable':'')+'</div>'+
-            '</div>'+
-            '<span style="font-size:11px;font-weight:700;color:'+(canCollect?"var(--success)":"var(--muted)")+'">'+
-              (canCollect?"● Ready":(claimDate>today?"◷ Starts tomorrow":"Collected"))+'</span>'+
-          '</div>'+
-          '<div class="up-body">'+
-            '<div class="up-stats">'+
-              '<div><div class="us-val">'+window.SerlzoAuth.money(p.daily_income)+'</div><div class="us-lbl">Daily</div></div>'+
-              '<div><div class="us-val">'+p.days_collected+'/'+p.duration_days+'</div><div class="us-lbl">Days</div></div>'+
-              '<div><div class="us-val">'+window.SerlzoAuth.money(p.total_earned)+'</div><div class="us-lbl">Earned</div></div>'+
-            '</div>'+
-            '<div class="prog-wrap">'+
-              '<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>'+
-              '<div class="prog-label"><span>Progress</span><span>'+pct+'%</span></div>'+
-            '</div>'+
-          '</div>'+
-        '</div>';
-      }).join("");
-    }
-
-    var dl=document.getElementById("doneList");
-    if(done.length){
-      dl.innerHTML=done.map(function(p){
-        return '<div class="up-card">'+
-          '<div class="up-header">'+
-            '<div class="up-name">'+p.products?.name+'</div>'+
-            '<span class="status-done">Completed</span>'+
-          '</div>'+
-          '<div class="up-body">'+
-            '<div class="up-stats">'+
-              '<div><div class="us-val">'+p.duration_days+'d</div><div class="us-lbl">Duration</div></div>'+
-              '<div><div class="us-val">'+window.SerlzoAuth.money(p.total_earned)+'</div><div class="us-lbl">Total Earned</div></div>'+
-              '<div><div class="us-val">'+window.SerlzoAuth.money(p.amount||p.amount_paid)+'</div><div class="us-lbl">Powered</div></div>'+
-            '</div>'+
-          '</div>'+
-        '</div>';
-      }).join("");
-    } else {
-      dl.innerHTML='<div class="empty" style="padding:20px"><p style="font-size:13px;color:var(--muted)">No completed products yet.</p></div>';
-    }
-  }
-
-  window.collectAll=async function(){
-    var btn=document.getElementById("collectBtn");
-    btn.disabled=true; btn.textContent="Collecting…";
-    try {
-      var sessionResult=await window.sb.auth.getSession();
-      accessToken=sessionResult?.data?.session?.access_token||accessToken;
-    } catch (e) {}
-    var r=await fetch("/api/user?action=collect-income",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+accessToken},body:JSON.stringify({user_id:uid})});
-    var d=await r.json();
-    if(d.ok){
-      window.SerlzoAuth.toast("Collected "+window.SerlzoAuth.money(d.amount)+"!");
-      await load();
-    } else {
-      window.SerlzoAuth.toast(d.error||"Nothing to collect");
-      btn.disabled=false; btn.textContent="Collect All";
+      window.SerlzoAuth.toast("Income claimed successfully!");
+      setTimeout(()=> location.reload(), 1000);
     }
   };
 })();
 </script>
 </body>
-  </html>
-  
+</html>
