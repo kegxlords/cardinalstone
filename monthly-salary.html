@@ -1,123 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Monthly Service credits</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — Monthly Service Credit</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    .salary-hero { background:linear-gradient(135deg,var(--purple),var(--sky)); padding:32px 24px; color:#fff; text-align:center; }
-    .salary-amount { font-size:44px; font-weight:800; margin:10px 0; }
-    .salary-btn { background:#fff; color:var(--purple); border:none; padding:15px 40px; border-radius:50px; font-size:17px; font-weight:800; cursor:pointer; margin-top:20px; width:100%; }
-    .salary-btn:disabled { opacity:.4; cursor:not-allowed; }
-    .info-row { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--border); }
-    .info-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <style>
+    body { background: #ffffff !important; color: #0f172a !important; min-height: 100vh; padding-bottom: 90px; font-family: 'DM Sans', sans-serif; }
+    * { -webkit-tap-highlight-color: transparent; }
+    .page-wrap { width: 100%; max-width: 100%; padding-bottom: 100px; background: transparent !important; }
+    
+    .topbar-premium { background: #ffffff !important; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #e2e8f0 !important; }
+    .topbar-title { font-size: 18px; font-weight: 800; color: #0f172a !important; }
+    .back-btn-premium { width: 40px; height: 40px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #0f172a !important; text-decoration: none; font-size: 20px; font-weight: 700; transition: all 0.2s ease; }
+    .back-btn-premium:hover { background: #f1f5f9; transform: translateX(-2px); }
+
+    .salary-hero { background: linear-gradient(135deg, #0056b3 0%, #007bff 100%); margin: 16px; padding: 28px 24px; border-radius: 24px; color: #ffffff !important; text-align: center; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.2); position: relative; overflow: hidden; }
+    .salary-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
+    .salary-label { font-size: 13px; opacity: 0.9; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; position: relative; z-index: 1; }
+    .salary-val { font-size: 36px; font-weight: 800; margin: 12px 0; position: relative; z-index: 1; letter-spacing: -0.5px; }
+    .salary-sub { font-size: 14px; opacity: 0.85; position: relative; z-index: 1; }
+
+    .info-box { margin: 0 16px 20px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 16px 20px; }
+    .info-box-title { font-size: 12px; font-weight: 800; color: #166534 !important; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .info-box p { font-size: 13px; color: #15803d !important; line-height: 1.5; margin: 0; }
+
+    .btn-claim-salary { width: calc(100% - 32px); margin: 0 16px 24px; min-height: 54px; border-radius: 16px; border: none; background: linear-gradient(135deg, #10b981, #059669); color: #ffffff !important; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); transition: all 0.2s ease; }
+    .btn-claim-salary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(16, 185, 129, 0.3); }
+    .btn-claim-salary:active { transform: translateY(0); }
+    .btn-claim-salary:disabled { background: #f1f5f9; color: #94a3b8 !important; box-shadow: none; cursor: not-allowed; transform: none; }
+
+    .section-label { padding: 0 16px 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b !important; }
+    
+    .history-card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px; margin: 0 16px 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+    .history-item:last-child { border-bottom: none; }
+    .history-left { display: flex; flex-direction: column; }
+    .history-title { font-size: 14px; font-weight: 700; color: #0f172a !important; }
+    .history-date { font-size: 12px; color: #64748b !important; margin-top: 2px; }
+    .history-amount { font-size: 15px; font-weight: 800; color: #15803d !important; }
+    .history-status { font-size: 11px; color: #16a34a !important; font-weight: 700; background: #f0fdf4; padding: 4px 8px; border-radius: 6px; margin-top: 4px; display: inline-block; width: fit-content;}
+
+    .empty-state { text-align: center; padding: 40px 20px; color: #64748b !important; }
+    .empty-state-icon { width: 64px; height: 64px; margin: 0 auto 16px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+
+    .bottom-nav-premium { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff !important; border-top: 1px solid #e2e8f0 !important; display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); z-index: 100; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03); }
+    .nav-item-premium { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px; cursor: pointer; transition: all 0.2s ease; border: none; background: none; color: #64748b !important; font-size: 11px; font-weight: 600; }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+    #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #0f172a; color: #ffffff !important; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
-  <div class="topbar">
-    <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title"> Monthly Service credits</span>
-    <div></div>
+  <div class="topbar-premium">
+    <a class="back-btn-premium" href="dashboard.html">‹</a>
+    <span class="topbar-title">Monthly Service Credit</span>
+    <div style="width: 40px;"></div>
   </div>
 
   <div class="salary-hero">
-    <div></div>
-    <div style="font-size:13px;opacity:.8;margin-top:8px">Estimated Service credits</div>
-    <div class="salary-amount" id="salaryAmt">₦0.00</div>
-    <div style="font-size:13px;opacity:.75" id="salaryStatus">Calculating…</div>
-    <button class="salary-btn" id="salaryBtn" onclick="claimServiceCredits()" disabled>Claim Service credits</button>
+    <div class="salary-label">Available Service Credit</div>
+    <div class="salary-val" id="availableSalary">₦0.00</div>
+    <div class="salary-sub">5% of your total team's monthly payments</div>
   </div>
 
-  <div class="section">
-    <div class="card">
-      <div class="info-row">
-        <div class="info-icon" style="background:var(--purple-light)"></div>
-        <div><div style="font-size:14px;font-weight:600">5% of Household Payments</div><div style="font-size:12px;color:var(--muted)">Earn 5% of all L1+L2+L3 payments this month</div></div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon" style="background:var(--sky-light)"></div>
-        <div><div style="font-size:14px;font-weight:600">Available from the 5th</div><div style="font-size:12px;color:var(--muted)">Service credits is available from the 5th of each month</div></div>
-      </div>
-      <div class="info-row" style="border-bottom:none">
-        <div class="info-icon" style="background:#f7f1e3"></div>
-        <div><div style="font-size:14px;font-weight:600">3 Levels Deep</div><div style="font-size:12px;color:var(--muted)">Counts payments from your L1, L2, and L3 team</div></div>
-      </div>
+  <div class="info-box">
+    <div class="info-box-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      How it works
     </div>
+    <p>You earn a <strong>5% service credit</strong> based on the total payment volume generated by your downline team. This credit becomes available for withdrawal on the <strong>5th of every month</strong>.</p>
   </div>
 
-  <div class="section">
-    <h3 style="font-size:14px;font-weight:700;margin-bottom:10px">Claim Activity</h3>
-    <div class="card" id="histList"><div class="loader-wrap"><div class="loader"></div></div></div>
+  <button class="btn-claim-salary" id="claimBtn" disabled>Claim Service Credit</button>
+
+  <div class="section-label">Claim History</div>
+  <div id="historyList">
+    <div class="loader-wrap" style="padding: 40px 20px; display: flex; justify-content: center;"><div class="loader" style="width: 32px; height: 32px; border: 3px solid #f1f5f9; border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;"></div></div>
   </div>
 </div>
+
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div><span>Home</span></button>
+  <button class="nav-item-premium" onclick="location.href='products.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div><span>Plans</span></button>
+  <button class="nav-item-premium" onclick="location.href='team.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><span>Team</span></button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><span>Alerts</span></button>
+  <button class="nav-item-premium" onclick="location.href='profile.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Profile</span></button>
+</nav>
 <div id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
-<script src="assets/js/icons.js" defer></script>
 <script>
 (function(){
-  var uid="";
+  var userId="";
   function waitSb(cb){if(window.sb&&window.SerlzoAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50);}
+  
   waitSb(async function(){
     var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
-    uid=s.user.id;
-
-    var r=await fetch("/api/bonus?action=salary-status&user_id="+uid);
-    var d=await r.json();
-    var btn=document.getElementById("salaryBtn");
-    var status=document.getElementById("salaryStatus");
-    var day=new Date().getDate();
-
-    document.getElementById("salaryAmt").textContent=window.SerlzoAuth.money(d.amount||0);
-
-    if(d.claimed){
-      btn.textContent="Claimed for "+d.month; btn.disabled=true;
-      status.textContent="Already claimed this month";
-    } else if(!d.can_claim){
-      btn.textContent="Available from 5th"; btn.disabled=true;
-      status.textContent="Opens on the 5th · Today is the "+day+"th";
-    } else if(d.amount<=0){
-      btn.textContent="No earnings yet"; btn.disabled=true;
-      status.textContent="Your team has no qualifying payments this month";
+    userId=s.user.id;
+    
+    // Fetch available salary (replace with your actual API/RPC call)
+    var {data: salaryData} = await window.sb.rpc("get_available_salary", { p_user_id: userId });
+    var available = salaryData?.amount || 0;
+    var isClaimable = salaryData?.is_claimable || false; // e.g., is it the 5th of the month?
+    
+    document.getElementById("availableSalary").textContent = "₦" + Number(available).toLocaleString();
+    
+    var btn = document.getElementById("claimBtn");
+    if(available > 0 && isClaimable){
+      btn.disabled = false;
+      btn.textContent = "Claim ₦" + Number(available).toLocaleString();
+    } else if (available > 0 && !isClaimable) {
+      btn.disabled = true;
+      btn.textContent = "Available on the 5th of the month";
     } else {
-      btn.disabled=false; btn.textContent="Claim "+window.SerlzoAuth.money(d.amount);
-      status.textContent="Ready to claim!";
+      btn.disabled = true;
+      btn.textContent = "No service credit available";
     }
 
-    var {data:hist}=await window.sb.from("monthly_salary_claims").select("*").eq("user_id",uid).order("created_at",{ascending:false});
-    var hl=document.getElementById("histList");
-    if(!hist||!hist.length){
-      hl.innerHTML='<div class="empty"><p>No monthly service credits yet.</p></div>';
+    btn.addEventListener("click", async function(){
+      btn.disabled = true; btn.textContent = "Processing…";
+      var {data, error} = await window.sb.rpc("claim_monthly_salary", { p_user_id: userId });
+      if(error || !data?.ok){
+        window.SerlzoAuth.toast(data?.error || error?.message || "Claim failed");
+        btn.disabled = false; btn.textContent = "Claim Service Credit";
+      } else {
+        window.SerlzoAuth.toast("Service credit claimed successfully!");
+        setTimeout(()=> location.reload(), 1500);
+      }
+    });
+
+    // Fetch history
+    var {data: history} = await window.sb.from("salary_claims").select("*").eq("user_id",userId).order("created_at", {ascending: false});
+    var list = document.getElementById("historyList");
+    if(!history || history.length === 0){
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg></div><p>No claims made yet.</p></div>';
     } else {
-      hl.innerHTML=hist.map(function(c){
-        return '<div class="list-item">'+
-          '<div class="li-left"><div class="li-title">'+c.month+'</div><div class="li-sub">'+new Date(c.created_at).toDateString()+'</div></div>'+
-          '<div class="li-right"><div class="li-amount credit">+'+window.SerlzoAuth.money(c.amount)+'</div></div>'+
+      list.innerHTML = '<div class="history-card">' + history.map(function(h){
+        var date = new Date(h.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        return '<div class="history-item">'+
+          '<div class="history-left"><div class="history-title">Monthly Service Credit</div><div class="history-date">'+date+'</div><span class="history-status">Credited</span></div>'+
+          '<div class="history-amount">+'+window.SerlzoAuth.money(h.amount)+'</div>'+
         '</div>';
-      }).join("");
+      }).join("") + '</div>';
     }
   });
-
-  window.claimServiceCredits=async function(){
-    var btn=document.getElementById("salaryBtn");
-    btn.disabled=true; btn.textContent="Claiming…";
-    var r=await fetch("/api/bonus?action=monthly-salary",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:uid})});
-    var d=await r.json();
-    if(d.ok){
-      window.SerlzoAuth.toast("Service credits of "+window.SerlzoAuth.money(d.amount)+" credited!");
-      btn.textContent="Claimed!";
-    } else {
-      window.SerlzoAuth.toast(d.error||"Cannot claim now");
-      btn.disabled=false; btn.textContent="Claim Service credits";
-    }
-  };
 })();
 </script>
 </body>
-        </html>
-                                                                         
+</html>
