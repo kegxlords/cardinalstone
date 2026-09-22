@@ -9,168 +9,535 @@
   <link rel="stylesheet" href="assets/css/styles.css"/>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
   <style>
-    body { background: #ffffff !important; color: #0f172a !important; min-height: 100vh; padding-bottom: 90px; font-family: 'DM Sans', sans-serif; }
+    /* BULLETPROOF LIGHT WITHDRAW PAGE OVERRIDES */
+    body {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: 'DM Sans', sans-serif;
+    }
     * { -webkit-tap-highlight-color: transparent; }
     .page-wrap { width: 100%; max-width: 100%; padding-bottom: 100px; background: transparent !important; }
     
-    .topbar-premium { background: #ffffff !important; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #e2e8f0 !important; }
+    /* Topbar */
+    .topbar-premium {
+      background: #ffffff !important;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
     .topbar-title { font-size: 18px; font-weight: 800; color: #0f172a !important; }
-    .back-btn-premium { width: 40px; height: 40px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #0f172a !important; text-decoration: none; font-size: 20px; font-weight: 700; transition: all 0.2s ease; }
+    .back-btn-premium {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      display: flex; align-items: center; justify-content: center;
+      color: #0f172a !important; text-decoration: none; font-size: 20px; font-weight: 700;
+      transition: all 0.2s ease;
+    }
     .back-btn-premium:hover { background: #f1f5f9; transform: translateX(-2px); }
 
-    .balance-pill { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 14px 20px; text-align: center; margin: 20px 16px 24px; font-size: 14px; color: #166534 !important; font-weight: 600; }
-    .balance-pill strong { color: #15803d !important; font-weight: 800; font-size: 18px; }
+    /* Balance Summary Card */
+    .balance-summary {
+      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+      margin: 16px;
+      padding: 28px 24px;
+      border-radius: 24px;
+      color: #ffffff !important;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 86, 179, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .balance-summary::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .bal-label { font-size: 13px; opacity: 0.9; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; position: relative; z-index: 1; }
+    .bal-amount { font-size: 36px; font-weight: 800; margin: 8px 0 12px; letter-spacing: -0.5px; position: relative; z-index: 1; }
+    .bal-limits { font-size: 13px; opacity: 0.85; position: relative; z-index: 1; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 14px; border-radius: 20px; }
 
-    .section-label { padding: 0 16px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b !important; margin-bottom: 12px; }
-    
-    .field-input-premium { width: 100%; min-height: 56px; padding: 0 16px; color: #0f172a; background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 14px; outline: none; font-size: 18px; font-weight: 700; transition: all 0.2s ease; margin-bottom: 20px; }
-    .field-input-premium:focus { border-color: #0056b3; box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1); }
-    .field-input-premium::placeholder { color: #cbd5e1; font-weight: 500; }
+    /* Alerts & Banners */
+    .alert-box {
+      margin: 0 16px 16px; padding: 14px 16px; border-radius: 14px;
+      font-size: 14px; font-weight: 600; display: none;
+    }
+    .alert-box.show { display: block; animation: fadeUp 0.3s ease both; }
+    .alert-error { background: #fef2f2; color: #dc2626 !important; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #16a34a !important; border: 1px solid #bbf7d0; }
 
-    .breakdown-card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px; margin: 0 16px 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .breakdown-row { display: flex; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
-    .breakdown-row:last-child { border-bottom: none; background: #f8fafc; }
-    .breakdown-label { font-size: 14px; color: #64748b !important; font-weight: 500; }
-    .breakdown-value { font-size: 15px; font-weight: 700; color: #0f172a !important; }
-    .breakdown-value.net { color: #15803d !important; font-size: 18px; font-weight: 800; }
+    .locked-banner {
+      margin: 0 16px 16px; padding: 16px; border-radius: 16px;
+      background: #fef2f2; border: 1px solid #fecaca; text-align: center;
+    }
+    .locked-banner-title { font-size: 15px; font-weight: 800; color: #dc2626 !important; margin-bottom: 4px; }
+    .locked-banner-desc { font-size: 13px; color: #991b1b !important; }
 
-    .bank-info-card { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; margin: 0 16px 20px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
-    .bank-info-text { font-size: 14px; color: #1e3a8a !important; font-weight: 600; }
-    .bank-info-text span { display: block; font-size: 12px; color: #3b82f6 !important; font-weight: 500; margin-top: 2px; }
-    .bank-change-btn { font-size: 13px; color: #0056b3 !important; font-weight: 700; text-decoration: none; }
+    /* Section Labels */
+    .section-label {
+      padding: 0 16px; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #64748b !important;
+      margin-bottom: 12px; margin-top: 8px;
+    }
 
-    .info-box { margin: 0 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px 20px; }
-    .info-box-title { font-size: 12px; font-weight: 800; color: #0f172a !important; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-    .info-box ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .info-box li { font-size: 13px; color: #475569 !important; padding-left: 20px; position: relative; line-height: 1.5; }
-    .info-box li::before { content: '•'; position: absolute; left: 6px; color: #0056b3; font-weight: 800; font-size: 16px; line-height: 1.2; }
+    /* Inputs */
+    .field-input-premium {
+      width: 100%; min-height: 56px; padding: 0 16px;
+      color: #0f172a; background: #ffffff;
+      border: 1.5px solid #e2e8f0; border-radius: 14px;
+      outline: none; font-size: 18px; font-weight: 700;
+      transition: all 0.2s ease; margin-bottom: 16px;
+    }
+    .field-input-premium:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
+    }
+    .field-input-premium::placeholder { color: #cbd5e1; font-weight: 500; font-size: 16px; }
 
-    .btn-primary-premium { width: calc(100% - 32px); margin: 24px 16px 16px; min-height: 54px; border-radius: 16px; border: none; background: linear-gradient(135deg, #0056b3 0%, #007bff 100%); color: #ffffff !important; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 86, 179, 0.25); transition: all 0.2s ease; }
+    /* Saved Cards */
+    .saved-card-premium {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .saved-card-premium:hover { border-color: #cbd5e1; background: #f8fafc; }
+    .saved-card-premium.selected {
+      border-color: #0056b3;
+      background: #eff6ff;
+    }
+    .saved-card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: #eff6ff; color: #2563eb !important;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .saved-card-icon svg { width: 22px; height: 22px; }
+    .saved-card-info { flex: 1; min-width: 0; }
+    .saved-card-name { font-size: 14px; font-weight: 700; color: #0f172a !important; }
+    .saved-card-num { font-size: 12px; color: #64748b !important; margin-top: 2px; }
+    .default-badge {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      color: #0056b3 !important; background: #eff6ff;
+      padding: 4px 8px; border-radius: 6px; flex-shrink: 0;
+    }
+
+    .toggle-manual-btn {
+      font-size: 14px; color: #0056b3 !important; font-weight: 700;
+      background: none; border: none; cursor: pointer;
+      padding: 8px 0; margin-top: 4px; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s ease;
+    }
+    .toggle-manual-btn:hover { color: #003d82 !important; }
+
+    /* Manual Fields Container */
+    #manualFields {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 12px;
+      animation: fadeUp 0.3s ease both;
+    }
+    .field-label-premium {
+      font-size: 13px; font-weight: 700; color: #334155 !important;
+      display: block; margin-bottom: 8px;
+    }
+    .field-input-sm {
+      width: 100%; min-height: 48px; padding: 0 14px;
+      color: #0f172a; background: #ffffff;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      outline: none; font-size: 15px; font-weight: 600;
+      transition: all 0.2s ease; margin-bottom: 16px;
+    }
+    .field-input-sm:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1); }
+
+    /* Policy Info Box */
+    .policy-box {
+      margin: 24px 16px 0;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px 20px;
+    }
+    .policy-box-title {
+      font-size: 12px; font-weight: 800; color: #0f172a !important;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .policy-box ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .policy-box li {
+      font-size: 13px; color: #475569 !important;
+      padding-left: 20px; position: relative; line-height: 1.5;
+    }
+    .policy-box li::before {
+      content: '•'; position: absolute; left: 6px;
+      color: #0056b3; font-weight: 800; font-size: 16px; line-height: 1.2;
+    }
+
+    /* Submit Button */
+    .btn-primary-premium {
+      width: calc(100% - 32px);
+      margin: 24px 16px 16px;
+      min-height: 54px;
+      border-radius: 16px;
+      border: none;
+      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+      color: #ffffff !important;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.25);
+      transition: all 0.2s ease;
+    }
     .btn-primary-premium:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0, 86, 179, 0.3); }
     .btn-primary-premium:active { transform: translateY(0); }
     .btn-primary-premium:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
-    .bottom-nav-premium { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff !important; border-top: 1px solid #e2e8f0 !important; display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); z-index: 100; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03); }
-    .nav-item-premium { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px; cursor: pointer; transition: all 0.2s ease; border: none; background: none; color: #64748b !important; font-size: 11px; font-weight: 600; }
+    /* Bottom Nav & Toast */
+    .bottom-nav-premium {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff !important; border-top: 1px solid #e2e8f0 !important;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      z-index: 100; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .nav-item-premium {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px; cursor: pointer; transition: all 0.2s ease;
+      border: none; background: none; color: #64748b !important;
+      font-size: 11px; font-weight: 600;
+    }
     .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
     .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
     .nav-icon-premium svg { width: 24px; height: 24px; }
-    #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #0f172a; color: #ffffff !important; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+    
+    #toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #0f172a; color: #ffffff !important;
+      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 480px) {
+      .balance-summary { margin: 12px; padding: 24px 20px; }
+      .bal-amount { font-size: 32px; }
+      .btn-primary-premium { width: calc(100% - 24px); margin-left: 12px; margin-right: 12px; }
+    }
   </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
+  <!-- Topbar -->
   <div class="topbar-premium">
     <a class="back-btn-premium" href="dashboard.html">‹</a>
     <span class="topbar-title">Withdraw Funds</span>
     <div style="width: 40px;"></div>
   </div>
 
-  <div class="balance-pill">Available Balance: <strong id="walBal">₦0.00</strong></div>
+  <!-- Balance Summary -->
+  <div class="balance-summary">
+    <div class="bal-label">Available Balance</div>
+    <div class="bal-amount" id="balance">₦0.00</div>
+    <div class="bal-limits" id="limitsNote">Loading limits…</div>
+  </div>
 
+  <!-- Alerts -->
+  <div id="alert" class="alert-box"></div>
+
+  <!-- Locked Banner -->
+  <div id="lockedBanner" class="locked-banner" style="display:none;">
+    <div class="locked-banner-title">Withdrawals Temporarily Paused</div>
+    <div class="locked-banner-desc">Please check back later, or contact customer support if this persists.</div>
+  </div>
+
+  <!-- Amount Input -->
   <div class="section-label">Withdrawal Amount</div>
   <div style="padding: 0 16px;">
-    <input class="field-input-premium" type="number" id="withdrawAmt" placeholder="0.00" oninput="calcWithdraw()" />
+    <input class="field-input-premium" type="number" id="amount" placeholder="0.00" min="1000" />
   </div>
 
-  <div class="breakdown-card">
-    <div class="breakdown-row">
-      <span class="breakdown-label">Requested Amount</span>
-      <span class="breakdown-value" id="reqAmt">₦0.00</span>
-    </div>
-    <div class="breakdown-row">
-      <span class="breakdown-label">Processing Fee</span>
-      <span class="breakdown-value" id="feeAmt">₦0.00</span>
-    </div>
-    <div class="breakdown-row">
-      <span class="breakdown-label" style="font-weight: 700; color: #0f172a !important;">You Will Receive</span>
-      <span class="breakdown-value net" id="netAmt">₦0.00</span>
-    </div>
-  </div>
-
+  <!-- Destination Account -->
   <div class="section-label">Destination Account</div>
-  <div class="bank-info-card">
-    <div class="bank-info-text">
-      <span id="bankDisplayName">No bank account linked</span>
-      <span id="acctDisplayName">Please add a withdrawal method</span>
+  <div style="padding: 0 16px;">
+    <div id="savedCards">
+      <div style="padding: 40px 20px; text-align: center; color: #94a3b8;">
+        <div class="loader" style="width: 24px; height: 24px; border: 3px solid #f1f5f9; border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px;"></div>
+        Loading accounts...
+      </div>
     </div>
-    <a href="bank-card.html" class="bank-change-btn">Manage →</a>
+    <button class="toggle-manual-btn" onclick="toggleManual()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      Enter bank details manually
+    </button>
+
+    <!-- Manual Fields -->
+    <div id="manualFields" style="display:none;">
+      <label class="field-label-premium">Bank Name</label>
+      <input class="field-input-sm" id="bankName" placeholder="e.g. OPay, GTBank, Access" />
+      
+      <label class="field-label-premium">Account Number</label>
+      <input class="field-input-sm" id="acctNum" placeholder="0000000000" type="tel" maxlength="10" />
+      
+      <label class="field-label-premium">Account Name</label>
+      <input class="field-input-sm" id="acctName" placeholder="Full account name" />
+    </div>
   </div>
 
-  <div class="info-box">
-    <div class="info-box-title">
+  <!-- Policy Info -->
+  <div class="policy-box">
+    <div class="policy-box-title">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-      Withdrawal Guidelines
+      Withdrawal Policy
     </div>
     <ul>
-      <li>Minimum withdrawal amount is <strong>₦1,000</strong>.</li>
-      <li>A flat processing fee of <strong>₦50</strong> applies to all withdrawals.</li>
-      <li>Withdrawals are processed within <strong>5 to 30 minutes</strong> during service hours.</li>
-      <li>Ensure your linked bank account details are correct before submitting.</li>
+      <li id="policyNote">Loading policy details…</li>
+      <li>Withdrawals are typically processed within <strong>5 to 30 minutes</strong>.</li>
+      <li>Ensure your bank details are accurate to avoid delays.</li>
     </ul>
   </div>
 
-  <button class="btn-primary-premium" id="withdrawBtn" disabled>Request Withdrawal</button>
+  <!-- Submit Button -->
+  <button class="btn-primary-premium" id="refundBtn" onclick="doRefund()">Request Withdrawal</button>
   <div style="height:20px"></div>
 </div>
 
+<!-- Bottom Navigation -->
 <nav class="bottom-nav-premium">
-  <button class="nav-item-premium" onclick="location.href='dashboard.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div><span>Home</span></button>
-  <button class="nav-item-premium" onclick="location.href='products.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div><span>Plans</span></button>
-  <button class="nav-item-premium" onclick="location.href='team.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><span>Team</span></button>
-  <button class="nav-item-premium" onclick="location.href='notifications.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><span>Alerts</span></button>
-  <button class="nav-item-premium active" onclick="location.href='profile.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Profile</span></button>
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'">
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div>
+    <span>Home</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='products.html'">
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+    <span>Plans</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='team.html'">
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+    <span>Team</span>
+  </button>
+  <button class="nav-item-premium" onclick="location.href='notifications.html'">
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+    <span>Alerts</span>
+  </button>
+  <button class="nav-item-premium active" onclick="location.href='profile.html'">
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+    <span>Profile</span>
+  </button>
 </nav>
+
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
+<script src="assets/js/icons.js" defer></script>
 <script>
 (function(){
-  var userId="", balance=0, fee=50;
-  function waitSb(cb){if(window.sb&&window.SerlzoAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50);}
+  var uid="", balance=0, selectedCard=null, showManual=false;
+  var minW=1000, maxW=0, feePercent=0, requireInvest=false, requireReferral=false;
   
+  function waitSb(cb){
+    if(window.sb && window.SerlzoAuth){ cb(); return; }
+    var t = setInterval(function(){
+      if(window.sb && window.SerlzoAuth){ clearInterval(t); cb(); }
+    }, 50);
+  }
+
+  function showAlert(msg, type) {
+    var al = document.getElementById("alert");
+    al.textContent = msg;
+    al.className = "alert-box alert-" + type + " show";
+  }
+
+  function hideAlert() {
+    document.getElementById("alert").className = "alert-box";
+  }
+
   waitSb(async function(){
-    var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
-    userId=s.user.id;
-    var {data:w}=await window.sb.from("wallets").select("balance").eq("user_id",userId).single();
-    balance=w?.balance||0;
-    document.getElementById("walBal").textContent="₦"+Number(balance).toLocaleString();
-    
-    // Mock bank details fetch (replace with your actual API call)
-    var {data:bank} = await window.sb.from("bank_accounts").select("bank_name, account_number, account_name").eq("user_id",userId).eq("is_primary",true).single();
-    if(bank){
-      document.getElementById("bankDisplayName").textContent = bank.account_name;
-      document.getElementById("acctDisplayName").textContent = bank.bank_name + " • " + bank.account_number;
+    var s = await window.SerlzoAuth.requireAuth(); 
+    if(!s) return;
+    uid = s.user.id;
+
+    // Check global refund lock
+    try {
+      var lockRes = await fetch("/api/withdraw?action=lock-status");
+      var lockData = await lockRes.json();
+      if(lockData.locked){
+        document.getElementById("lockedBanner").style.display = "block";
+        document.getElementById("refundBtn").disabled = true;
+        document.getElementById("refundBtn").textContent = "Withdrawals Paused";
+      }
+    } catch(e) { console.warn("lock-status check failed", e); }
+
+    // Load limits
+    try {
+      var limRes = await fetch("/api/withdraw?action=limits");
+      var limData = await limRes.json();
+      minW = limData.min || 1000;
+      maxW = limData.max || 0;
+      document.getElementById("limitsNote").textContent = maxW > 0 
+        ? "Min: ₦"+minW.toLocaleString()+" · Max: ₦"+maxW.toLocaleString()
+        : "Minimum: ₦"+minW.toLocaleString();
+    } catch(e) { console.warn("limits check failed", e); }
+
+    // Load policy
+    try {
+      var policyRes = await fetch("/api/withdraw?action=policy");
+      var policy = await policyRes.json();
+      feePercent = Number(policy.fee_percent || 0); 
+      requireInvest = !!policy.require_invest; 
+      requireReferral = !!policy.require_referral;
+      
+      var policyParts = [];
+      if(feePercent > 0) policyParts.push("Processing fee: "+feePercent+"%");
+      if(requireInvest) policyParts.push("Active investment plan required");
+      if(requireReferral) policyParts.push("Active referral required");
+      
+      document.getElementById("policyNote").innerHTML = policyParts.length 
+        ? policyParts.join(" · ") 
+        : "<strong>No withdrawal fees</strong> apply to your account.";
+    } catch(e) { 
+      document.getElementById("policyNote").textContent = "Withdrawal policy unavailable"; 
     }
 
-    document.getElementById("withdrawBtn").addEventListener("click", async function(){
-      var amt = parseFloat(document.getElementById("withdrawAmt").value);
-      if(!amt || amt < 1000) { window.SerlzoAuth.toast("Minimum withdrawal is ₦1,000"); return; }
-      if(amt > balance) { window.SerlzoAuth.toast("Insufficient balance"); return; }
+    // Load balance
+    var {data:w} = await window.sb.from("wallets").select("balance").eq("user_id",uid).single();
+    balance = w?.balance || 0;
+    document.getElementById("balance").textContent = "₦" + Number(balance).toLocaleString();
+
+    // Load saved bank cards
+    try {
+      var r = await fetch("/api/user?action=bank-cards&user_id="+uid);
+      var d = await r.json();
+      var cards = d.cards || [];
+      var wrap = document.getElementById("savedCards");
       
-      var btn = this; btn.disabled = true; btn.textContent = "Processing…";
-      var {data, error} = await window.sb.rpc("request_withdrawal", { p_amount: amt, p_user_id: userId });
-      if(error || !data?.ok) {
-        window.SerlzoAuth.toast(data?.error || error?.message || "Withdrawal failed");
-        btn.disabled = false; btn.textContent = "Request Withdrawal";
+      if(!cards.length){
+        wrap.innerHTML = '<div style="font-size:14px;color:#64748b;padding:8px 0;">No saved accounts found.</div>';
+        toggleManual();
       } else {
-        window.SerlzoAuth.toast("Withdrawal request submitted!");
-        setTimeout(()=> location.href="withdrawal-history.html", 1500);
+        wrap.innerHTML = cards.map(function(c){
+          return '<div class="saved-card-premium" id="sc-'+c.id+'" onclick="selectCard(\''+c.id+'\',\''+c.bank_name+'\',\''+c.account_number+'\',\''+c.account_name+'\')">'+
+            '<div class="saved-card-icon">'+
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>'+
+            '</div>'+
+            '<div class="saved-card-info">'+
+              '<div class="saved-card-name">'+c.bank_name+'</div>'+
+              '<div class="saved-card-num">'+c.account_number+' · '+c.account_name+'</div>'+
+            '</div>'+
+            (c.is_default ? '<span class="default-badge">Default</span>' : '')+
+          '</div>';
+        }).join("");
+        
+        // Auto-select default
+        var def = cards.find(function(c){ return c.is_default; }) || cards[0];
+        if(def) selectCard(def.id, def.bank_name, def.account_number, def.account_name);
       }
-    });
+    } catch(e) {
+      console.error("Failed to load bank cards", e);
+      document.getElementById("savedCards").innerHTML = '<div style="font-size:14px;color:#ef4444;padding:8px 0;">Failed to load accounts.</div>';
+      toggleManual();
+    }
   });
 
-  window.calcWithdraw = function(){
-    var amt = parseFloat(document.getElementById("withdrawAmt").value) || 0;
-    var net = Math.max(0, amt - fee);
-    document.getElementById("reqAmt").textContent = "₦" + amt.toLocaleString();
-    document.getElementById("feeAmt").textContent = "₦" + (amt > 0 ? fee : 0).toLocaleString();
-    document.getElementById("netAmt").textContent = "₦" + net.toLocaleString();
-    document.getElementById("withdrawBtn").disabled = (amt < 1000 || amt > balance);
+  window.selectCard = function(id, bank, num, name){
+    document.querySelectorAll(".saved-card-premium").forEach(function(c){ c.classList.remove("selected"); });
+    var el = document.getElementById("sc-"+id); 
+    if(el) el.classList.add("selected");
+    
+    selectedCard = { bank_name: bank, account_number: num, account_name: name };
+    showManual = false;
+    document.getElementById("manualFields").style.display = "none";
+    hideAlert();
+  };
+
+  window.toggleManual = function(){
+    showManual = !showManual;
+    document.getElementById("manualFields").style.display = showManual ? "block" : "none";
+    if(showManual) {
+      selectedCard = null;
+      document.querySelectorAll(".saved-card-premium").forEach(function(c){ c.classList.remove("selected"); });
+    }
+    hideAlert();
+  };
+
+  window.doRefund = async function(){
+    var btn = document.getElementById("refundBtn");
+    var amt = Number(document.getElementById("amount").value);
+    hideAlert();
+
+    if(!amt || amt < minW){ 
+      showAlert("Minimum withdrawal is ₦"+minW.toLocaleString(), "error"); 
+      return; 
+    }
+    if(maxW > 0 && amt > maxW){ 
+      showAlert("Maximum withdrawal is ₦"+maxW.toLocaleString(), "error"); 
+      return; 
+    }
+    
+    var fee = Math.round(amt * feePercent) / 100;
+    var totalDebit = amt + fee;
+    if(totalDebit > balance){ 
+      showAlert("Insufficient balance to cover the amount and processing fee.", "error"); 
+      return; 
+    }
+
+    var bank = selectedCard?.bank_name || document.getElementById("bankName")?.value?.trim();
+    var num  = selectedCard?.account_number || document.getElementById("acctNum")?.value?.trim();
+    var name = selectedCard?.account_name || document.getElementById("acctName")?.value?.trim();
+
+    if(!bank || !num || !name){ 
+      showAlert("Please select or enter valid bank account details.", "error"); 
+      return; 
+    }
+
+    btn.disabled = true; 
+    btn.textContent = "Processing…";
+    
+    try {
+      var r = await fetch("/api/withdraw", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: uid, amount: amt, bank_name: bank, account_number: num, account_name: name })
+      });
+      var d = await r.json();
+      
+      if(d.ok){
+        showAlert("Withdrawal request submitted successfully! We'll process it shortly.", "success");
+        btn.textContent = "Submitted";
+        balance -= totalDebit;
+        document.getElementById("balance").textContent = "₦" + Number(balance).toLocaleString();
+        setTimeout(function(){ location.href = "withdrawal-history.html"; }, 1500);
+      } else {
+        showAlert(d.error || "Error processing request. Please try again.", "error");
+        btn.disabled = false; 
+        btn.textContent = "Request Withdrawal";
+      }
+    } catch(e) {
+      showAlert("Network error. Please check your connection and try again.", "error");
+      btn.disabled = false; 
+      btn.textContent = "Request Withdrawal";
+    }
   };
 })();
 </script>
