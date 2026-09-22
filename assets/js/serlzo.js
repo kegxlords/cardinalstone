@@ -1,14 +1,14 @@
-/* Serlzo Investments shared interaction layer. */
+/* CardinalStone shared interaction layer. */
 (function () {
   "use strict";
 
   var ready = false;
 
   function announce(message) {
-    var region = document.getElementById("serlzo-status");
+    var region = document.getElementById("cardinalstone-status");
     if (!region) {
       region = document.createElement("div");
-      region.id = "serlzo-status";
+      region.id = "cardinalstone-status";
       region.setAttribute("role", "status");
       region.setAttribute("aria-live", "polite");
       region.style.cssText = "position:fixed;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0";
@@ -18,17 +18,17 @@
   }
 
   function hideLoader() {
-    var loader = document.getElementById("serlzo-loader");
+    var loader = document.getElementById("cardinalstone-loader");
     if (loader) loader.classList.add("is-ready");
     document.body.classList.remove("page-loading");
     ready = true;
   }
 
   function showLoader() {
-    if (document.getElementById("serlzo-loader")) return;
+    if (document.getElementById("cardinalstone-loader")) return;
     var loader = document.createElement("div");
-    loader.id = "serlzo-loader";
-    loader.innerHTML = '<div class="loader-brand" aria-label="Loading Serlzo Investments"><span class="loader-orbit" aria-hidden="true"></span><span>Serlzo Investments</span></div>';
+    loader.id = "cardinalstone-loader";
+    loader.innerHTML = '<div class="loader-brand" aria-label="Loading CardinalStone"><span class="loader-orbit" aria-hidden="true"></span><span>CardinalStone</span></div>';
     document.body.appendChild(loader);
   }
 
@@ -65,7 +65,7 @@
       if (!href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0 || link.target === "_blank") return;
       link.addEventListener("click", function () {
         if (link.dataset.noLoader === "true") return;
-        var loader = document.getElementById("serlzo-loader");
+        var loader = document.getElementById("cardinalstone-loader");
         if (loader) loader.classList.remove("is-ready");
         document.body.classList.add("page-loading");
       });
