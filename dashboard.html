@@ -570,101 +570,179 @@
 <script>
 (function(){
   "use strict";
-  function waitSb(cb){ if(window.sb&&window.SerlzoAuth){cb();return;} var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50); }
+  
+  // Helper: Hide all loaders and show error
+  function showError(elementId, message) {
+    var el = document.getElementById(elementId);
+    if(el) {
+      el.innerHTML = '<div class="empty-state" style="padding:40px 20px;text-align:center;color:#64748b;">' +
+        '<div class="empty-state-icon" style="width:64px;height:64px;margin:0 auto 16px;background:#fef2f2;border-radius:50%;display:flex;align-items:center;justify-content:center;">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" width="32" height="32"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>' +
+        '</div>' +
+        '<p style="font-size:14px;line-height:1.6;">' + message + '</p>' +
+        '<button onclick="location.reload()" style="margin-top:12px;padding:10px 20px;border-radius:10px;border:1px solid #e2e8f0;background:#ffffff;color:#0f172a;font-size:13px;font-weight:700;cursor:pointer;">Retry</button>' +
+        '</div>';
+    }
+  }
+
+  function waitSb(cb, maxAttempts) {
+    maxAttempts = maxAttempts || 100; // 5 seconds max (50ms * 100)
+    var attempts = 0;
+    
+    function check() {
+      attempts++;
+      if(window.sb && window.SerlzoAuth) {
+        cb();
+        return;
+      }
+      if(attempts >= maxAttempts) {
+        console.error("CardinalStone: Supabase client failed to initialize after 5 seconds");
+        showError("activePlans", "Unable to connect to the server. Please refresh the page.");
+        showError("recentTx", "Unable to connect to the server. Please refresh the page.");
+        return;
+      }
+      setTimeout(check, 50);
+    }
+    check();
+  }
 
   waitSb(async function(){
-    var s = await window.SerlzoAuth.requireAuth();
-    if(!s) return;
-    var uid = s.user.id;
+    console.log("CardinalStone: Supabase client ready");
+    
+    try {
+      var s = await window.SerlzoAuth.requireAuth();
+      if(!s) {
+        console.warn("CardinalStone: No auth session, redirecting to login");
+        location.href = "/index.html";
+        return;
+      }
+      var uid = s.user.id;
+      console.log("CardinalStone: User authenticated", uid);
 
-    await window.SerlzoAuth.loadProfile(uid);
-    maybeShowWelcome(uid);
+      await window.SerlzoAuth.loadProfile(uid);
 
-    // Wallet
-    var {data:w} = await window.sb.from("wallets").select("*").eq("user_id",uid).single();
-    if(w){
-      document.getElementById("walletBalance").textContent = window.SerlzoAuth.money(w.balance);
-      document.getElementById("statPayment").textContent = "₦"+Number(w.total_deposit||0).toLocaleString();
-      document.getElementById("statServiceCredit").textContent  = "₦"+Number(w.total_profit||0).toLocaleString();
-      document.getElementById("statRef").textContent     = "₦"+Number(w.total_referral_bonus||0).toLocaleString();
+      // Wallet
+      try {
+        var {data:w, error:wErr} = await window.sb.from("wallets").select("*").eq("user_id",uid).single();
+        if(wErr) console.warn("CardinalStone: Wallet query error", wErr);
+        if(w){
+          document.getElementById("walletBalance").textContent = window.SerlzoAuth.money(w.balance);
+          document.getElementById("statPayment").textContent = "₦"+Number(w.total_deposit||0).toLocaleString();
+          document.getElementById("statRef").textContent = Number(w.total_referral_bonus||0).toLocaleString();
+        } else {
+          console.warn("CardinalStone: No wallet found for user");
+        }
+      } catch(e) {
+        console.error("CardinalStone: Wallet error", e);
+      }
+
+      // Active products
+      try {
+        var {data:prods, error:pErr} = await window.sb.from("user_products")
+          .select("*, products(name)")
+          .eq("user_id",uid).eq("status","active").limit(3);
+        
+        if(pErr) console.warn("CardinalStone: Products query error", pErr);
+        
+        var ap = document.getElementById("activePlans");
+        if(!prods || !prods.length){
+          ap.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg></div><p>No active plans yet.<br><a href="products.html" style="color:#0056b3;font-weight:700;text-decoration:none;">Browse Plans →</a></p></div>';
+        } else {
+          var totalDaily = prods.reduce(function(s,p){return s+Number(p.daily_income||0);},0);
+          document.getElementById("dailyProfitCard").style.display="flex";
+          document.getElementById("dailyEarned").textContent = window.SerlzoAuth.money(totalDaily);
+
+          ap.innerHTML = prods.map(function(p){
+            var pct = p.duration_days ? Math.min(100,Math.round((p.days_collected/p.duration_days)*100)) : 0;
+            return '<div class="plan-card">'+
+              '<div class="plan-info">'+
+                '<div class="plan-name">'+(p.products?.name || "Plan")+'</div>'+
+                '<div class="plan-progress">'+p.days_collected+'/'+p.duration_days+' days</div>'+
+                '<div class="plan-progress-bar"><div class="plan-progress-fill" style="width:'+pct+'%"></div></div>'+
+              '</div>'+
+              '<div class="plan-earnings"><div class="plan-earnings-value">+'+window.SerlzoAuth.money(p.daily_income)+'</div><div class="plan-earnings-label">/day</div></div>'+
+            '</div>';
+          }).join("");
+        }
+      } catch(e) {
+        console.error("CardinalStone: Active plans error", e);
+        showError("activePlans", "Failed to load your plans. Please try again.");
+      }
+
+      // Recent transactions
+      try {
+        var {data:txs, error:tErr} = await window.sb.from("wallet_transactions")
+          .select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(5);
+        
+        if(tErr) console.warn("CardinalStone: Transactions query error", tErr);
+        
+        var txWrap = document.getElementById("recentTx");
+        if(!txs || !txs.length){
+          txWrap.innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg></div><p>No transactions yet.</p></div>';
+        } else {
+          txWrap.innerHTML = txs.map(function(t){
+            var isCredit = t.amount>0;
+            return '<div class="transaction-item">'+
+              '<div class="transaction-info"><div class="transaction-title">'+t.description+'</div><div class="transaction-time">'+window.SerlzoAuth.timeAgo(t.created_at)+'</div></div>'+
+              '<div class="transaction-amount '+(isCredit?'credit':'debit')+'">'+(isCredit?'+':'')+window.SerlzoAuth.money(Math.abs(t.amount))+'</div>'+
+            '</div>';
+          }).join("");
+        }
+      } catch(e) {
+        console.error("CardinalStone: Transactions error", e);
+        showError("recentTx", "Failed to load transactions. Please try again.");
+      }
+
+      // Unread messages badge
+      try {
+        var {count, error:mErr} = await window.sb.from("messages").select("id",{count:"exact",head:true})
+          .or("user_id.eq."+uid+",user_id.is.null").eq("is_read",false);
+        if(mErr) console.warn("CardinalStone: Messages query error", mErr);
+        if(count>0){ 
+          var b=document.getElementById("notifBadge"); 
+          if(b) { b.style.display="flex"; b.textContent=count>9?"9+":count; }
+        }
+      } catch(e) {
+        console.warn("CardinalStone: Badge error", e);
+      }
+
+    } catch(e) {
+      console.error("CardinalStone: Main dashboard error", e);
+      showError("activePlans", "An unexpected error occurred. Please refresh.");
+      showError("recentTx", "An unexpected error occurred. Please refresh.");
     }
-
-    // Active products
-    var {data:prods} = await window.sb.from("user_products")
-      .select("*, products(name)")
-      .eq("user_id",uid).eq("status","active").limit(3);
-
-    var ap = document.getElementById("activePlans");
-    if(!prods||!prods.length){
-      ap.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg></div><p>No active plans yet.<br><a href="products.html">Browse Plans →</a></p></div>';
-    } else {
-      var totalDaily = prods.reduce(function(s,p){return s+Number(p.daily_income||0);},0);
-      document.getElementById("dailyProfitCard").style.display="flex";
-      document.getElementById("dailyEarned").textContent = window.SerlzoAuth.money(totalDaily);
-
-      ap.innerHTML = prods.map(function(p){
-        var pct = p.duration_days ? Math.min(100,Math.round((p.days_collected/p.duration_days)*100)) : 0;
-        return '<div class="plan-card">'+
-          '<div class="plan-info">'+
-            '<div class="plan-name">'+p.products?.name+'</div>'+
-            '<div class="plan-progress">'+p.days_collected+'/'+p.duration_days+' days</div>'+
-            '<div class="plan-progress-bar"><div class="plan-progress-fill" style="width:'+pct+'%"></div></div>'+
-          '</div>'+
-          '<div class="plan-earnings"><div class="plan-earnings-value">+'+window.SerlzoAuth.money(p.daily_income)+'</div><div class="plan-earnings-label">/day</div></div>'+
-        '</div>';
-      }).join("");
-    }
-
-    // Recent transactions
-    var {data:txs} = await window.sb.from("wallet_transactions")
-      .select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(5);
-
-    var txWrap = document.getElementById("recentTx");
-    if(!txs||!txs.length){
-      txWrap.innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg></div><p>No transactions yet.</p></div>';
-    } else {
-      txWrap.innerHTML = txs.map(function(t){
-        var isCredit = t.amount>0;
-        return '<div class="transaction-item">'+
-          '<div class="transaction-info"><div class="transaction-title">'+t.description+'</div><div class="transaction-time">'+window.SerlzoAuth.timeAgo(t.created_at)+'</div></div>'+
-          '<div class="transaction-amount '+(isCredit?'credit':'debit')+'">'+(isCredit?'+':'')+window.SerlzoAuth.money(Math.abs(t.amount))+'</div>'+
-        '</div>';
-      }).join("");
-    }
-
-    // Unread messages badge
-    var {count} = await window.sb.from("messages").select("id",{count:"exact",head:true})
-      .or("user_id.eq."+uid+",user_id.is.null").eq("is_read",false);
-    if(count>0){ var b=document.getElementById("notifBadge"); b.style.display="flex"; b.textContent=count>9?"9+":count; }
   });
 
   /* Welcome Modal */
   function maybeShowWelcome(uid){
     if(!uid) return;
-
     var nameEl = document.getElementById("welcomeUserName");
     var fullName = document.querySelector('[data-auth="full_name"]')?.textContent;
-    nameEl.textContent = (fullName && fullName !== "User") ? ", " + fullName.split(" ")[0] : "";
+    if(nameEl) nameEl.textContent = (fullName && fullName !== "User") ? ", " + fullName.split(" ")[0] : "";
 
     setTimeout(function(){
       var overlay = document.getElementById("welcomeOverlay");
       var card = document.getElementById("welcomeCard");
-      overlay.style.display = "flex";
-      requestAnimationFrame(function(){
-        card.style.transform = "scale(1)";
-        card.style.opacity = "1";
-      });
+      if(overlay && card) {
+        overlay.style.display = "flex";
+        requestAnimationFrame(function(){
+          card.style.transform = "scale(1)";
+          card.style.opacity = "1";
+        });
+      }
     }, 700);
   }
 
   window.closeWelcome = function(){
     var overlay = document.getElementById("welcomeOverlay");
     var card = document.getElementById("welcomeCard");
-    card.style.transform = "scale(.92)";
-    card.style.opacity = "0";
-    setTimeout(function(){ overlay.style.display = "none"; }, 200);
+    if(card) {
+      card.style.transform = "scale(.92)";
+      card.style.opacity = "0";
+    }
+    setTimeout(function(){ if(overlay) overlay.style.display = "none"; }, 200);
   };
 })();
-</script>
+                </script>
 </body>
 </html>
