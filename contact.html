@@ -1,191 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Contact Support</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0056b3" />
+  <title>CardinalStone — Service Alerts</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'DM Sans',sans-serif;background:#F4F8F5;min-height:100vh}
-    .topbar{display:flex;align-items:center;gap:12px;padding:16px 20px;background:#fff;border-bottom:1px solid #DDE9E1;position:sticky;top:0;z-index:50}
-    .back-btn{width:36px;height:36px;border-radius:50%;background:#F4F8F5;border:none;font-size:20px;color:#163027;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
-    .topbar-title{font-size:17px;font-weight:700;color:#163027}
-
-    .hero{background:linear-gradient(135deg,#0F3D2E,#b8891f);padding:32px 24px 40px;color:#fff;text-align:center}
-    .hero-icon{font-size:48px;margin-bottom:10px}
-    .hero-title{font-size:22px;font-weight:800}
-    .hero-sub{font-size:14px;opacity:.8;margin-top:4px}
-
-    .content{padding:16px;max-width:480px;margin:0 auto}
-
-    .contact-card{background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:12px;overflow:hidden}
-    .contact-item{display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid #DDE9E1;cursor:pointer;text-decoration:none;transition:background .15s;-webkit-tap-highlight-color:transparent}
-    .contact-item:last-child{border-bottom:none}
-    .contact-item:active{background:#F8FAFC}
-    .ci-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-    .ci-purple{background:#f7f1e3}
-    .ci-green {background:#f7f1e3}
-    .ci-blue  {background:#f7f1e3}
-    .ci-orange{background:#f7edcf}
-    .ci-title{font-size:15px;font-weight:700;color:#163027}
-    .ci-sub  {font-size:12px;color:#6E8178;margin-top:2px}
-    .ci-arrow{color:#CBD5E1;font-size:18px;margin-left:auto}
-
-    .hours-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(14,165,233,.06));border-radius:14px;padding:16px;margin-bottom:12px;border:1.5px solid rgba(124,58,237,.15)}
-    .hours-title{font-size:13px;font-weight:700;color:#0F3D2E;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
-    .hours-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(124,58,237,.1)}
-    .hours-row:last-child{border-bottom:none}
-    .hours-day{color:#34343a;font-weight:600}
-    .hours-time{color:#0F3D2E;font-weight:700}
-
-    .form-card{background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:16px;margin-bottom:12px}
-    .form-title{font-size:15px;font-weight:700;color:#163027;margin-bottom:14px}
-    .field{margin-bottom:12px}
-    .field label{display:block;font-size:12px;font-weight:600;color:#34343a;margin-bottom:5px}
-    .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:2px solid #DDE9E1;border-radius:10px;font-size:14px;color:#163027;background:#fff;outline:none;font-family:inherit}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:#0F3D2E}
-    .field textarea{resize:vertical;min-height:100px}
-    .send-btn{width:100%;padding:14px;border:none;border-radius:50px;background:linear-gradient(135deg,#0F3D2E,#b8891f);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
-    .send-btn:disabled{opacity:.4;cursor:not-allowed}
-    .alert-box{padding:12px 14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:12px}
-    .a-success{background:#f7f1e3;color:#0D6548}
-    .a-error  {background:#FEE2E2;color:#991B1B}
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <style>
+    body { background: #ffffff !important; color: #0f172a !important; min-height: 100vh; padding-bottom: 90px; font-family: 'DM Sans', sans-serif; }
+    * { -webkit-tap-highlight-color: transparent; }
+    .page-wrap { width: 100%; max-width: 100%; padding-bottom: 100px; background: transparent !important; }
+    
+    .topbar-premium { background: #ffffff !important; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #e2e8f0 !important; }
+    .topbar-title { font-size: 18px; font-weight: 800; color: #0f172a !important; }
+    .back-btn-premium { width: 40px; height: 40px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #0f172a !important; text-decoration: none; font-size: 20px; font-weight: 700; transition: all 0.2s ease; }
+    .back-btn-premium:hover { background: #f1f5f9; transform: translateX(-2px); }
+    .clear-btn { background: none; border: none; color: #ef4444 !important; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .clear-btn:hover { opacity: 0.8; }
+
+    .notif-list { padding: 16px; }
+    .notif-item { 
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; 
+      padding: 16px; margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+    .notif-item.unread { 
+      background: #eff6ff; border-color: #bfdbfe; border-left: 4px solid #0056b3; 
+    }
+    .notif-icon { 
+      width: 42px; height: 42px; border-radius: 12px; background: #f1f5f9; 
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #64748b !important;
+    }
+    .notif-item.unread .notif-icon { background: #ffffff; color: #0056b3 !important; }
+    .notif-icon svg { width: 20px; height: 20px; }
+    .notif-content { flex: 1; min-width: 0; }
+    .notif-title { font-size: 14px; font-weight: 700; color: #0f172a !important; margin-bottom: 4px; }
+    .notif-msg { font-size: 13px; color: #475569 !important; line-height: 1.5; margin-bottom: 6px; }
+    .notif-time { font-size: 11px; color: #94a3b8 !important; font-weight: 500; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b !important; }
+    .empty-state-icon { width: 64px; height: 64px; margin: 0 auto 16px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+
+    .bottom-nav-premium { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff !important; border-top: 1px solid #e2e8f0 !important; display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); z-index: 100; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03); }
+    .nav-item-premium { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px; cursor: pointer; transition: all 0.2s ease; border: none; background: none; color: #64748b !important; font-size: 11px; font-weight: 600; }
+    .nav-item-premium.active { color: #0056b3 !important; }
+    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-premium svg { width: 24px; height: 24px; }
+    #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #0f172a; color: #ffffff !important; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
 </head>
-<body>
-<div style="max-width:480px;margin:0 auto;min-height:100vh;background:#F4F8F5;padding-bottom:30px">
-  <div class="topbar">
-    <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title"> Contact Support</span>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap">
+  <div class="topbar-premium">
+    <a class="back-btn-premium" href="dashboard.html">‹</a>
+    <span class="topbar-title">Service Alerts</span>
+    <button class="clear-btn" onclick="markAll()">Clear All</button>
   </div>
 
-  <div class="hero">
-    <div class="hero-icon"></div>
-    <div class="hero-title">We're here to help</div>
-    <div class="hero-sub">Reach out through any channel below</div>
-  </div>
-
-  <div class="content">
-
-    <!-- Quick contact options -->
-    <div class="contact-card">
-      <a class="contact-item" href="https://wa.me/2347120000000" target="_blank">
-        <div class="ci-icon ci-green"></div>
-        <div>
-          <div class="ci-title">WhatsApp Support</div>
-          <div class="ci-sub">Chat with us instantly — fastest response</div>
-        </div>
-        <div class="ci-arrow">›</div>
-      </a>
-      <a class="contact-item" href="mailto:serlzo1@gmail.com">
-        <div class="ci-icon ci-purple"></div>
-        <div>
-          <div class="ci-title">Email Support</div>
-          <div class="ci-sub">serlzo1@gmail.com</div>
-        </div>
-        <div class="ci-arrow">›</div>
-      </a>
-      <a class="contact-item" href="tel:+2347120000000">
-        <div class="ci-icon ci-blue"></div>
-        <div>
-          <div class="ci-title">Call Us</div>
-          <div class="ci-sub">+2347120000000</div>
-        </div>
-        <div class="ci-arrow">›</div>
-      </a>
-      <a class="contact-item" href="https://t.me/Serlzo_Investments_Support" target="_blank">
-        <div class="ci-icon ci-blue"></div>
-        <div>
-          <div class="ci-title">Telegram</div>
-          <div class="ci-sub">@serlzowireless</div>
-        </div>
-        <div class="ci-arrow">›</div>
-      </a>
+  <div class="notif-list" id="notifList">
+    <div style="padding: 40px 20px; display: flex; justify-content: center;">
+      <div class="loader" style="width: 32px; height: 32px; border: 3px solid #f1f5f9; border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
     </div>
-
-    <!-- Support hours -->
-    <div class="hours-card">
-      <div class="hours-title"> Support Hours</div>
-      <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">8:00 AM – 8:00 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">9:00 AM – 5:00 PM</span></div>
-      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">12:00 PM - 5:00 PM</span></div>
-    </div>
-
-    <!-- Contact form -->
-    <div class="form-card">
-      <div class="form-title">Send us a message</div>
-      <div id="formAlert" style="display:none"></div>
-      <div class="field">
-        <label>Subject</label>
-        <select id="subject">
-          <option value="">Select a topic…</option>
-          <option>Payment not credited</option>
-          <option>Refund issue</option>
-          <option>Account access problem</option>
-          <option>Plan / energy service query</option>
-          <option>Referral reward issue</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Your Message</label>
-        <textarea id="message" placeholder="Describe your issue in detail…"></textarea>
-      </div>
-      <div id="formAlert2" style="display:none"></div>
-      <button class="send-btn" id="sendBtn" onclick="sendMsg()">Send Message</button>
-    </div>
-
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<nav class="bottom-nav-premium">
+  <button class="nav-item-premium" onclick="location.href='dashboard.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div><span>Home</span></button>
+  <button class="nav-item-premium" onclick="location.href='products.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div><span>Plans</span></button>
+  <button class="nav-item-premium" onclick="location.href='team.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><span>Team</span></button>
+  <button class="nav-item-premium active" onclick="location.href='notifications.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><span>Alerts</span></button>
+  <button class="nav-item-premium" onclick="location.href='profile.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><span>Profile</span></button>
+</nav>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
-<script src="assets/js/supabase.js"></script>
-<script src="assets/js/auth.js"></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
 <script src="assets/js/icons.js" defer></script>
 <script>
 (function(){
-  var uid="", userEmail="", userName="";
+  var uid="";
   function waitSb(cb){if(window.sb&&window.SerlzoAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.SerlzoAuth){clearInterval(t);cb();}},50);}
+  
   waitSb(async function(){
     var s=await window.SerlzoAuth.requireAuth(); if(!s)return;
-    uid=s.user.id; userEmail=s.user.email;
-    var {data:p}=await window.sb.from("profiles").select("full_name").eq("id",uid).single();
-    userName=p?.full_name||"";
+    uid=s.user.id; 
+    await load();
   });
 
-  window.sendMsg=async function(){
-    var subject=document.getElementById("subject").value;
-    var message=document.getElementById("message").value.trim();
-    var al=document.getElementById("formAlert2");
-    al.style.display="none";
+  async function load(){
+    var {data}=await window.sb.from("notifications").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(50);
+    var el=document.getElementById("notifList");
+    
+    if(!data||!data.length){ 
+      el.innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><p>No new notifications.</p></div>'; 
+      return; 
+    }
+    
+    el.innerHTML=data.map(function(n){
+      var iconSvg = n.title.toLowerCase().includes('credit') || n.title.toLowerCase().includes('success') 
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+        
+      return '<div class="notif-item'+(n.is_read?'':' unread')+'">'+
+        '<div class="notif-icon">'+iconSvg+'</div>'+
+        '<div class="notif-content">'+
+          '<div class="notif-title">'+n.title+'</div>'+
+          '<div class="notif-msg">'+n.message+'</div>'+
+          '<div class="notif-time">'+window.SerlzoAuth.timeAgo(n.created_at)+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join("");
+    
+    // Mark all read
+    await window.sb.from("notifications").update({is_read:true}).eq("user_id",uid).eq("is_read",false);
+  }
 
-    if(!subject){ al.textContent="Please select a subject."; al.className="alert-box a-error"; al.style.display="block"; return; }
-    if(!message||message.length<10){ al.textContent="Please write a message (min 10 characters)."; al.className="alert-box a-error"; al.style.display="block"; return; }
-
-    var btn=document.getElementById("sendBtn");
-    btn.disabled=true; btn.textContent="Sending…";
-
-    // Save as a message to admin (user_id = null means it goes to admin view; we tag it by sender)
-    var fullMsg = "[FROM: "+(userName||userEmail)+"] "+subject+"\n\n"+message;
-    await window.sb.from("messages").insert({
-      user_id: null,
-      sender_id: uid,
-      title: subject,
-      content: fullMsg,
-      is_read: false,
-    });
-
-    al.textContent="Message sent! Our team will respond within 24 hours.";
-    al.className="alert-box a-success"; al.style.display="block";
-    document.getElementById("subject").value="";
-    document.getElementById("message").value="";
-    btn.disabled=false; btn.textContent="Send Message";
+  window.markAll=async function(){
+    await window.sb.from("notifications").delete().eq("user_id",uid);
+    window.SerlzoAuth.toast("All alerts cleared");
+    document.getElementById("notifList").innerHTML='<div class="empty-state"><div class="empty-state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><p>No new notifications.</p></div>';
   };
 })();
 </script>
 </body>
-      </html>
-  
+</html>
