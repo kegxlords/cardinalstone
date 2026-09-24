@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments Admin</title>
+  <title>Cardinalstone Investments Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/styles.css"/>
   <style>
@@ -40,6 +40,8 @@
     .dep-name { font-size:14px; font-weight:700; color:#fff; }
     .dep-meta { font-size:12px; color:#6E8178; margin-top:2px; }
     .dep-amt  { font-size:18px; font-weight:800; color:#d6aa3e; }
+    .dep-fee  { font-size:13px; font-weight:600; color:#FB923C; margin-top:4px; }
+    .dep-net  { font-size:14px; font-weight:700; color:#34D399; margin-top:2px; }
     .dep-nar  { display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,.1); border-radius:6px; padding:4px 10px; margin-top:8px; }
     .dep-nar-code { font-size:12px; font-weight:700; color:#FCD34D; }
     .dep-actions { display:flex; gap:8px; margin-top:10px; }
@@ -96,7 +98,7 @@
 
 <!-- Top bar -->
 <div class="admin-top">
-  <div class="admin-brand">Serlzo Investments<span>Admin</span></div>
+  <div class="admin-brand">CardinalstoneInvestments<span>Admin</span></div>
   <div style="display:flex;gap:8px;align-items:center">
     <div class="admin-tag">ADMIN</div>
     <button onclick="window.SerlzoAuth.logout()" style="background:none;border:none;color:#6E8178;cursor:pointer;font-size:13px">Sign out</button>
@@ -109,7 +111,7 @@
   <button class="anav" onclick="showPage('payments',this)">💳 Payments</button>
   <button class="anav" onclick="showPage('refunds',this)">💸 Refund requests</button>
   <button class="anav" onclick="showPage('products',this)">📦 Plans</button>
-  <button class="anav" onclick="showPage('users',this)">👥 Users</button>
+  <button class="anav" onclick="showPage('users',this)"> Users</button>
   <button class="anav" onclick="showPage('messages',this)">✉️ Support messages</button>
   <button class="anav" onclick="showPage('giftcodes',this)">🎁 Offer codes</button>
   <button class="anav" onclick="showPage('settings',this)">⚙️ Settings</button>
@@ -137,7 +139,7 @@
     </div>
   </div>
 
-  <!-- ═══ DEPOSITS ═══ -->
+  <!-- ══ DEPOSITS ═══ -->
   <div class="apage" id="page-payments">
     <div class="a-card">
       <div class="a-card-title">
@@ -218,7 +220,7 @@
     </div>
   </div>
 
-  <!-- ═══ USERS ═══ -->
+  <!-- ══ USERS ═══ -->
   <div class="apage" id="page-users">
     <div class="a-card">
       <div class="a-card-title">All Users <button class="refresh-btn" onclick="loadUsers()">↻</button></div>
@@ -229,7 +231,7 @@
     </div>
   </div>
 
-  <!-- ═══ MESSAGES ═══ -->
+  <!-- ══ MESSAGES ═══ -->
   <div class="apage" id="page-messages">
     <div class="a-card" style="margin-bottom:14px">
       <div class="a-card-title" id="msgFormTitle">Send Message to Users</div>
@@ -353,14 +355,14 @@
 
 
     <div class="a-card" style="margin-bottom:14px">
-      <div class="a-card-title">Operations & customer settings</div>
+      <div class="a-card-title">Operations &customer settings</div>
       <div style="padding:14px">
         <div style="font-size:12px;color:#8BA296;margin-bottom:10px">Adapted from the Schweppes admin workflow. Values are stored in Serlzo Investments site settings and enforced by server endpoints.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <div class="a-field"><label class="a-label">Bank name</label><input class="a-input" id="settingBankName" placeholder="Bank name"/></div>
           <div class="a-field"><label class="a-label">Account name</label><input class="a-input" id="settingAccountName" placeholder="Account name"/></div>
           <div class="a-field"><label class="a-label">Account number</label><input class="a-input" id="settingAccountNumber" placeholder="Account number"/></div>
-          <div class="a-field"><label class="a-label">Welcome bonus (₦)</label><input class="a-input" id="welcomeBonusInput" type="number" min="0" placeholder="0"/></div>
+          <div class="a-field"><label class="a-label">Welcome bonus ()</label><input class="a-input" id="welcomeBonusInput" type="number" min="0" placeholder="0"/></div>
           <div class="a-field"><label class="a-label">Withdrawal fee (%)</label><input class="a-input" id="withdrawalFeeInput" type="number" min="0" max="100" step="0.01" placeholder="0"/></div>
           <div class="a-field"><label class="a-label">Referral depth</label><input class="a-input" id="referralDepthInput" type="number" min="1" max="3" placeholder="3"/></div>
           <div class="a-field"><label class="a-label">Level 1 referral (%)</label><input class="a-input" id="referralL1Input" type="number" min="0" max="100" step="0.01" placeholder="5"/></div>
@@ -421,7 +423,7 @@
 
     <div style="display:flex;gap:8px;margin-bottom:14px">
       <button id="walletTypeCredit" onclick="setWalletType('credit')" style="flex:1;padding:11px;border-radius:10px;border:2px solid #34343a;background:transparent;color:#8BA296;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s">➕ Credit</button>
-      <button id="walletTypeDebit" onclick="setWalletType('debit')" style="flex:1;padding:11px;border-radius:10px;border:2px solid #34343a;background:transparent;color:#8BA296;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s">➖ Debit</button>
+      <button id="walletTypeDebit" onclick="setWalletType('debit')" style="flex:1;padding:11px;border-radius:10px;border:2px solid #34343a;background:transparent;color:#8BA296;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s"> Debit</button>
     </div>
 
     <div class="a-field">
@@ -456,7 +458,7 @@
 <script src="../assets/js/auth.js" defer></script>
 <script>
 (function(){
-  var adminId="", allUsers=[], depFilter="pending", wFilter="pending";
+  var adminId="", allUsers=[], depFilter="pending", wFilter="pending", withdrawalFeePercent = 0;
 
   function escHtml(value){
     return String(value == null ? "" : value).replace(/[&<>"']/g,function(ch){
@@ -511,7 +513,7 @@
     var r=await fetch("/api/admin?action=deposits&status="+depFilter+"&admin_id="+adminId);
     var d=await r.json();
     if(!d.ok){
-      el.innerHTML='<div style="text-align:center;color:#f87171;padding:24px 16px;font-size:13px">⚠️ Failed to load: '+(d.error||"Unknown error")+'</div>';
+      el.innerHTML='<div style="text-align:center;color:#f87171;padding:24px 16px;font-size:13px">️ Failed to load: '+(d.error||"Unknown error")+'</div>';
       return;
     }
     var deps=d.deposits||[];
@@ -544,7 +546,7 @@
     btn.textContent=act==="approve"?"Approving…":"Rejecting…";
     var r=await fetch("/api/admin?action=process-deposit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({deposit_id:id,act,admin_id:adminId})});
     var d=await r.json();
-    window.SerlzoAuth.toast(d.ok?(act==="approve"?"✅ Approved!":"🚫 Rejected"):("❌ "+d.error));
+    window.SerlzoAuth.toast(d.ok?(act==="approve"?"✅ Approved!":"🚫 Rejected"):(" "+d.error));
     setTimeout(loadPayments,600);
     loadStats();
   };
@@ -609,10 +611,19 @@
       var name=w.profiles?.full_name||w.profiles?.email||"User";
       var canAct=w.status==="pending";
       var sColor={pending:"#FCD34D",approved:"#d6aa3e",rejected:"#f87171"}[w.status]||"#8BA296";
+      
+      // Calculate withdrawal fee
+      var amount = Number(w.amount);
+      var fee = withdrawalFeePercent > 0 ? Math.round(amount * withdrawalFeePercent / 100) : 0;
+      var netAmount = amount - fee;
+      
       return '<div class="dep-row">'+
         '<div style="display:flex;justify-content:space-between;align-items:flex-start">'+
           '<div><div class="dep-name">'+name+'</div><div class="dep-meta">'+w.bank_name+' · '+w.account_number+'</div><div class="dep-meta">'+w.account_name+' · '+new Date(w.created_at).toLocaleString()+'</div></div>'+
-          '<div style="text-align:right"><div class="dep-amt">₦'+Number(w.amount).toLocaleString()+'</div><div style="font-size:11px;font-weight:700;color:'+sColor+'">'+w.status.toUpperCase()+'</div></div>'+
+          '<div style="text-align:right"><div class="dep-amt">₦'+amount.toLocaleString()+'</div>'+
+          (fee > 0 ? '<div class="dep-fee">Fee: ₦'+fee.toLocaleString()+' ('+withdrawalFeePercent+'%)</div>' : '')+
+          '<div class="dep-net">Net: ₦'+netAmount.toLocaleString()+'</div>'+
+          '<div style="font-size:11px;font-weight:700;color:'+sColor+';margin-top:4px">'+w.status.toUpperCase()+'</div></div>'+
         '</div>'+
         (canAct?'<div class="dep-actions" style="margin-top:10px"><button class="btn-approve" onclick="actW(\''+w.id+'\',\'approve\',this)">✅ Approve</button><button class="btn-reject" onclick="actW(\''+w.id+'\',\'reject\',this)">❌ Reject</button></div>':'')+
       '</div>';
@@ -715,7 +726,7 @@
     window.SerlzoAuth.toast("Plan deleted"); loadPlans();
   };
 
-  /* ── Users ── */
+  /* ── Users ─ */
   window.loadUsers=async function(){
     var el=document.getElementById("userList");
     el.innerHTML='<div class="loader-wrap"><div class="loader" style="border-color:#34343a;border-top-color:var(--sky)"></div></div>';
@@ -762,7 +773,7 @@
 
     walletTargetUserId = userId;
     document.getElementById("walletModalUser").textContent = (u.full_name||u.email||"User") + " · " + u.email;
-    document.getElementById("walletModalBalance").textContent = "₦"+Number(u.wallets?.balance||0).toLocaleString();
+    document.getElementById("walletModalBalance").textContent = ""+Number(u.wallets?.balance||0).toLocaleString();
     document.getElementById("walletAmountInput").value = "";
     document.getElementById("walletReasonInput").value = "";
     document.getElementById("walletModalAlert").className = "alert";
@@ -947,7 +958,7 @@
     btn.disabled=true; btn.textContent="Deleting…";
     var r=await fetch("/api/admin?action=delete-message",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message_id:id,admin_id:adminId})});
     var d=await r.json();
-    window.SerlzoAuth.toast(d.ok?"🗑️ Message deleted":"❌ "+d.error);
+    window.SerlzoAuth.toast(d.ok?"️ Message deleted":"❌ "+d.error);
     loadSentSupportMessages();
   };
 
@@ -1047,11 +1058,11 @@
     btn.disabled=true;
     var r=await fetch("/api/admin?action=delete-gift-code",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code_id:id,admin_id:adminId})});
     var d=await r.json();
-    window.SerlzoAuth.toast(d.ok?"🗑️ Deleted":"❌ "+d.error);
+    window.SerlzoAuth.toast(d.ok?"️ Deleted":"❌ "+d.error);
     loadGiftCodes();
   };
 
-  /* ── Method ── */
+  /* ─ Method ── */
   async function loadMethod(){
     var r=await fetch("/api/deposit?action=method");
     var d=await r.json();
@@ -1102,7 +1113,7 @@
     if(refundsLocked){
       toggle.style.background = "#34343a";
       knob.style.transform = "translateX(0)";
-      desc.textContent = "🔒 Locked — users cannot submit new refunds";
+      desc.textContent = " Locked — users cannot submit new refunds";
       desc.style.color = "#f87171";
     } else {
       toggle.style.background = "#c99a2e";
@@ -1170,7 +1181,10 @@
     var s=d.settings||{};
     applyBankDetails(s);
     setExtraValue("settingBankName",s.bank_name); setExtraValue("settingAccountName",s.account_name); setExtraValue("settingAccountNumber",s.account_number);
-    setExtraValue("welcomeBonusInput",s.welcome_bonus||0); setExtraValue("withdrawalFeeInput",s.withdrawal_fee_percent||0); setExtraValue("referralDepthInput",s.referral_depth||3);
+    setExtraValue("welcomeBonusInput",s.welcome_bonus||0); 
+    setExtraValue("withdrawalFeeInput",s.withdrawal_fee_percent||0); 
+    withdrawalFeePercent = parseFloat(s.withdrawal_fee_percent) || 0; // Store fee percentage
+    setExtraValue("referralDepthInput",s.referral_depth||3);
     setExtraValue("referralL1Input",s.referral_percent_l1||5); setExtraValue("referralL2Input",s.referral_percent_l2||2); setExtraValue("referralL3Input",s.referral_percent_l3||1);
     setExtraValue("supportEmailInput",s.support_email); setExtraValue("servicePhoneInput",s.service_phone); setExtraValue("telegramLinkInput",s.telegram_link);
     document.getElementById("investGateToggle").checked=s.require_invest_before_withdraw==="true";
@@ -1181,13 +1195,17 @@
     var btn=document.getElementById("extraSettingsBtn"), al=document.getElementById("extraSettingsAlert"); btn.disabled=true; btn.textContent="Saving…"; al.className="alert";
     var settings={bank_name:document.getElementById("settingBankName").value.trim(),account_name:document.getElementById("settingAccountName").value.trim(),account_number:document.getElementById("settingAccountNumber").value.trim(),welcome_bonus:document.getElementById("welcomeBonusInput").value||0,withdrawal_fee_percent:document.getElementById("withdrawalFeeInput").value||0,referral_depth:document.getElementById("referralDepthInput").value||3,referral_percent_l1:document.getElementById("referralL1Input").value||0,referral_percent_l2:document.getElementById("referralL2Input").value||0,referral_percent_l3:document.getElementById("referralL3Input").value||0,support_email:document.getElementById("supportEmailInput").value.trim(),service_phone:document.getElementById("servicePhoneInput").value.trim(),telegram_link:document.getElementById("telegramLinkInput").value.trim(),require_invest_before_withdraw:document.getElementById("investGateToggle").checked,require_active_referral_to_withdraw:document.getElementById("referralGateToggle").checked,vip_enabled:document.getElementById("vipEnabledToggle").checked};
     var r=await fetch("/api/admin?action=set-extra-settings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({settings,admin_id:adminId})}); var d=await r.json();
-    if(d.ok){ applyBankDetails(d.settings||settings); window.SerlzoAuth.toast("✅ Operations settings saved"); } else { al.textContent=d.error||"Could not save settings"; al.className="alert alert-error show"; }
+    if(d.ok){ 
+      applyBankDetails(d.settings||settings); 
+      withdrawalFeePercent = parseFloat(settings.withdrawal_fee_percent) || 0; // Update fee percentage
+      window.SerlzoAuth.toast("✅ Operations settings saved"); 
+    } else { al.textContent=d.error||"Could not save settings"; al.className="alert alert-error show"; }
     btn.disabled=false; btn.textContent="Save Operations Settings";
   };
   window.toggleUserActive=async function(id,isActive,btn){
     if(!isActive && !confirm("Suspend this account? The user will be signed out on their next request.")) return;
     btn.disabled=true; var r=await fetch("/api/admin?action=set-user-active",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({target_user_id:id,is_active:isActive,admin_id:adminId})}); var d=await r.json();
-    window.SerlzoAuth.toast(d.ok?(isActive?"✅ Account restored":"⛔ Account suspended"):"❌ "+(d.error||"Update failed")); loadUsers();
+    window.SerlzoAuth.toast(d.ok?(isActive?"✅ Account restored":"⛔ Account suspended"):" "+(d.error||"Update failed")); loadUsers();
   };
   window.openTeamModal=async function(id){
     var u=allUsers.find(function(x){return x.id===id;}); document.getElementById("teamModal").style.display="flex"; document.getElementById("teamModalOwner").textContent=(u?.full_name||u?.email||"User")+" · referral team";
