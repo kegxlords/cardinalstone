@@ -3,379 +3,885 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="theme-color" content="#0056b3" />
-  <title>CardinalStone — My Team</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — My Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
-  
+
   <style>
-    /* BULLETPROOF LIGHT TEAM PAGE OVERRIDES */
-    body {
-      background: #ffffff !important;
-      color: #0f172a !important;
-      min-height: 100vh;
-      padding-bottom: 90px;
-      font-family: 'DM Sans', sans-serif;
+    /* ===== XFusion Team / Referral — premium shell. JS hooks preserved. ===== */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    :root{
+      --xf-bg:#fff8fb;
+      --xf-surface:#ffffff;
+      --xf-surface-2:#fdf3f8;
+      --xf-line:rgba(255,61,139,.14);
+      --xf-text:#2b2330;
+      --xf-mid:#4a3f52;
+      --xf-muted:#6f6478;
+      --xf-ph:#b8aec0;
+      --xf-ink:#2b2330;
+      --xf-accent:#d01563;
+      --xf-accent-2:#ff3d8b;
+      --xf-pink-soft:#ffe3ef;
+      --xf-lemon:#ffe23d;
+      --xf-yellow:#ffc93c;
+      --xf-hero-dark:#8a0e42;
+      --xf-success:#16a34a;
+      --xf-danger:#e11d48;
+      --xf-violet:#9333ea;
+      --xf-amber:#b45309;
+      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
+      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 50%,#ff3d8b 100%);
+      --xf-ease:cubic-bezier(.23,1,.32,1);
+      --xf-shadow-sm:0 8px 20px -12px rgba(208,21,99,.22);
+      --xf-shadow:0 24px 60px -28px rgba(208,21,99,.28);
     }
 
-    * { -webkit-tap-highlight-color: transparent; }
-
-    .page-wrap {
-      width: 100%;
-      max-width: 100%;
-      padding-bottom: 100px;
-      background: transparent !important;
+    html,body{min-height:100%}
+    body{
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--xf-text)!important;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,61,139,.07), transparent 30rem),
+        radial-gradient(circle at 100% 0%, rgba(255,226,61,.12), transparent 34rem),
+        var(--xf-bg)!important;
+      min-height:100vh;
+      padding-bottom:96px;
+      -webkit-text-size-adjust:100%;
+      overflow-x:hidden;
     }
 
-    /* Premium Referral Hero */
-    .ref-hero {
-      background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
-      padding: 28px 20px 50px;
-      text-align: center;
-      border-bottom: 1px solid #f1f5f9;
+    .page-wrap{
+      width:100%!important;
+      max-width:760px!important;
+      margin:0 auto;
+      padding-bottom:100px!important;
+      background:transparent!important;
     }
 
-    .ref-hero-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #64748b !important;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 12px;
+    /* ---- Topbar ---- */
+    .topbar-premium{
+      position:sticky;
+      top:0;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      min-height:66px;
+      padding:13px 16px;
+      background:rgba(255,255,255,.88);
+      border-bottom:1px solid var(--xf-line);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:0 6px 20px -14px rgba(208,21,99,.22);
+    }
+    .topbar-title{
+      font-family:'Playfair Display',serif;
+      font-size:17px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      color:var(--xf-text);
+    }
+    .back-btn-premium{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      background:var(--xf-surface-2);
+      border:1px solid var(--xf-line);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--xf-text);
+      text-decoration:none;
+      font-size:20px;
+      font-weight:700;
+      transition:transform .18s var(--xf-ease), background .18s ease, border-color .18s ease;
+    }
+    .back-btn-premium:hover{
+      background:var(--xf-pink-soft);
+      border-color:var(--xf-accent-2);
+      transform:translateX(-2px);
+    }
+    .topbar-spacer{width:40px;flex:0 0 40px}
+
+    /* ---- Referral hero ---- */
+    .ref-hero{
+      position:relative!important;
+      overflow:hidden!important;
+      margin:0!important;
+      padding:28px 18px 56px!important;
+      text-align:center!important;
+      color:#ffffff!important;
+      background:var(--xf-hero)!important;
+      border-bottom:0!important;
+    }
+    .ref-hero::before{
+      content:'';
+      position:absolute;
+      top:-90px;
+      right:-55px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,226,61,.36), transparent 68%);
+      pointer-events:none;
+    }
+    .ref-hero::after{
+      content:'';
+      position:absolute;
+      bottom:-120px;
+      left:-50px;
+      width:230px;
+      height:230px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
+      pointer-events:none;
+    }
+    .rh-inner{position:relative;z-index:1}
+    .rh-brand{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:14px;
+      color:rgba(255,255,255,.9);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .rh-diamond{
+      width:13px;
+      height:13px;
+      border-radius:4px;
+      transform:rotate(45deg);
+      background:var(--xf-sweep);
+      box-shadow:0 0 0 5px rgba(255,255,255,.18);
+      flex:0 0 auto;
+    }
+    .ref-hero-title{
+      font-size:11.5px;
+      font-weight:800;
+      color:rgba(255,255,255,.82)!important;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:12px;
     }
 
-    .ref-code-box {
-      background: #ffffff;
-      border: 1.5px solid #bfdbfe;
-      border-radius: 16px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.05);
+    .ref-code-box{
+      background:rgba(255,255,255,.14)!important;
+      border:1px solid rgba(255,255,255,.26)!important;
+      border-radius:18px!important;
+      padding:14px 14px 14px 18px!important;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.22), 0 12px 28px -18px rgba(0,0,0,.45)!important;
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+    .ref-code{
+      min-width:0;
+      flex:1;
+      font-size:clamp(20px,6vw,26px)!important;
+      font-weight:800!important;
+      color:#ffffff!important;
+      letter-spacing:.12em!important;
+      font-variant-numeric:tabular-nums;
+      word-break:break-all;
+      text-align:left;
+    }
+    .copy-btn{
+      flex:0 0 auto;
+      min-height:40px;
+      padding:10px 14px!important;
+      border:0!important;
+      border-radius:12px!important;
+      background:var(--xf-sweep)!important;
+      color:var(--xf-ink)!important;
+      font-family:inherit;
+      font-size:12px!important;
+      font-weight:800!important;
+      letter-spacing:.06em;
+      cursor:pointer;
+      box-shadow:0 10px 22px -12px rgba(208,21,99,.65);
+      transition:transform .18s var(--xf-ease), box-shadow .18s ease, opacity .18s ease;
+    }
+    .copy-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px -12px rgba(208,21,99,.72)}
+    .copy-btn:active{transform:scale(.96)}
+
+    .ref-link-box{
+      margin-top:12px!important;
+      background:rgba(255,255,255,.10)!important;
+      border:1px solid rgba(255,255,255,.20)!important;
+      border-radius:14px!important;
+      padding:12px 14px!important;
+      font-size:12px!important;
+      color:rgba(255,255,255,.88)!important;
+      word-break:break-all;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      line-height:1.45;
+      text-align:left;
+      box-shadow:none!important;
     }
 
-    .ref-code {
-      font-size: 22px;
-      font-weight: 800;
-      color: #0056b3 !important;
-      letter-spacing: 0.1em;
+    .share-btn{
+      margin-top:14px!important;
+      min-height:46px;
+      padding:12px 20px!important;
+      border-radius:99px!important;
+      background:rgba(255,255,255,.14)!important;
+      border:1px solid rgba(255,255,255,.28)!important;
+      color:#ffffff!important;
+      font-family:inherit;
+      font-size:13.5px;
+      font-weight:800;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:transform .18s var(--xf-ease), background .18s ease, border-color .18s ease;
+    }
+    .share-btn:hover{
+      background:rgba(255,255,255,.22)!important;
+      border-color:rgba(255,255,255,.42)!important;
+      transform:translateY(-2px);
+    }
+    .share-btn:active{transform:scale(.97)}
+    .share-btn svg{
+      width:17px;
+      height:17px;
+      stroke:var(--xf-lemon);
+      fill:none;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
     }
 
-    .copy-btn {
-      padding: 8px 16px;
-      border-radius: 10px;
-      background: #0056b3;
-      color: #ffffff !important;
-      font-size: 12px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    /* ---- Tier progress ---- */
+    .vip-progress{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      margin:-30px 16px 20px!important;
+      padding:18px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      position:relative;
+      z-index:10;
     }
-    .copy-btn:hover { background: #004494; }
-    .copy-btn:active { transform: scale(0.95); }
+    .vip-prog-title{
+      font-size:14px;
+      font-weight:800;
+      color:var(--xf-text);
+      margin-bottom:14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      letter-spacing:-.01em;
+    }
+    .vip-prog-title span{
+      color:var(--xf-muted);
+      font-weight:700;
+      font-size:11.5px;
+      letter-spacing:0;
+      text-transform:none;
+    }
+    .vip-tiers{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:8px;
+    }
+    .vip-tier{
+      border-radius:16px;
+      padding:12px 6px;
+      text-align:center;
+      border:1.5px solid var(--xf-line);
+      background:var(--xf-surface-2);
+      transition:transform .18s var(--xf-ease), border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .vip-tier:hover{transform:translateY(-2px)}
+    .vip-tier.unlocked{
+      border-color:rgba(22,163,74,.35);
+      background:rgba(22,163,74,.08);
+      box-shadow:0 10px 20px -16px rgba(22,163,74,.5);
+    }
+    .vt-icon{
+      width:32px!important;
+      height:32px!important;
+      flex:0 0 32px!important;
+      margin:0 auto 7px;
+      border-radius:11px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--xf-pink-soft);
+      color:var(--xf-accent);
+      overflow:hidden;
+      font-size:0;
+    }
+    .vt-icon::before{display:none!important;content:none!important}
+    .vt-icon svg{
+      width:18px;
+      height:18px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .vip-tier.unlocked .vt-icon{
+      background:rgba(22,163,74,.14);
+      color:var(--xf-success);
+    }
+    .vt-label{
+      font-size:10.5px;
+      font-weight:800;
+      color:var(--xf-muted);
+      letter-spacing:.03em;
+    }
+    .vip-tier.unlocked .vt-label{color:var(--xf-success)}
+    .vt-req{
+      font-size:9.5px;
+      color:var(--xf-ph);
+      margin-top:4px;
+      font-weight:800;
+      letter-spacing:.03em;
+    }
+    .vip-tier.unlocked .vt-req{color:var(--xf-success)}
 
-    .ref-link-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-top: 12px;
-      font-size: 13px;
-      color: #475569 !important;
-      word-break: break-all;
-      font-family: monospace;
+    /* ---- Stats ---- */
+    .stats-row{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      padding:0 16px;
+      margin-bottom:18px;
     }
-
-    .share-btn {
-      margin-top: 12px;
-      padding: 12px 24px;
-      border-radius: 12px;
-      background: #ffffff;
-      border: 1.5px solid #e2e8f0;
-      color: #0f172a !important;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+    .stat-box{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:18px!important;
+      padding:15px 8px!important;
+      text-align:center;
+      box-shadow:var(--xf-shadow-sm)!important;
+      transition:transform .18s var(--xf-ease), border-color .18s ease, box-shadow .18s ease;
     }
-    .share-btn:hover { border-color: #cbd5e1; background: #f8fafc; }
-    .share-btn svg { width: 16px; height: 16px; color: #0056b3; }
-
-    /* VIP Progress Card */
-    .vip-progress {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 20px;
-      margin: -24px 16px 20px;
-      padding: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-      position: relative;
-      z-index: 10;
+    .stat-box:hover{
+      transform:translateY(-2px);
+      border-color:var(--xf-accent-2)!important;
+      box-shadow:0 14px 30px -18px rgba(208,21,99,.32)!important;
     }
-
-    .vip-prog-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: #0f172a !important;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .stat-val{
+      font-size:clamp(15px,4.2vw,18px)!important;
+      font-weight:800!important;
+      color:var(--xf-text)!important;
+      letter-spacing:-.02em;
+      font-variant-numeric:tabular-nums;
+      line-height:1.1;
     }
-    .vip-prog-title span { color: #64748b !important; font-weight: 500; font-size: 12px; }
-
-    .vip-tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .vip-tier {
-      border-radius: 14px;
-      padding: 12px 6px;
-      text-align: center;
-      border: 1.5px solid #e2e8f0;
-      background: #ffffff;
-      transition: all 0.2s ease;
-    }
-    .vip-tier.unlocked {
-      border-color: #10b981;
-      background: #f0fdf4;
-    }
-    .vip-tier .vt-icon { font-size: 20px; margin-bottom: 6px; }
-    .vip-tier .vt-label { font-size: 11px; font-weight: 800; color: #64748b !important; }
-    .vip-tier.unlocked .vt-label { color: #059669 !important; }
-    .vip-tier .vt-req { font-size: 10px; color: #94a3b8 !important; margin-top: 4px; font-weight: 600; }
-
-    /* Stats Grid */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 0 16px;
-      margin-bottom: 20px;
-    }
-    .stat-box {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 16px;
-      padding: 16px 8px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    }
-    .stat-val { font-size: 18px; font-weight: 800; color: #0056b3 !important; }
-    .stat-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
-
-    /* Payments / Earnings Card */
-    .payments-card {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 20px;
-      margin: 0 16px 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-    .dc-header {
-      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
-      padding: 20px;
-      color: #ffffff !important;
-    }
-    .dc-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-    .dc-amount { font-size: 32px; font-weight: 800; margin-top: 6px; letter-spacing: -0.5px; }
-    .dc-sub { font-size: 13px; opacity: 0.85; margin-top: 4px; }
-    
-    .dc-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #f1f5f9; }
-    .dc-item { padding: 16px 8px; text-align: center; border-right: 1px solid #f1f5f9; }
-    .dc-item:last-child { border-right: none; }
-    .dc-item-val { font-size: 16px; font-weight: 800; color: #0f172a !important; }
-    .dc-item-lbl { font-size: 11px; color: #64748b !important; margin-top: 4px; text-transform: uppercase; font-weight: 600; }
-    
-    .dc-salary-note {
-      padding: 14px 16px;
-      font-size: 13px;
-      color: #475569 !important;
-      background: #f8fafc;
-      text-align: center;
-      line-height: 1.5;
-      border-top: 1px solid #f1f5f9;
-    }
-    .dc-salary-note strong { color: #0056b3 !important; }
-    .dc-salary-note a { color: #0056b3 !important; font-weight: 700; text-decoration: none; }
-
-    /* Level Tabs */
-    .level-tabs {
-      display: flex;
-      gap: 8px;
-      padding: 0 16px;
-      margin-bottom: 16px;
-    }
-    .ltab {
-      flex: 1;
-      padding: 10px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-      border: 1.5px solid #e2e8f0;
-      background: #ffffff;
-      color: #64748b !important;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .ltab:hover { border-color: #cbd5e1; }
-    .ltab.on {
-      background: #0056b3;
-      border-color: #0056b3;
-      color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+    #totalHousehold{color:var(--xf-accent)!important}
+    #activeHousehold{color:var(--xf-violet)!important}
+    #refEarnings{color:var(--xf-success)!important}
+    .stat-lbl{
+      font-size:10px!important;
+      color:var(--xf-muted)!important;
+      margin-top:4px;
+      text-transform:uppercase;
+      font-weight:800;
+      letter-spacing:.07em;
     }
 
-    /* Member List */
-    .members-container { padding: 0 16px; }
-    .member-card {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    /* ---- Team payments ---- */
+    .payments-card{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      margin:0 16px 18px!important;
+      overflow:hidden;
+      box-shadow:var(--xf-shadow-sm)!important;
     }
-    .member-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px;
-      border-bottom: 1px solid #f1f5f9;
-      transition: background 0.2s ease;
+    .dc-header{
+      position:relative;
+      overflow:hidden;
+      padding:20px 18px;
+      color:#ffffff!important;
+      background:var(--xf-hero)!important;
     }
-    .member-item:last-child { border-bottom: none; }
-    .member-item:hover { background: #f8fafc; }
+    .dc-header::before{
+      content:'';
+      position:absolute;
+      top:-80px;
+      right:-50px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,226,61,.34), transparent 68%);
+      pointer-events:none;
+    }
+    .dc-header::after{
+      content:'';
+      position:absolute;
+      bottom:-90px;
+      left:-40px;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
+      pointer-events:none;
+    }
+    .dc-label{
+      position:relative;
+      z-index:1;
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      opacity:.9;
+      color:#ffffff;
+    }
+    .dc-amount{
+      position:relative;
+      z-index:1;
+      font-size:clamp(26px,8vw,34px);
+      font-weight:800;
+      margin-top:7px;
+      letter-spacing:-.035em;
+      color:#ffffff!important;
+      font-variant-numeric:tabular-nums;
+      text-shadow:0 4px 18px rgba(0,0,0,.22);
+      line-height:1.05;
+    }
+    .dc-sub{
+      position:relative;
+      z-index:1;
+      font-size:12px;
+      opacity:.88;
+      margin-top:5px;
+      font-weight:600;
+      line-height:1.45;
+      color:#ffffff;
+    }
+    .dc-breakdown{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      border-top:1px solid var(--xf-line);
+      background:var(--xf-surface-2);
+    }
+    .dc-item{
+      padding:14px 8px;
+      text-align:center;
+      border-right:1px solid var(--xf-line);
+    }
+    .dc-item:last-child{border-right:0}
+    .dc-item-val{
+      font-size:14px;
+      font-weight:800;
+      color:var(--xf-text);
+      font-variant-numeric:tabular-nums;
+      letter-spacing:-.01em;
+    }
+    .dc-item-lbl{
+      font-size:10px;
+      color:var(--xf-muted);
+      margin-top:4px;
+      text-transform:uppercase;
+      font-weight:800;
+      letter-spacing:.06em;
+    }
+    .dc-salary-note{
+      padding:14px 16px;
+      font-size:12.5px;
+      color:var(--xf-mid);
+      background:linear-gradient(135deg,#fff8fb,#fffbe6);
+      text-align:center;
+      line-height:1.55;
+      border-top:1px solid var(--xf-line);
+      font-weight:600;
+    }
+    .dc-salary-note strong{color:var(--xf-accent);font-weight:800}
+    .dc-salary-note a{color:var(--xf-accent);font-weight:800;text-decoration:none}
+    .dc-salary-note a:hover{text-decoration:underline}
 
-    .member-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: #eff6ff;
-      color: #2563eb !important;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 800; flex-shrink: 0;
+    /* ---- Level tabs ---- */
+    .level-tabs{
+      display:grid!important;
+      grid-template-columns:repeat(3,minmax(0,1fr))!important;
+      gap:8px!important;
+      padding:0 16px!important;
+      margin:0 16px 14px!important;
+      border:0!important;
+      background:transparent!important;
+      box-shadow:none!important;
     }
-    .member-info { flex: 1; min-width: 0; }
-    .member-name { font-size: 14px; font-weight: 700; color: #0f172a !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .member-date { font-size: 12px; color: #64748b !important; margin-top: 2px; }
-    
-    .member-status {
-      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; flex-shrink: 0;
+    .ltab{
+      min-height:42px;
+      padding:10px 8px;
+      border-radius:13px;
+      font-size:11.5px;
+      font-weight:800;
+      text-align:center;
+      border:1.5px solid var(--xf-line);
+      background:var(--xf-surface);
+      color:var(--xf-muted);
+      cursor:pointer;
+      font-family:inherit;
+      transition:transform .18s var(--xf-ease), border-color .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
     }
-    .status-active { background: #f0fdf4; color: #16a34a !important; border: 1px solid #bbf7d0; }
-    .status-inactive { background: #f8fafc; color: #64748b !important; border: 1px solid #e2e8f0; }
+    .ltab:hover{
+      border-color:var(--xf-accent-2);
+      color:var(--xf-accent);
+      background:var(--xf-pink-soft);
+      transform:translateY(-1px);
+    }
+    .ltab.on{
+      background:var(--xf-accent)!important;
+      border-color:var(--xf-accent-2)!important;
+      color:#ffffff!important;
+      box-shadow:0 10px 22px -14px rgba(208,21,99,.7)!important;
+    }
 
-    /* Empty State */
-    .empty-state { text-align: center; padding: 40px 20px; color: #64748b !important; }
-    .empty-state-icon {
-      width: 64px; height: 64px; margin: 0 auto 16px;
-      background: #f8fafc; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+    /* ---- Members ---- */
+    .members-container{padding:0 16px}
+    .member-card{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:20px!important;
+      overflow:hidden;
+      box-shadow:var(--xf-shadow-sm)!important;
     }
-    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
+    .member-item{
+      display:flex!important;
+      align-items:center!important;
+      gap:13px!important;
+      padding:15px 16px!important;
+      border-bottom:1px solid var(--xf-line)!important;
+      background:transparent!important;
+      transition:background .18s ease;
+    }
+    .member-item:last-child{border-bottom:0!important}
+    .member-item:hover{background:var(--xf-surface-2)!important}
+    .member-avatar{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      background:var(--xf-pink-soft);
+      color:var(--xf-accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+      font-weight:800;
+      flex:0 0 44px;
+      letter-spacing:-.02em;
+    }
+    .member-info{flex:1;min-width:0}
+    .member-name{
+      font-size:14px;
+      font-weight:800;
+      color:var(--xf-text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      letter-spacing:-.01em;
+    }
+    .member-date{
+      font-size:11.5px;
+      color:var(--xf-muted);
+      margin-top:3px;
+      font-weight:600;
+    }
+    .member-status{
+      padding:5px 10px;
+      border-radius:99px;
+      font-size:10.5px;
+      font-weight:800;
+      flex:0 0 auto;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .status-active{
+      background:rgba(22,163,74,.12)!important;
+      color:var(--xf-success)!important;
+      border:1px solid rgba(22,163,74,.25)!important;
+    }
+    .status-inactive{
+      background:var(--xf-surface-2)!important;
+      color:var(--xf-muted)!important;
+      border:1px solid var(--xf-line)!important;
+    }
 
-    /* Loader */
-    .loader-wrap { padding: 40px 20px; display: flex; align-items: center; justify-content: center; }
-    .loader {
-      width: 32px; height: 32px; border: 3px solid #f1f5f9;
-      border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;
+    /* ---- Empty / loader ---- */
+    .empty-state{
+      text-align:center;
+      padding:48px 20px;
+      color:var(--xf-muted);
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-state-icon{
+      width:68px;
+      height:68px;
+      margin:0 auto 16px;
+      background:var(--xf-pink-soft);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .empty-state-icon svg{
+      width:32px;
+      height:32px;
+      stroke:var(--xf-accent);
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .empty-state p{
+      font-size:13.5px;
+      line-height:1.6;
+      font-weight:600;
+    }
+    .loader-wrap{
+      padding:42px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .loader{
+      width:30px;
+      height:30px;
+      border:3px solid var(--xf-pink-soft);
+      border-top-color:var(--xf-accent);
+      border-right-color:var(--xf-accent-2);
+      border-radius:50%;
+      animation:xfSpin .8s linear infinite;
+    }
 
-    /* Bottom Navigation */
-    .bottom-nav-premium {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #ffffff !important;
-      border-top: 1px solid #e2e8f0 !important;
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
-      z-index: 100;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    /* ---- Bottom nav ---- */
+    .bottom-nav-premium{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      z-index:100;
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-top:1px solid var(--xf-line);
+      box-shadow:0 -6px 22px -10px rgba(208,21,99,.18);
+      padding:10px 4px calc(10px + env(safe-area-inset-bottom));
     }
-    .nav-item-premium {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      padding: 8px; cursor: pointer; transition: all 0.2s ease;
-      border: none; background: none; color: #64748b !important;
-      font-size: 11px; font-weight: 600;
+    .nav-item-premium{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      padding:7px 4px;
+      border:0;
+      background:none;
+      cursor:pointer;
+      color:var(--xf-muted);
+      font-family:inherit;
+      font-size:10.5px;
+      font-weight:700;
+      transition:color .18s ease, transform .18s var(--xf-ease);
     }
-    .nav-item-premium.active { color: #0056b3 !important; }
-    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
-    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
-    .nav-icon-premium svg { width: 24px; height: 24px; }
+    .nav-item-premium:hover{transform:translateY(-2px)}
+    .nav-item-premium.active{color:var(--xf-accent)}
+    .nav-icon-premium{
+      width:24px;
+      height:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav-icon-premium svg{
+      width:24px;
+      height:24px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
 
-    /* Toast */
-    #toast {
-      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: #0f172a; color: #ffffff !important;
-      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
-      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 300;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    /* ---- Toast ---- */
+    #toast{
+      position:fixed!important;
+      bottom:104px!important;
+      left:50%!important;
+      transform:translateX(-50%) translateY(16px)!important;
+      background:var(--xf-text)!important;
+      color:#ffffff!important;
+      padding:13px 22px!important;
+      border-radius:14px!important;
+      font-size:14px!important;
+      font-weight:800!important;
+      opacity:0!important;
+      pointer-events:none!important;
+      z-index:300!important;
+      box-shadow:0 14px 30px -10px rgba(43,35,48,.5)!important;
+      transition:opacity .28s ease, transform .28s var(--xf-ease)!important;
+      max-width:calc(100% - 32px)!important;
+      text-align:center!important;
     }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.show{
+      opacity:1!important;
+      transform:translateX(-50%) translateY(0)!important;
+    }
 
-    @media (max-width: 480px) {
-      .stats-row { gap: 8px; padding: 0 12px; }
-      .stat-box { padding: 14px 6px; }
-      .stat-val { font-size: 16px; }
-      .level-tabs { padding: 0 12px; }
-      .members-container { padding: 0 12px; }
-      .vip-tiers { gap: 6px; }
-      .vip-tier .vt-label { font-size: 10px; }
+    @keyframes xfSpin{to{transform:rotate(360deg)}}
+    @keyframes xfUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .page-wrap > *{animation:xfUp .48s var(--xf-ease) both}
+    .topbar-premium{animation:none!important}
+
+    @media (min-width:820px){
+      body{padding:24px 18px 40px}
+      .page-wrap{
+        padding:0 0 24px!important;
+        border:1px solid var(--xf-line);
+        border-radius:30px;
+        background:var(--xf-surface);
+        box-shadow:var(--xf-shadow);
+        overflow:hidden;
+      }
+      .topbar-premium{border-radius:0}
+      .bottom-nav-premium{display:none}
+      body{padding-bottom:40px}
+    }
+
+    @media (max-width:480px){
+      .stats-row{gap:8px;padding:0 12px}
+      .stat-box{padding:14px 6px!important}
+      .stat-val{font-size:15px!important}
+      .level-tabs{padding:0 12px!important;margin-inline:12px!important}
+      .members-container{padding:0 12px}
+      .vip-tiers{gap:6px}
+      .vt-label{font-size:10px}
+      .vt-req{font-size:9px}
+      .ref-code-box{padding:12px 12px 12px 14px!important}
+      .copy-btn{padding:10px 12px!important;font-size:11px!important}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.001ms!important;
+        transition-duration:.001ms!important;
+      }
     }
   </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
-  <!-- Hero -->
-  <div class="ref-hero">
-    <div class="ref-hero-title">Your Referral Code</div>
-    <div class="ref-code-box">
-      <div class="ref-code" id="refCode">—</div>
-      <button class="copy-btn" onclick="copyCode()">COPY</button>
-    </div>
-    <div class="ref-link-box" id="refLink">Loading…</div>
-    <button class="share-btn" onclick="shareLink()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-      Share Link
-    </button>
-  </div>
 
-  <!-- Service tier Progress -->
-  <div class="vip-progress">
+  <!-- Top Bar -->
+  <header class="topbar-premium">
+    <a class="back-btn-premium" href="dashboard.html" aria-label="Back to dashboard">‹</a>
+    <div class="topbar-title">My Team</div>
+    <div class="topbar-spacer" aria-hidden="true"></div>
+  </header>
+
+  <!-- Referral Hero -->
+  <section class="ref-hero">
+    <div class="rh-inner">
+      <div class="rh-brand" aria-hidden="true">
+        <span class="rh-diamond"></span>
+        <span>XFusion Referrals</span>
+      </div>
+
+      <div class="ref-hero-title">Your Referral Code</div>
+
+      <div class="ref-code-box">
+        <div class="ref-code" id="refCode">—</div>
+        <button class="copy-btn" type="button" onclick="copyCode()">COPY</button>
+      </div>
+
+      <div class="ref-link-box" id="refLink">Loading…</div>
+
+      <button class="share-btn" type="button" onclick="shareLink()">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        Share Invite
+      </button>
+    </div>
+  </section>
+
+  <!-- Tier Progress -->
+  <section class="vip-progress" aria-label="Tier level progress">
     <div class="vip-prog-title">
       Tier Level Progress
       <span id="activeRefs">(0 active investors)</span>
     </div>
+
     <div class="vip-tiers">
       <div class="vip-tier" id="vt1">
-        <div class="vt-icon">🥉</div>
+        <div class="vt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.5 7.1 18.2 8 12.7 4 8.8l5.5-.8z"></path>
+          </svg>
+        </div>
         <div class="vt-label">Tier 1</div>
         <div class="vt-req">3 refs</div>
       </div>
+
       <div class="vip-tier" id="vt2">
-        <div class="vt-icon">🥈</div>
+        <div class="vt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"></path>
+          </svg>
+        </div>
         <div class="vt-label">Tier 2</div>
         <div class="vt-req">5 refs</div>
       </div>
+
       <div class="vip-tier" id="vt3">
-        <div class="vt-icon">🥇</div>
+        <div class="vt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 4h8v4a4 4 0 0 1-8 0z"></path>
+            <path d="M8 5H5v2a3 3 0 0 0 3 3"></path>
+            <path d="M16 5h3v2a3 3 0 0 1-3 3"></path>
+            <path d="M10 15h4"></path>
+            <path d="M12 12v3"></path>
+            <path d="M9 20h6"></path>
+          </svg>
+        </div>
         <div class="vt-label">Tier 3</div>
         <div class="vt-req">10 refs</div>
       </div>
+
       <div class="vip-tier" id="vt4">
-        <div class="vt-icon">💎</div>
+        <div class="vt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 3h12l3 6-9 12L3 9z"></path>
+            <path d="M3 9h18"></path>
+            <path d="M9 3l3 6 3-6"></path>
+            <path d="M12 21L9 9"></path>
+            <path d="M12 21l3-12"></path>
+          </svg>
+        </div>
         <div class="vt-label">Tier 4</div>
         <div class="vt-req">25 refs</div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Stats -->
-  <div class="stats-row">
+  <section class="stats-row" aria-label="Team statistics">
     <div class="stat-box">
       <div class="stat-val" id="totalHousehold">0</div>
       <div class="stat-lbl">Total Team</div>
@@ -388,15 +894,16 @@
       <div class="stat-val" id="refEarnings">₦0</div>
       <div class="stat-lbl">Earned</div>
     </div>
-  </div>
+  </section>
 
-  <!-- Total team payments -->
-  <div class="payments-card">
+  <!-- Team Payments -->
+  <section class="payments-card" aria-label="Total team payments">
     <div class="dc-header">
       <div class="dc-label">Total Team Payments</div>
       <div class="dc-amount" id="teamPaymentsTotal">₦0</div>
       <div class="dc-sub">Combined payments from your entire downline</div>
     </div>
+
     <div class="dc-breakdown">
       <div class="dc-item">
         <div class="dc-item-val" id="l1Payments">₦0</div>
@@ -411,30 +918,32 @@
         <div class="dc-item-lbl">Level 3</div>
       </div>
     </div>
+
     <div class="dc-salary-note">
-      Your monthly service credit is <strong>5%</strong> of this total — currently <strong id="salaryEstimate">₦0</strong>. <br/>
+      Your monthly service credit is <strong>5%</strong> of this total — currently <strong id="salaryEstimate">₦0</strong>.<br/>
       <a href="monthly-salary.html">Check eligibility →</a>
     </div>
-  </div>
+  </section>
 
-  <!-- Level tabs -->
-  <div class="level-tabs">
-    <button class="ltab on" onclick="switchLevel(this,1)">Level 1 (20%)</button>
-    <button class="ltab" onclick="switchLevel(this,2)">Level 2 (3%)</button>
-    <button class="ltab" onclick="switchLevel(this,3)">Level 3 (2%)</button>
+  <!-- Level Tabs -->
+  <div class="level-tabs" aria-label="Referral levels">
+    <button class="ltab on" type="button" onclick="switchLevel(this,1)">Level 1 (20%)</button>
+    <button class="ltab" type="button" onclick="switchLevel(this,2)">Level 2 (3%)</button>
+    <button class="ltab" type="button" onclick="switchLevel(this,3)">Level 3 (2%)</button>
   </div>
 
   <!-- Customers list -->
   <div class="members-container" id="membersList">
     <div class="loader-wrap"><div class="loader"></div></div>
   </div>
+
 </div>
 
 <!-- Bottom Navigation -->
-<nav class="bottom-nav-premium">
-  <button class="nav-item-premium" onclick="location.href='dashboard.html'">
+<nav class="bottom-nav-premium" aria-label="Primary">
+  <button class="nav-item-premium" type="button" onclick="location.href='dashboard.html'">
     <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24">
         <rect x="3" y="3" width="7" height="7"></rect>
         <rect x="14" y="3" width="7" height="7"></rect>
         <rect x="14" y="14" width="7" height="7"></rect>
@@ -443,9 +952,10 @@
     </div>
     <span>Home</span>
   </button>
-  <button class="nav-item-premium" onclick="location.href='products.html'">
+
+  <button class="nav-item-premium" type="button" onclick="location.href='products.html'">
     <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24">
         <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
         <polyline points="2 17 12 22 22 17"></polyline>
         <polyline points="2 12 12 17 22 12"></polyline>
@@ -453,9 +963,10 @@
     </div>
     <span>Plans</span>
   </button>
-  <button class="nav-item-premium active" onclick="location.href='team.html'">
+
+  <button class="nav-item-premium active" type="button" onclick="location.href='team.html'">
     <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
         <circle cx="9" cy="7" r="4"></circle>
         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -464,18 +975,20 @@
     </div>
     <span>Team</span>
   </button>
-  <button class="nav-item-premium" onclick="location.href='notifications.html'">
+
+  <button class="nav-item-premium" type="button" onclick="location.href='notifications.html'">
     <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
       </svg>
     </div>
     <span>Alerts</span>
   </button>
-  <button class="nav-item-premium" onclick="location.href='profile.html'">
+
+  <button class="nav-item-premium" type="button" onclick="location.href='profile.html'">
     <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
         <circle cx="12" cy="7" r="4"></circle>
       </svg>
@@ -486,11 +999,14 @@
 
 <div id="toast"></div>
 
+<!-- ===== SCRIPT STACK: preserved exactly ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
 <script src="assets/js/icons.js" defer></script>
+
+<!-- ===== INLINE SCRIPT: VERBATIM except share title/text: CardinalStone -> XFusion ===== -->
 <script>
 (function(){
   var userId="", refCode="", activeLevel=1;
@@ -589,7 +1105,7 @@
   window.shareLink=function(){
     var link=location.origin+"/register.html?ref="+refCode;
     if(navigator.share){
-      navigator.share({title:"Join CardinalStone",text:"Join me on CardinalStone and earn daily! Use my code: "+refCode,url:link});
+      navigator.share({title:"Join XFusion",text:"Join me on XFusion and earn daily! Use my code: "+refCode,url:link});
     } else {
       navigator.clipboard.writeText(link).then(function(){window.SerlzoAuth.toast("Referral link copied!");});
     }
