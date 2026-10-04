@@ -2,465 +2,365 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="theme-color" content="#0056b3" />
-  <title>CardinalStone — Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
-  
+
   <style>
-    /* BULLETPROOF LIGHT DASHBOARD OVERRIDES */
+    /* ===================== XFusion Dashboard Skin ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --xf-bg:#fff8fb; --xf-surface:#ffffff; --xf-surface-2:#fdf3f8;
+      --xf-line:rgba(255,61,139,.14); --xf-line-2:#f0dde7;
+      --xf-text:#2b2330; --xf-mid:#4a3f52; --xf-muted:#6f6478; --xf-placeholder:#b8aec0; --xf-ink:#2b2330;
+      --xf-accent:#d01563; --xf-accent-2:#ff3d8b; --xf-pink:#ff3d8b; --xf-pink-deep:#d01563;
+      --xf-pink-soft:#ffe3ef; --xf-lemon:#ffe23d; --xf-yellow:#ffc93c; --xf-hero-dark:#8a0e42;
+      --xf-success:#16a34a; --xf-danger:#e11d48;
+      --xf-sweep:linear-gradient(135deg,var(--xf-pink) 0%,var(--xf-yellow) 55%,var(--xf-lemon) 100%);
+      --xf-hero:linear-gradient(135deg,var(--xf-hero-dark) 0%,var(--xf-accent) 52%,var(--xf-accent-2) 100%);
+      --xf-ease:cubic-bezier(.23,1,.32,1);
+      --xf-shadow:0 10px 26px -12px rgba(208,21,99,.18);
+      --xf-shadow-sm:0 4px 14px -8px rgba(208,21,99,.16);
+    }
+    html,body { min-height:100%; }
     body {
-      background: #ffffff !important;
-      color: #0f172a !important; /* Deep black/slate for max contrast */
-      min-height: 100vh;
-      padding-bottom: 90px;
-      font-family: 'DM Sans', sans-serif;
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--xf-text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,61,139,.06), transparent 30rem),
+        radial-gradient(circle at 100% 0%, rgba(255,226,61,.10), transparent 34rem),
+        var(--xf-bg);
+      min-height:100vh; padding-bottom:96px; -webkit-text-size-adjust:100%; overflow-x:hidden;
     }
+    .num { font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
 
-    * { -webkit-tap-highlight-color: transparent; }
+    .page-wrap { width:100%; max-width:760px; margin:0 auto; padding-bottom:100px; background:transparent; }
 
-    .page-wrap {
-      width: 100%;
-      max-width: 100%;
-      padding-bottom: 100px;
-      background: transparent !important;
-    }
-
-    /* Top Bar */
+    /* ---- Top bar ---- */
     .topbar-premium {
-      background: #ffffff !important;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      border-bottom: 1px solid #e2e8f0 !important;
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 18px calc(14px); background:rgba(255,255,255,.86);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--xf-line);
     }
-
-    .user-greeting { display: flex; flex-direction: column; }
-    .greeting-text { font-size: 13px; color: #64748b !important; font-weight: 500; }
-    .user-name { font-size: 18px; color: #0f172a !important; font-weight: 800; margin-top: 2px; }
-
-    .topbar-actions { display: flex; gap: 10px; align-items: center; }
-
+    .user-greeting { display:flex; flex-direction:column; min-width:0; }
+    .greeting-text { font-size:12px; color:var(--xf-muted); font-weight:600; letter-spacing:.02em; }
+    .user-name { font-size:18px; color:var(--xf-text); font-weight:800; margin-top:1px; letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .topbar-actions { display:flex; gap:9px; align-items:center; flex:0 0 auto; }
     .vip-badge {
-      background: linear-gradient(135deg, #007bff, #10b981);
-      color: #ffffff !important;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      background:var(--xf-sweep); color:var(--xf-ink);
+      padding:6px 12px; border-radius:999px; font-size:11px; font-weight:800;
+      text-transform:uppercase; letter-spacing:.06em; box-shadow:0 4px 12px -4px rgba(208,21,99,.4);
     }
-
     .icon-btn-premium {
-      width: 42px; height: 42px; border-radius: 12px;
-      background: #f8fafc !important;
-      border: 1px solid #e2e8f0 !important;
-      display: flex; align-items: center; justify-content: center;
-      color: #0f172a !important; cursor: pointer;
-      transition: all 0.2s ease; position: relative;
+      position:relative; width:42px; height:42px; border-radius:13px;
+      background:var(--xf-surface-2); border:1px solid var(--xf-line);
+      display:flex; align-items:center; justify-content:center; color:var(--xf-text);
+      cursor:pointer; transition:transform .18s var(--xf-ease), background .18s ease, border-color .18s ease;
     }
-    .icon-btn-premium:hover { background: #f1f5f9 !important; transform: translateY(-2px); }
-    .icon-btn-premium svg { width: 20px; height: 20px; }
-
+    .icon-btn-premium:hover { transform:translateY(-2px); background:var(--xf-pink-soft); border-color:var(--xf-accent-2); }
+    .icon-btn-premium:active { transform:scale(.95); }
+    .icon-btn-premium svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     .badge-notification {
-      position: absolute; top: -2px; right: -2px;
-      background: #ef4444; color: #ffffff !important;
-      font-size: 10px; font-weight: 800; min-width: 18px; height: 18px;
-      border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 5px;
+      position:absolute; top:-3px; right:-3px; min-width:18px; height:18px; padding:0 5px;
+      background:var(--xf-danger); color:#fff; font-size:10px; font-weight:800; border-radius:9px;
+      display:flex; align-items:center; justify-content:center; border:2px solid #fff;
     }
 
-    /* Wallet Hero Card */
+    /* ---- Wallet hero ---- */
     .wallet-hero {
-      background: linear-gradient(135deg, #0056b3 0%, #007bff 50%, #00a8ff 100%) !important;
-      margin: 16px; padding: 28px 24px; border-radius: 28px;
-      color: #ffffff !important; position: relative; overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 86, 179, 0.15);
+      position:relative; overflow:hidden; margin:16px; padding:26px 22px 22px;
+      border-radius:28px; color:#fff; background:var(--xf-hero);
+      box-shadow:0 18px 40px -16px rgba(138,14,66,.5);
     }
-    .wallet-hero::before {
-      content: ''; position: absolute; top: -50%; right: -20%;
-      width: 300px; height: 300px; background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
+    .wallet-hero::before { content:''; position:absolute; top:-55%; right:-18%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(255,226,61,.32), transparent 70%); }
+    .wallet-hero::after { content:''; position:absolute; bottom:-40%; left:-12%; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); }
+    .wh-watermark {
+      position:absolute; top:14px; right:18px; z-index:0; pointer-events:none; user-select:none;
+      font-family:'Playfair Display',serif; font-weight:800; font-size:30px; letter-spacing:.04em;
+      color:rgba(255,255,255,.14);
     }
-    .wallet-hero::after {
-      content: ''; position: absolute; bottom: -30%; left: -10%;
-      width: 200px; height: 200px; background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .wallet-label { font-size: 13px; color: rgba(255, 255, 255, 0.9) !important; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; position: relative; z-index: 1; }
-    .wallet-balance { font-size: 42px; font-weight: 800; margin: 8px 0 12px; letter-spacing: -1px; position: relative; z-index: 1; color: #ffffff !important; }
-    .wallet-ref { font-size: 12px; color: rgba(255, 255, 255, 0.85) !important; margin-bottom: 20px; position: relative; z-index: 1; }
-    .wallet-ref span { color: #ffffff !important; font-weight: 700; }
-
-    .wallet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; z-index: 1; }
+    .wh-brand { position:relative; z-index:1; display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+    .wh-diamond { width:13px; height:13px; border-radius:4px; transform:rotate(45deg); background:var(--xf-sweep); box-shadow:0 0 0 4px rgba(255,255,255,.18); }
+    .wh-word { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; letter-spacing:.02em; }
+    .wallet-label { position:relative; z-index:1; font-size:12px; color:rgba(255,255,255,.82); font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .wallet-balance { position:relative; z-index:1; font-size:clamp(34px,9vw,44px); font-weight:800; margin:8px 0 6px; letter-spacing:-.03em; color:#fff; }
+    .wallet-ref { position:relative; z-index:1; font-size:12px; color:rgba(255,255,255,.82); margin-bottom:20px; }
+    .wallet-ref span { color:#fff; font-weight:800; letter-spacing:.04em; }
+    .wallet-actions { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .wallet-action-btn {
-      padding: 14px; border-radius: 16px; border: none; font-weight: 700; font-size: 14px;
-      cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
+      min-height:48px; padding:13px; border-radius:15px; border:1px solid rgba(255,255,255,.3);
+      font-weight:800; font-size:14px; font-family:inherit; cursor:pointer; color:#fff;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:transform .18s var(--xf-ease), background .18s ease, box-shadow .18s ease;
     }
-    .wallet-action-btn.primary { background: rgba(255, 255, 255, 0.25); color: #ffffff !important; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
-    .wallet-action-btn.secondary { background: rgba(0, 0, 0, 0.15); color: #ffffff !important; border: 1.5px solid rgba(255, 255, 255, 0.25); }
-    .wallet-action-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
-    .wallet-action-btn:active { transform: scale(0.97); }
-    .wallet-action-btn svg { width: 18px; height: 18px; }
+    .wallet-action-btn.primary { background:rgba(255,255,255,.22); backdrop-filter:blur(8px); }
+    .wallet-action-btn.secondary { background:rgba(0,0,0,.16); border-color:rgba(255,255,255,.22); }
+    .wallet-action-btn:hover { transform:translateY(-2px); box-shadow:0 10px 22px -8px rgba(0,0,0,.3); }
+    .wallet-action-btn:active { transform:scale(.97); }
+    .wallet-action-btn svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
 
-    /* Quick Actions - Circular Icons */
-    .quick-actions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 20px 16px; margin-bottom: 16px; }
-    .quick-action-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.2s ease; }
-    .quick-action-item:active { transform: scale(0.92); }
-    
+    /* ---- Quick actions ---- */
+    .quick-actions { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; padding:18px 16px 6px; }
+    .quick-action-item { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; transition:transform .18s var(--xf-ease); }
+    .quick-action-item:active { transform:scale(.92); }
     .quick-icon-circle {
-      width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 18px -8px rgba(43,35,48,.35); transition:transform .18s var(--xf-ease);
     }
-    .quick-icon-circle.invest { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-    .quick-icon-circle.deposit { background: linear-gradient(135deg, #10b981, #059669); }
-    .quick-icon-circle.withdraw { background: linear-gradient(135deg, #ef4444, #dc2626); }
-    .quick-icon-circle.gift { background: linear-gradient(135deg, #f59e0b, #d97706); }
-    .quick-icon-circle.referral { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-    .quick-icon-circle svg { width: 28px; height: 28px; color: #ffffff !important; }
+    .quick-action-item:hover .quick-icon-circle { transform:translateY(-3px); }
+    .quick-icon-circle svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+    .quick-icon-circle.invest   { background:linear-gradient(135deg,#ff3d8b,#d01563); }
+    .quick-icon-circle.deposit  { background:linear-gradient(135deg,#ffe23d,#ffc93c); }
+    .quick-icon-circle.withdraw { background:linear-gradient(135deg,#ff5d73,#e11d48); }
+    .quick-icon-circle.gift     { background:linear-gradient(135deg,#ffc93c,#ff8a3d); }
+    .quick-icon-circle.referral { background:linear-gradient(135deg,#c04cff,#ff3d8b); }
+    .quick-icon-circle.deposit svg, .quick-icon-circle.gift svg { stroke:#5a3d00; } /* dark icon on light lemon */
+    .quick-action-label { font-size:11px; font-weight:700; color:var(--xf-text); text-align:center; line-height:1.2; }
 
-    .quick-action-label { font-size: 12px; font-weight: 700; color: #0f172a !important; text-align: center; }
-
-    /* Daily Profit Card */
+    /* ---- Daily profit ---- */
     .daily-profit-card {
-      background: #ffffff !important;
-      margin: 0 16px 16px; padding: 20px; border-radius: 20px;
-      border: 1px solid #e2e8f0 !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      display: flex; align-items: center; gap: 16px;
+      display:flex; align-items:center; gap:14px; margin:14px 16px; padding:16px 18px;
+      background:var(--xf-surface); border:1px solid var(--xf-line); border-radius:20px; box-shadow:var(--xf-shadow-sm);
     }
-    .profit-icon {
-      width: 52px; height: 52px; background: linear-gradient(135deg, #10b981, #059669);
-      border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .profit-icon svg { width: 28px; height: 28px; color: #ffffff !important; }
-    .profit-content { flex: 1; }
-    .profit-title { font-size: 16px; font-weight: 800; color: #0f172a !important; margin-bottom: 4px; }
-    .profit-subtitle { font-size: 13px; color: #475569 !important; margin-bottom: 6px; }
-    .profit-earned { font-size: 15px; font-weight: 700; color: #10b981 !important; }
+    .profit-icon { width:50px; height:50px; flex:0 0 50px; border-radius:15px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#22c55e,#16a34a); box-shadow:0 8px 16px -8px rgba(22,163,74,.5); }
+    .profit-icon svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+    .profit-content { flex:1; min-width:0; }
+    .profit-title { font-size:15px; font-weight:800; color:var(--xf-text); }
+    .profit-subtitle { font-size:12px; color:var(--xf-muted); margin:2px 0 5px; }
+    .profit-earned { font-size:13px; font-weight:700; color:var(--xf-muted); }
+    .profit-earned #dailyEarned { color:var(--xf-success); font-weight:800; }
 
-    /* Stats Grid */
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; margin-bottom: 20px; }
-    .stat-card {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    }
-    .stat-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-    .stat-icon.blue { background: #eff6ff; }
-    .stat-icon.red { background: #fef2f2; }
-    .stat-icon svg { width: 22px; height: 22px; }
-    .stat-icon.blue svg { color: #2563eb !important; }
-    .stat-icon.red svg { color: #dc2626 !important; }
-    .stat-value { font-size: 24px; font-weight: 800; color: #0f172a !important; }
-    .stat-label { font-size: 13px; color: #475569 !important; font-weight: 600; }
+    /* ---- Stats ---- */
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:6px 16px 4px; }
+    .stat-card { background:var(--xf-surface); border:1px solid var(--xf-line); border-radius:20px; padding:18px; display:flex; flex-direction:column; gap:8px; box-shadow:var(--xf-shadow-sm); }
+    .stat-icon { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; }
+    .stat-icon svg { width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+    .stat-icon.blue { background:var(--xf-pink-soft); color:var(--xf-accent); }
+    .stat-icon.red  { background:#f3e8ff; color:#9333ea; }
+    .stat-value { font-size:23px; font-weight:800; color:var(--xf-text); }
+    .stat-label { font-size:12px; color:var(--xf-muted); font-weight:600; }
 
-    /* Section Header */
-    .section-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 16px 12px; }
-    .section-title { font-size: 17px; font-weight: 800; color: #0f172a !important; }
-    .section-link { font-size: 13px; color: #0056b3 !important; font-weight: 700; text-decoration: none; }
+    /* ---- Section header ---- */
+    .section-header { display:flex; align-items:center; justify-content:space-between; padding:20px 16px 12px; }
+    .section-title { font-size:16px; font-weight:800; color:var(--xf-text); letter-spacing:-.01em; display:flex; align-items:center; gap:9px; }
+    .section-title::before { content:''; width:4px; height:16px; border-radius:3px; background:var(--xf-sweep); }
+    .section-link { font-size:13px; color:var(--xf-accent); font-weight:800; text-decoration:none; }
+    .section-link:hover { color:var(--xf-pink-deep); text-decoration:underline; }
 
-    /* Active Plans */
-    .active-plans-container { padding: 0 16px; margin-bottom: 20px; }
-    .plan-card {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 20px; padding: 18px; margin-bottom: 12px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    }
-    .plan-info { flex: 1; }
-    .plan-name { font-size: 15px; font-weight: 700; color: #0f172a !important; margin-bottom: 4px; }
-    .plan-progress { font-size: 12px; color: #475569 !important; margin-bottom: 8px; }
-    .plan-progress-bar { height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden; width: 120px; }
-    .plan-progress-fill { height: 100%; background: linear-gradient(90deg, #007bff, #10b981); border-radius: 3px; transition: width 0.3s ease; }
-    .plan-earnings { text-align: right; }
-    .plan-earnings-value { font-size: 16px; font-weight: 800; color: #10b981 !important; }
-    .plan-earnings-label { font-size: 11px; color: #475569 !important; }
+    /* ---- Active plans (script-injected .plan-card) ---- */
+    .active-plans-container { padding:0 16px; margin-bottom:8px; }
+    .plan-card { background:var(--xf-surface); border:1px solid var(--xf-line); border-radius:20px; padding:16px 18px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:14px; box-shadow:var(--xf-shadow-sm); }
+    .plan-info { flex:1; min-width:0; }
+    .plan-name { font-size:15px; font-weight:800; color:var(--xf-text); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .plan-progress { font-size:12px; color:var(--xf-muted); margin-bottom:8px; font-weight:600; }
+    .plan-progress-bar { height:7px; background:var(--xf-surface-2); border:1px solid var(--xf-line); border-radius:99px; overflow:hidden; width:100%; max-width:140px; }
+    .plan-progress-fill { height:100%; border-radius:99px; background:var(--xf-sweep); transition:width .4s var(--xf-ease); }
+    .plan-earnings { text-align:right; flex:0 0 auto; }
+    .plan-earnings-value { font-size:16px; font-weight:800; color:var(--xf-success); }
+    .plan-earnings-label { font-size:11px; color:var(--xf-muted); font-weight:600; }
 
-    /* Recent Transactions */
-    .transactions-container { padding: 0 16px; }
-    .transaction-item {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 16px; padding: 16px; margin-bottom: 10px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    }
-    .transaction-info { flex: 1; }
-    .transaction-title { font-size: 14px; font-weight: 700; color: #0f172a !important; margin-bottom: 4px; }
-    .transaction-time { font-size: 12px; color: #475569 !important; }
-    .transaction-amount { font-size: 15px; font-weight: 800; }
-    .transaction-amount.credit { color: #10b981 !important; }
-    .transaction-amount.debit { color: #ef4444 !important; }
+    /* ---- Transactions (script-injected .transaction-item) ---- */
+    .transactions-container { padding:0 16px 8px; }
+    .transaction-item { background:var(--xf-surface); border:1px solid var(--xf-line); border-radius:16px; padding:15px 16px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-shadow:var(--xf-shadow-sm); }
+    .transaction-info { flex:1; min-width:0; }
+    .transaction-title { font-size:14px; font-weight:700; color:var(--xf-text); margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .transaction-time { font-size:12px; color:var(--xf-muted); }
+    .transaction-amount { font-size:15px; font-weight:800; flex:0 0 auto; }
+    .transaction-amount.credit { color:var(--xf-success); }
+    .transaction-amount.debit  { color:var(--xf-danger); }
 
-    /* Bottom Navigation */
+    /* ---- Loader / empty (script-injected) ---- */
+    .loader-wrap { padding:36px 20px; display:flex; align-items:center; justify-content:center; }
+    .loader { width:30px; height:30px; border:3px solid var(--xf-pink-soft); border-top-color:var(--xf-accent); border-right-color:var(--xf-accent-2); border-radius:50%; animation:xfSpin .8s linear infinite; }
+    .empty-state { text-align:center; padding:36px 20px; color:var(--xf-muted); }
+    .empty-state-icon { width:62px; height:62px; margin:0 auto 14px; background:var(--xf-pink-soft); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .empty-state-icon svg { width:30px; height:30px; stroke:var(--xf-accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .empty-state p { font-size:14px; line-height:1.6; margin-bottom:14px; }
+    .empty-state a { color:var(--xf-accent); font-weight:800; text-decoration:none; }
+    .empty-state button { margin-top:4px; padding:11px 22px; border-radius:12px; border:0; background:var(--xf-sweep); color:var(--xf-ink); font-size:13px; font-weight:800; font-family:inherit; cursor:pointer; box-shadow:var(--xf-shadow-sm); }
+
+    /* Normalize the frozen script's runtime-injected inline colors -> XFusion */
+    .empty-state { color:var(--xf-muted) !important; }
+    .empty-state-icon { background:var(--xf-pink-soft) !important; }
+    .empty-state-icon svg { stroke:var(--xf-accent) !important; }
+    .empty-state a { color:var(--xf-accent) !important; }
+    .empty-state button { background:var(--xf-sweep) !important; color:var(--xf-ink) !important; border:0 !important; }
+
+    /* ---- Bottom nav ---- */
     .bottom-nav-premium {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #ffffff !important;
-      border-top: 1px solid #e2e8f0 !important;
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
-      z-index: 100;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+      position:fixed; bottom:0; left:0; right:0; z-index:100;
+      display:grid; grid-template-columns:repeat(5,1fr);
+      background:rgba(255,255,255,.94); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border-top:1px solid var(--xf-line); box-shadow:0 -6px 22px -10px rgba(208,21,99,.18);
+      padding:10px 4px calc(10px + env(safe-area-inset-bottom));
     }
     .nav-item-premium {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      padding: 8px; cursor: pointer; transition: all 0.2s ease;
-      border: none; background: none; color: #64748b !important;
-      font-size: 11px; font-weight: 600;
+      display:flex; flex-direction:column; align-items:center; gap:4px; padding:7px 4px;
+      border:0; background:none; cursor:pointer; color:var(--xf-muted);
+      font-size:10.5px; font-weight:700; font-family:inherit; transition:color .18s ease, transform .18s var(--xf-ease);
     }
-    .nav-item-premium.active { color: #0056b3 !important; }
-    .nav-item-premium:hover { color: #0056b3 !important; transform: translateY(-2px); }
-    .nav-icon-premium { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
-    .nav-icon-premium svg { width: 24px; height: 24px; }
+    .nav-item-premium:hover { transform:translateY(-2px); }
+    .nav-item-premium.active { color:var(--xf-accent); }
+    .nav-icon-premium { width:24px; height:24px; display:flex; align-items:center; justify-content:center; }
+    .nav-icon-premium svg { width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .nav-item-premium.active .nav-icon-premium::after { content:''; }
 
-    /* Empty State */
-    .empty-state { text-align: center; padding: 40px 20px; color: #475569 !important; }
-    .empty-state-icon {
-      width: 64px; height: 64px; margin: 0 auto 16px;
-      background: #f8fafc; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .empty-state-icon svg { width: 32px; height: 32px; color: #94a3b8 !important; }
-    .empty-state p { font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
-    .empty-state a { color: #0056b3 !important; font-weight: 700; text-decoration: none; }
-
-    /* Loader */
-    .loader-wrap { padding: 40px 20px; display: flex; align-items: center; justify-content: center; }
-    .loader {
-      width: 32px; height: 32px; border: 3px solid #f1f5f9;
-      border-top-color: #0056b3; border-radius: 50%; animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Welcome Modal (Light Theme) */
-    .welcome-backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
-    .welcome-dialog {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 28px; overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    .welcome-hero {
-      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%) !important;
-      padding: 32px 24px; text-align: center; position: relative;
-    }
-    .welcome-title { font-size: 22px; font-weight: 800; color: #ffffff !important; margin-bottom: 8px; }
-    .welcome-subtitle { font-size: 14px; color: rgba(255, 255, 255, 0.9) !important; }
-    .welcome-close {
-      position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2); border: none; color: #ffffff !important;
-      font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s ease;
-    }
-    .welcome-close:hover { background: rgba(255, 255, 255, 0.3); transform: rotate(90deg); }
-    .welcome-body { padding: 24px; }
-    .welcome-copy { font-size: 14px; color: #475569 !important; margin-bottom: 20px; text-align: center; font-weight: 600; }
-    .welcome-rules { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-    .welcome-rule {
-      display: flex; gap: 12px; padding: 14px;
-      background: #f8fafc; border-radius: 14px; border: 1px solid #e2e8f0;
-    }
-    .welcome-rule b {
-      width: 28px; height: 28px; background: linear-gradient(135deg, #007bff, #10b981);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: #ffffff !important; font-weight: 800; font-size: 13px; flex-shrink: 0;
-    }
-    .welcome-rule span { font-size: 13px; color: #0f172a !important; line-height: 1.5; font-weight: 500; }
-    .welcome-rule strong { color: #0056b3 !important; font-weight: 800; }
-    .welcome-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .welcome-action {
-      padding: 14px; border-radius: 14px; font-weight: 700; font-size: 14px;
-      text-align: center; cursor: pointer; transition: all 0.2s ease; border: none; text-decoration: none;
-    }
-    .welcome-action.primary { background: linear-gradient(135deg, #0056b3, #007bff); color: #ffffff !important; }
-    .welcome-action.secondary { background: #f8fafc; color: #0f172a !important; border: 1px solid #e2e8f0; }
-    .welcome-action:hover { transform: translateY(-2px); }
-
-    /* Toast Notification */
+    /* ---- Toast ---- */
     #toast {
-      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: #0f172a; color: #ffffff !important;
-      padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 600;
-      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 200;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      position:fixed; bottom:104px; left:50%; transform:translateX(-50%) translateY(16px);
+      background:var(--xf-text); color:#fff; padding:13px 22px; border-radius:14px;
+      font-size:14px; font-weight:700; opacity:0; pointer-events:none; z-index:200;
+      box-shadow:0 14px 30px -10px rgba(43,35,48,.5); transition:opacity .28s ease, transform .28s var(--xf-ease);
+      max-width:calc(100% - 32px); text-align:center;
     }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    /* Mobile Optimizations */
-    @media (max-width: 480px) {
-      .wallet-balance { font-size: 36px; }
-      .quick-actions { grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 16px 12px; }
-      .quick-icon-circle { width: 56px; height: 56px; }
-      .quick-icon-circle svg { width: 24px; height: 24px; }
-      .quick-action-label { font-size: 11px; }
-      .daily-profit-card { margin: 0 12px 12px; padding: 16px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 12px; }
-      .stat-card { padding: 16px; }
-      .stat-value { font-size: 20px; }
-      .section-header { padding: 16px 12px 10px; }
-      .active-plans-container, .transactions-container { padding: 0 12px; }
-      .bottom-nav-premium { grid-template-columns: repeat(5, 1fr); }
-      .nav-item-premium { font-size: 10px; padding: 6px 4px; }
-      .nav-icon-premium svg { width: 22px; height: 22px; }
+    /* ---- Welcome modal (XFusion skin; node IDs + inline transform/opacity preserved for the frozen script) ---- */
+    .welcome-backdrop { background:rgba(43,35,48,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .welcome-dialog { background:var(--xf-surface); border:1px solid var(--xf-line); border-radius:28px; overflow:hidden; box-shadow:0 30px 70px -20px rgba(138,14,66,.5); }
+    .welcome-hero { position:relative; background:var(--xf-hero); padding:30px 24px 26px; text-align:center; color:#fff; overflow:hidden; }
+    .welcome-hero::before { content:''; position:absolute; top:-50%; right:-20%; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(255,226,61,.3), transparent 70%); }
+    .welcome-title { position:relative; z-index:1; font-family:'Playfair Display',serif; font-size:21px; font-weight:800; color:#fff; margin-bottom:7px; letter-spacing:-.01em; }
+    .welcome-subtitle { position:relative; z-index:1; font-size:13px; color:rgba(255,255,255,.9); }
+    .welcome-close {
+      position:absolute; top:14px; right:14px; z-index:2; width:36px; height:36px; border-radius:50%;
+      background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.28); color:#fff;
+      font-size:20px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:background .18s ease, transform .25s var(--xf-ease);
     }
+    .welcome-close:hover { background:rgba(255,255,255,.32); transform:rotate(90deg); }
+    .welcome-body { padding:22px 22px 24px; }
+    .welcome-copy { font-size:13px; color:var(--xf-muted); margin-bottom:18px; text-align:center; font-weight:600; }
+    .welcome-rules { display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
+    .welcome-rule { display:flex; gap:12px; align-items:flex-start; padding:13px 14px; background:var(--xf-surface-2); border:1px solid var(--xf-line); border-radius:14px; }
+    .welcome-rule b { flex:0 0 28px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:13px; background:var(--xf-hero); }
+    .welcome-rule span { font-size:13px; color:var(--xf-text); line-height:1.5; font-weight:500; }
+    .welcome-rule strong { color:var(--xf-accent); font-weight:800; }
+    .welcome-links { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .welcome-action { min-height:48px; padding:13px; border-radius:14px; font-weight:800; font-size:14px; font-family:inherit; text-align:center; cursor:pointer; border:0; text-decoration:none; display:flex; align-items:center; justify-content:center; transition:transform .18s var(--xf-ease), box-shadow .18s ease; }
+    .welcome-action.primary { background:var(--xf-hero); color:#fff; box-shadow:0 10px 22px -10px rgba(138,14,66,.6); }
+    .welcome-action.secondary { background:var(--xf-surface-2); color:var(--xf-text); border:1px solid var(--xf-line); }
+    .welcome-action:hover { transform:translateY(-2px); }
+
+    @keyframes xfSpin { to { transform:rotate(360deg); } }
+    @keyframes xfUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:translateY(0);} }
+    .page-wrap > * { animation:xfUp .5s var(--xf-ease) both; }
+    .topbar-premium { animation:none; }
+
+    /* ---- Desktop frame ---- */
+    @media (min-width:820px) {
+      body { padding:24px 18px 40px; }
+      .page-wrap { padding:0 0 24px; border:1px solid var(--xf-line); border-radius:30px; background:var(--xf-surface); box-shadow:0 24px 60px -24px rgba(208,21,99,.22); overflow:hidden; }
+      .topbar-premium { border-radius:0; }
+      .bottom-nav-premium { display:none; }
+      body { padding-bottom:40px; }
+    }
+    /* ---- Small phones ---- */
+    @media (max-width:380px) {
+      .quick-actions { gap:7px; padding-inline:12px; }
+      .quick-icon-circle { width:52px; height:52px; }
+      .quick-icon-circle svg { width:23px; height:23px; }
+      .quick-action-label { font-size:10px; }
+      .stats-grid { padding-inline:12px; }
+      .wallet-hero, .daily-profit-card, .active-plans-container, .transactions-container, .section-header { margin-inline:12px; padding-inline:14px; }
+      .section-header { padding-inline:14px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.001ms !important; transition-duration:.001ms !important; } }
   </style>
 </head>
-<body
-  data-supabase-url="YOUR_SUPABASE_URL"
-  data-supabase-anon="YOUR_SUPABASE_ANON_KEY"
->
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
   <!-- Top Bar -->
-  <div class="topbar-premium">
+  <header class="topbar-premium">
     <div class="user-greeting">
       <div class="greeting-text">Welcome back,</div>
       <div class="user-name" data-auth="full_name">User</div>
     </div>
     <div class="topbar-actions">
       <span class="vip-badge" data-vip>Member</span>
-      <button class="icon-btn-premium" onclick="location.href='notifications.html'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
+      <button class="icon-btn-premium" onclick="location.href='notifications.html'" aria-label="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
         <span class="badge-notification" id="notifBadge" style="display:none">0</span>
       </button>
     </div>
-  </div>
+  </header>
 
-  <!-- Wallet Hero Card -->
-  <div class="wallet-hero">
+  <!-- Wallet Hero -->
+  <section class="wallet-hero">
+    <div class="wh-watermark" aria-hidden="true">XFUSION</div>
+    <div class="wh-brand"><span class="wh-diamond" aria-hidden="true"></span><span class="wh-word">XFusion</span></div>
     <div class="wallet-label">Total Wallet Balance</div>
-    <div class="wallet-balance" id="walletBalance">₦0.00</div>
+    <div class="wallet-balance num" id="walletBalance">₦0.00</div>
     <div class="wallet-ref">Ref: <span data-auth="referral_code">—</span></div>
     <div class="wallet-actions">
       <button class="wallet-action-btn primary" onclick="location.href='recharge.html'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         Deposit
       </button>
       <button class="wallet-action-btn secondary" onclick="location.href='withdraw.html'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="19" x2="12" y2="5"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         Withdraw
       </button>
     </div>
-  </div>
+  </section>
 
-  <!-- Quick Actions - Circular Icons -->
-  <div class="quick-actions">
+  <!-- Quick Actions -->
+  <nav class="quick-actions" aria-label="Quick actions">
     <div class="quick-action-item" onclick="location.href='products.html'">
-      <div class="quick-icon-circle invest">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-          <polyline points="17 6 23 6 23 12"></polyline>
-        </svg>
-      </div>
+      <div class="quick-icon-circle invest"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
       <div class="quick-action-label">Invest</div>
     </div>
     <div class="quick-action-item" onclick="location.href='recharge.html'">
-      <div class="quick-icon-circle deposit">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <polyline points="19 12 12 19 5 12"></polyline>
-        </svg>
-      </div>
+      <div class="quick-icon-circle deposit"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg></div>
       <div class="quick-action-label">Deposit</div>
     </div>
     <div class="quick-action-item" onclick="location.href='withdraw.html'">
-      <div class="quick-icon-circle withdraw">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="19" x2="12" y2="5"></line>
-          <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
-      </div>
+      <div class="quick-icon-circle withdraw"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></div>
       <div class="quick-action-label">Withdraw</div>
     </div>
     <div class="quick-action-item" onclick="location.href='gift-code.html'">
-      <div class="quick-icon-circle gift">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 12 20 22 4 22 4 12"></polyline>
-          <rect x="2" y="7" width="20" height="5"></rect>
-          <line x1="12" y1="22" x2="12" y2="7"></line>
-          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-        </svg>
-      </div>
+      <div class="quick-icon-circle gift"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg></div>
       <div class="quick-action-label">Gift Code</div>
     </div>
     <div class="quick-action-item" onclick="location.href='team.html'">
-      <div class="quick-icon-circle referral">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      </div>
+      <div class="quick-icon-circle referral"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
       <div class="quick-action-label">Referral</div>
     </div>
-  </div>
+  </nav>
 
-  <!-- Daily Profit Card -->
+  <!-- Daily Profit -->
   <div class="daily-profit-card" id="dailyProfitCard" style="display:none">
-    <div class="profit-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="16" y1="2" x2="16" y2="6"></line>
-        <line x1="8" y1="2" x2="8" y2="6"></line>
-        <line x1="3" y1="10" x2="21" y2="10"></line>
-        <polyline points="9 16 11 18 15 14"></polyline>
-      </svg>
-    </div>
+    <div class="profit-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><polyline points="9 16 11 18 15 14"></polyline></svg></div>
     <div class="profit-content">
       <div class="profit-title">Daily Profit Credit</div>
       <div class="profit-subtitle">Next earnings at 12:00 AM (Lagos)</div>
-      <div class="profit-earned">Earned Today: <span id="dailyEarned">₦0.00</span></div>
+      <div class="profit-earned">Earned Today: <span id="dailyEarned" class="num">₦0.00</span></div>
     </div>
   </div>
 
-  <!-- Stats Grid -->
+  <!-- Stats -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon blue">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"></line>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      </div>
-      <div class="stat-value" id="statPayment">₦0</div>
+      <div class="stat-icon blue"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+      <div class="stat-value num" id="statPayment">₦0</div>
       <div class="stat-label">Total Deposits</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon red">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      </div>
-      <div class="stat-value" id="statRef">0</div>
+      <div class="stat-icon red"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+      <div class="stat-value num" id="statRef">0</div>
       <div class="stat-label">Total Referrals</div>
     </div>
   </div>
 
-  <!-- Active Plans Section -->
+  <!-- Active Plans -->
   <div class="section-header">
     <div class="section-title">Active Plans</div>
     <a href="my-products.html" class="section-link">View All</a>
@@ -469,7 +369,7 @@
     <div class="loader-wrap"><div class="loader"></div></div>
   </div>
 
-  <!-- Recent Transactions Section -->
+  <!-- Recent Transactions -->
   <div class="section-header">
     <div class="section-title">Recent Transactions</div>
     <a href="recharge-history.html" class="section-link">View All</a>
@@ -480,55 +380,25 @@
 </div>
 
 <!-- Bottom Navigation -->
-<nav class="bottom-nav-premium">
+<nav class="bottom-nav-premium" aria-label="Primary">
   <button class="nav-item-premium active" onclick="location.href='dashboard.html'">
-    <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7"></rect>
-        <rect x="14" y="3" width="7" height="7"></rect>
-        <rect x="14" y="14" width="7" height="7"></rect>
-        <rect x="3" y="14" width="7" height="7"></rect>
-      </svg>
-    </div>
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div>
     <span>Home</span>
   </button>
   <button class="nav-item-premium" onclick="location.href='products.html'">
-    <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-        <polyline points="2 17 12 22 22 17"></polyline>
-        <polyline points="2 12 12 17 22 12"></polyline>
-      </svg>
-    </div>
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
     <span>Plans</span>
   </button>
   <button class="nav-item-premium" onclick="location.href='team.html'">
-    <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-        <circle cx="9" cy="7" r="4"></circle>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-      </svg>
-    </div>
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
     <span>Team</span>
   </button>
   <button class="nav-item-premium" onclick="location.href='notifications.html'">
-    <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-      </svg>
-    </div>
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
     <span>Alerts</span>
   </button>
   <button class="nav-item-premium" onclick="location.href='profile.html'">
-    <div class="nav-icon-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-    </div>
+    <div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
     <span>Profile</span>
   </button>
 </nav>
@@ -536,16 +406,16 @@
 <!-- Toast -->
 <div id="toast"></div>
 
-<!-- Welcome Modal -->
+<!-- Welcome Modal (IDs + inline transform/opacity preserved for the frozen script) -->
 <div id="welcomeOverlay" class="welcome-backdrop" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" style="display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;padding:20px">
   <div id="welcomeCard" class="welcome-dialog" style="width:100%;max-width:400px;overflow:hidden;transform:scale(.92);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .3s">
     <div class="welcome-hero">
       <button class="welcome-close" onclick="closeWelcome()" aria-label="Close announcement">×</button>
-      <div id="welcomeTitle" class="welcome-title">Welcome to CardinalStone<span id="welcomeUserName"></span></div>
+      <div id="welcomeTitle" class="welcome-title">Welcome to XFusion<span id="welcomeUserName"></span></div>
       <div class="welcome-subtitle">Your premium investment journey starts here</div>
     </div>
     <div class="welcome-body">
-      <p class="welcome-copy">CardinalStone account rules and benefits</p>
+      <p class="welcome-copy">XFusion account rules and benefits</p>
       <div class="welcome-rules" role="list">
         <div class="welcome-rule" role="listitem"><b>1</b><span>Minimum deposit: <strong>₦3,000</strong>.</span></div>
         <div class="welcome-rule" role="listitem"><b>2</b><span>Minimum withdrawal: <strong>₦1,000</strong>.</span></div>
@@ -743,6 +613,6 @@
     setTimeout(function(){ if(overlay) overlay.style.display = "none"; }, 200);
   };
 })();
-                </script>
+</script>
 </body>
 </html>
