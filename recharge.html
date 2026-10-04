@@ -2,162 +2,911 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Make a payment</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — Make a Payment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    .balance-pill {
-      background: var(--purple-light); border-radius: 30px; padding: 10px 16px;
-      text-align: center; margin: 16px; font-size: 13px; color: var(--purple); font-weight: 600;
-    }
-    .amount-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 0 16px; }
-    .amt-chip {
-      background: var(--card); border: 2px solid var(--border); border-radius: var(--radius-sm);
-      padding: 14px 6px; text-align: center; cursor: pointer; transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .amt-chip.on { background: var(--purple); border-color: var(--purple); color: #fff; }
-    .amt-chip .amt-val { font-size: 14px; font-weight: 700; }
-
-    .method-card {
-      margin: 16px; background: var(--card); border-radius: var(--radius);
-      box-shadow: var(--shadow); overflow: hidden;
-    }
-    .method-badge {
-      padding: 6px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
-    }
-    .mb-manual   { background: #f7edcf; color: #92400E; }
-    .mb-paystack { background: #f7f1e3; color: #0D6548; }
-    .mb-ipayng   { background: var(--purple-light); color: var(--purple); }
-
-    .transfer-info { padding: 16px; }
-    .ti-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .ti-row:last-of-type { border-bottom: none; }
-    .ti-label { font-size: 12px; color: var(--muted); }
-    .ti-val   { font-size: 14px; font-weight: 700; color: var(--text); }
-    .copy-btn { padding: 4px 10px; border-radius: 6px; background: var(--purple-light); color: var(--purple); font-size: 11px; font-weight: 700; border: none; cursor: pointer; margin-left: 6px; }
-
-    .narration-box {
-      background: linear-gradient(135deg, var(--purple-light), var(--sky-light));
-      border-radius: var(--radius-sm); padding: 14px 16px; margin: 0 16px; text-align: center;
-    }
-    .nar-label { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: .06em; }
-    .nar-code  { font-size: 22px; font-weight: 800; color: var(--purple); letter-spacing: .1em; margin: 6px 0; }
-    .nar-hint  { font-size: 11px; color: var(--muted); }
-
-    .status-bar { margin: 12px 16px 0; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; display: none; }
-    .status-bar.show { display: block; }
-    .sb-pending { background: #f7f1e3; color: #0D6548; }
-    .sb-success { background: #f7f1e3; color: #0D6548; }
-    .sb-failed  { background: #FEE2E2; color: #991B1B; }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+
+  <style>
+    /* ===== XFusion Recharge / Make a Payment — premium funding shell. JS hooks preserved. ===== */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    :root{
+      --xf-bg:#fff8fb;
+      --xf-surface:#ffffff;
+      --xf-surface-2:#fdf3f8;
+      --xf-line:rgba(255,61,139,.14);
+      --xf-text:#2b2330;
+      --xf-mid:#4a3f52;
+      --xf-muted:#6f6478;
+      --xf-ph:#b8aec0;
+      --xf-ink:#2b2330;
+      --xf-accent:#d01563;
+      --xf-accent-2:#ff3d8b;
+      --xf-pink-soft:#ffe3ef;
+      --xf-lemon:#ffe23d;
+      --xf-yellow:#ffc93c;
+      --xf-hero-dark:#8a0e42;
+      --xf-success:#16a34a;
+      --xf-danger:#e11d48;
+      --xf-violet:#9333ea;
+      --xf-amber:#b45309;
+      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
+      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 50%,#ff3d8b 100%);
+      --xf-ease:cubic-bezier(.23,1,.32,1);
+      --xf-shadow-sm:0 8px 20px -12px rgba(208,21,99,.22);
+      --xf-shadow:0 24px 60px -28px rgba(208,21,99,.28);
+    }
+
+    html,body{min-height:100%}
+    body{
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--xf-text)!important;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,61,139,.07), transparent 30rem),
+        radial-gradient(circle at 100% 0%, rgba(255,226,61,.12), transparent 34rem),
+        var(--xf-bg)!important;
+      min-height:100vh;
+      padding-bottom:calc(28px + env(safe-area-inset-bottom));
+      -webkit-text-size-adjust:100%;
+      overflow-x:hidden;
+    }
+
+    .page-wrap{
+      width:min(100%,620px)!important;
+      max-width:620px!important;
+      margin:0 auto;
+      padding-bottom:20px!important;
+      background:transparent!important;
+    }
+
+    /* ---- Topbar ---- */
+    .topbar{
+      position:sticky!important;
+      top:0!important;
+      z-index:50!important;
+      min-height:66px!important;
+      padding:13px 16px!important;
+      background:rgba(255,255,255,.88)!important;
+      border-bottom:1px solid var(--xf-line)!important;
+      backdrop-filter:blur(18px)!important;
+      -webkit-backdrop-filter:blur(18px)!important;
+      box-shadow:0 6px 20px -14px rgba(208,21,99,.22)!important;
+    }
+    .topbar-title{
+      font-family:'Playfair Display',serif!important;
+      font-size:17px!important;
+      font-weight:800!important;
+      letter-spacing:-.01em!important;
+      color:var(--xf-text)!important;
+    }
+    .back-btn{
+      color:var(--xf-text)!important;
+      background:var(--xf-surface-2)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:12px!important;
+    }
+    .back-btn:hover{
+      background:var(--xf-pink-soft)!important;
+      border-color:var(--xf-accent-2)!important;
+    }
+
+    /* ---- Balance hero ---- */
+    .rc-balance{
+      position:relative;
+      overflow:hidden;
+      margin:14px 16px 0;
+      padding:24px 20px 22px;
+      border-radius:26px;
+      color:#fff;
+      background:var(--xf-hero);
+      box-shadow:0 22px 48px -22px rgba(138,14,66,.62);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .rc-balance::before{
+      content:'';
+      position:absolute;
+      top:-90px;
+      right:-55px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,226,61,.36), transparent 68%);
+      pointer-events:none;
+    }
+    .rc-balance::after{
+      content:'';
+      position:absolute;
+      bottom:-110px;
+      left:-45px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
+      pointer-events:none;
+    }
+    .rc-balance-inner{
+      position:relative;
+      z-index:1;
+    }
+    .rc-brand{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:14px;
+      color:#fff;
+    }
+    .rc-diamond{
+      width:13px;
+      height:13px;
+      border-radius:4px;
+      transform:rotate(45deg);
+      background:var(--xf-sweep);
+      box-shadow:0 0 0 5px rgba(255,255,255,.18);
+      flex:0 0 auto;
+    }
+    .rc-word{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .rc-balance-label{
+      font-size:11.5px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.82);
+    }
+    #walBal{
+      display:block;
+      margin-top:8px;
+      font-size:clamp(32px,9vw,42px);
+      font-weight:800;
+      letter-spacing:-.035em;
+      line-height:1.05;
+      color:#fff;
+      font-variant-numeric:tabular-nums;
+      text-shadow:0 4px 18px rgba(0,0,0,.22);
+    }
+    .rc-balance-note{
+      margin-top:10px;
+      font-size:12.5px;
+      line-height:1.45;
+      color:rgba(255,255,255,.86);
+      font-weight:600;
+    }
+
+    /* ---- Panels ---- */
+    .rc-panel{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      margin:14px 16px 0;
+      padding:18px;
+      overflow:hidden;
+    }
+    .rc-step{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .rc-step .bar{
+      width:4px;
+      height:16px;
+      border-radius:3px;
+      background:var(--xf-sweep);
+      flex:0 0 auto;
+    }
+    .rc-step h2{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--xf-muted);
+    }
+    .rc-step span.num{
+      margin-left:auto;
+      font-size:11px;
+      font-weight:800;
+      color:var(--xf-accent);
+      background:var(--xf-pink-soft);
+      border-radius:99px;
+      padding:4px 9px;
+    }
+
+    /* ---- Amount chips ---- */
+    .amount-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:10px;
+    }
+    .amt-chip{
+      min-height:58px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      background:var(--xf-surface-2)!important;
+      border:1.5px solid var(--xf-line)!important;
+      border-radius:16px!important;
+      color:var(--xf-text)!important;
+      box-shadow:none!important;
+      transition:transform .16s var(--xf-ease), border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+    .amt-chip:hover{
+      transform:translateY(-2px);
+      border-color:var(--xf-accent-2)!important;
+      background:var(--xf-pink-soft)!important;
+    }
+    .amt-chip:active{
+      transform:scale(.97);
+    }
+    .amt-chip.on{
+      background:var(--xf-accent)!important;
+      border-color:var(--xf-accent-2)!important;
+      color:#fff!important;
+      box-shadow:0 12px 24px -14px rgba(208,21,99,.65)!important;
+    }
+    .amt-chip .amt-val{
+      font-size:clamp(12.5px,3.5vw,14px);
+      font-weight:800;
+      letter-spacing:-.01em;
+      font-variant-numeric:tabular-nums;
+      white-space:nowrap;
+    }
+
+    /* ---- Inputs ---- */
+    .rc-field{
+      margin-top:14px;
+    }
+    .rc-field label{
+      display:block;
+      margin-bottom:7px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--xf-mid);
+      letter-spacing:.01em;
+    }
+    .rc-field label .opt{
+      color:var(--xf-ph);
+      font-weight:700;
+      font-size:11px;
+    }
+    .field-input,
+    #customAmt,
+    #senderBankUsername{
+      width:100%!important;
+      min-height:54px!important;
+      padding:0 15px!important;
+      font-family:inherit!important;
+      font-size:16px!important;
+      font-weight:700!important;
+      color:var(--xf-text)!important;
+      background:var(--xf-surface-2)!important;
+      border:1.5px solid var(--xf-line)!important;
+      border-radius:15px!important;
+      outline:none!important;
+      box-shadow:none!important;
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease!important;
+    }
+    .field-input::placeholder,
+    #customAmt::placeholder,
+    #senderBankUsername::placeholder{
+      color:var(--xf-ph)!important;
+      font-weight:600!important;
+    }
+    .field-input:focus,
+    #customAmt:focus,
+    #senderBankUsername:focus{
+      background:#fff!important;
+      border-color:var(--xf-accent-2)!important;
+      box-shadow:0 0 0 4px rgba(255,61,139,.16)!important;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button{
+      -webkit-appearance:none;
+      margin:0;
+    }
+    input[type=number]{
+      -moz-appearance:textfield;
+    }
+    .rc-hint{
+      margin-top:7px;
+      font-size:11.5px;
+      line-height:1.45;
+      color:var(--xf-muted);
+      font-weight:600;
+    }
+
+    /* ---- Method card ---- */
+    .method-card{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      margin:14px 16px 0!important;
+      overflow:hidden;
+    }
+    .method-badge{
+      display:block!important;
+      padding:12px 16px!important;
+      font-size:11px!important;
+      font-weight:800!important;
+      text-transform:uppercase!important;
+      letter-spacing:.08em!important;
+      border-bottom:1px solid var(--xf-line)!important;
+      background:var(--xf-surface-2)!important;
+      color:var(--xf-text)!important;
+    }
+    .mb-manual{
+      background:#fff8e6!important;
+      color:#9a5b00!important;
+      border-bottom-color:rgba(255,201,60,.38)!important;
+    }
+    .mb-paystack{
+      background:#ecfdf5!important;
+      color:#15803d!important;
+      border-bottom-color:rgba(22,163,74,.22)!important;
+    }
+    .mb-ipayng{
+      background:#fff1f7!important;
+      color:var(--xf-accent)!important;
+      border-bottom-color:rgba(255,61,139,.22)!important;
+    }
+
+    .transfer-info{
+      padding:6px 16px 14px!important;
+      background:transparent!important;
+    }
+    .ti-row{
+      display:flex!important;
+      align-items:center!important;
+      justify-content:space-between!important;
+      gap:12px;
+      padding:13px 0!important;
+      border-bottom:1px solid var(--xf-line)!important;
+      background:transparent!important;
+      color:var(--xf-text)!important;
+    }
+    .ti-row:last-of-type{
+      border-bottom:0!important;
+    }
+    .ti-label{
+      font-size:12px!important;
+      color:var(--xf-muted)!important;
+      font-weight:700!important;
+      letter-spacing:.02em;
+    }
+    .ti-val{
+      font-size:14px!important;
+      font-weight:800!important;
+      color:var(--xf-text)!important;
+      font-variant-numeric:tabular-nums;
+      letter-spacing:.02em;
+      text-align:right;
+      word-break:break-word;
+    }
+    #acctNo,
+    #ti-amt{
+      color:var(--xf-accent)!important;
+    }
+    .copy-btn{
+      margin-left:8px;
+      min-height:30px;
+      padding:6px 10px!important;
+      border:1px solid rgba(208,21,99,.18)!important;
+      border-radius:99px!important;
+      background:var(--xf-pink-soft)!important;
+      color:var(--xf-accent)!important;
+      font-family:inherit;
+      font-size:10.5px!important;
+      font-weight:800!important;
+      letter-spacing:.06em;
+      cursor:pointer;
+      transition:transform .16s var(--xf-ease), background .16s ease;
+    }
+    .copy-btn:hover{
+      transform:translateY(-1px);
+      background:#ffd0e4!important;
+    }
+    .copy-btn:active{
+      transform:scale(.96);
+    }
+
+    /* ---- Sender username ---- */
+    #senderUsernameWrap{
+      background:var(--xf-surface)!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      margin:14px 16px 0!important;
+      padding:18px!important;
+    }
+
+    /* ---- Gateway notes ---- */
+    .rc-note-card{
+      background:linear-gradient(135deg,var(--xf-surface),var(--xf-surface-2))!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      margin:14px 16px 0!important;
+      padding:22px 18px;
+      text-align:center;
+    }
+    .rc-note-icon{
+      width:54px;
+      height:54px;
+      margin:0 auto 13px;
+      border-radius:17px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--xf-pink-soft);
+    }
+    .rc-note-icon svg{
+      width:27px;
+      height:27px;
+      stroke:var(--xf-accent);
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    #paystackNote .rc-note-icon{
+      background:rgba(22,163,74,.12);
+    }
+    #paystackNote .rc-note-icon svg{
+      stroke:var(--xf-success);
+    }
+    #ipayngNote .rc-note-icon{
+      background:#f3e8ff;
+    }
+    #ipayngNote .rc-note-icon svg{
+      stroke:var(--xf-violet);
+    }
+    .rc-note-title{
+      font-size:15px;
+      font-weight:800;
+      color:var(--xf-text);
+      letter-spacing:-.01em;
+    }
+    .rc-note-text{
+      margin-top:7px;
+      font-size:12.5px;
+      line-height:1.55;
+      color:var(--xf-muted);
+      font-weight:600;
+    }
+
+    /* ---- Narration ---- */
+    .narration-box{
+      background:linear-gradient(135deg,#fff8fb,#fffbe6)!important;
+      border:1.5px dashed rgba(208,21,99,.35)!important;
+      border-radius:22px!important;
+      margin:14px 16px 0!important;
+      padding:20px 18px;
+      text-align:center;
+      box-shadow:var(--xf-shadow-sm)!important;
+    }
+    .nar-label{
+      font-size:11px!important;
+      font-weight:800!important;
+      color:var(--xf-muted)!important;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+    }
+    .nar-code{
+      margin:9px 0 12px!important;
+      font-size:clamp(20px,6vw,25px)!important;
+      font-weight:800!important;
+      color:var(--xf-accent)!important;
+      letter-spacing:.12em!important;
+      font-variant-numeric:tabular-nums;
+      word-break:break-word;
+    }
+    .nar-hint{
+      margin-top:9px!important;
+      font-size:11.5px!important;
+      color:var(--xf-muted)!important;
+      font-weight:600;
+      line-height:1.45;
+    }
+
+    /* ---- Status ---- */
+    .status-bar{
+      display:none;
+      margin:14px 16px 0;
+      padding:13px 15px;
+      border-radius:15px;
+      font-size:13px;
+      font-weight:800;
+      line-height:1.45;
+      border:1px solid transparent;
+    }
+    .status-bar.show{
+      display:block;
+      animation:xfUp .28s var(--xf-ease) both;
+    }
+    .sb-pending{
+      background:#fff8e6;
+      color:#8a5d16;
+      border-color:rgba(255,201,60,.45);
+    }
+    .sb-success{
+      background:#ecfdf5;
+      color:#15803d;
+      border-color:rgba(22,163,74,.25);
+    }
+    .sb-failed{
+      background:#ffe4e9;
+      color:#9f1239;
+      border-color:rgba(225,29,72,.25);
+    }
+
+    /* ---- Continue button ---- */
+    .rc-action{
+      padding:16px;
+    }
+    #rechBtn.btn.btn-primary{
+      position:relative;
+      overflow:hidden;
+      width:100%!important;
+      min-height:56px!important;
+      border:0!important;
+      border-radius:16px!important;
+      font-family:inherit!important;
+      font-size:16px!important;
+      font-weight:800!important;
+      letter-spacing:.01em;
+      color:var(--xf-ink)!important;
+      background:var(--xf-sweep)!important;
+      box-shadow:0 14px 30px -12px rgba(208,21,99,.52)!important;
+      transition:transform .18s var(--xf-ease), box-shadow .18s ease, opacity .18s ease!important;
+    }
+    #rechBtn.btn.btn-primary::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.48) 50%,transparent 70%);
+      transform:translateX(-120%);
+      transition:transform .6s ease;
+      pointer-events:none;
+    }
+    #rechBtn.btn.btn-primary:hover:not(:disabled){
+      transform:translateY(-2px);
+      box-shadow:0 18px 36px -12px rgba(208,21,99,.6)!important;
+    }
+    #rechBtn.btn.btn-primary:hover:not(:disabled)::after{
+      transform:translateX(120%);
+    }
+    #rechBtn.btn.btn-primary:active:not(:disabled){
+      transform:scale(.985);
+    }
+    #rechBtn.btn.btn-primary:disabled{
+      opacity:.56!important;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none!important;
+      background:var(--xf-surface-2)!important;
+      color:var(--xf-ph)!important;
+      border:1px solid var(--xf-line)!important;
+    }
+
+    /* ---- Important ---- */
+    .rc-important{
+      background:linear-gradient(135deg,var(--xf-surface),var(--xf-surface-2))!important;
+      border:1px solid var(--xf-line)!important;
+      border-radius:22px!important;
+      box-shadow:var(--xf-shadow-sm)!important;
+      margin:4px 16px 0;
+      padding:18px;
+    }
+    .rc-important-title{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:12px;
+      font-size:11.5px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--xf-muted);
+    }
+    .rc-important-title svg{
+      width:16px;
+      height:16px;
+      stroke:var(--xf-accent);
+      fill:none;
+      stroke-width:2.4;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .rc-important ul{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+    .rc-important li{
+      position:relative;
+      padding-left:18px;
+      font-size:12.5px;
+      line-height:1.5;
+      color:var(--xf-mid);
+      font-weight:700;
+    }
+    .rc-important li::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:7px;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--xf-sweep);
+      box-shadow:0 0 0 4px rgba(255,61,139,.10);
+    }
+
+    /* ---- Toast ---- */
+    #toast{
+      position:fixed!important;
+      bottom:calc(28px + env(safe-area-inset-bottom))!important;
+      left:50%!important;
+      transform:translateX(-50%) translateY(16px)!important;
+      background:var(--xf-text)!important;
+      color:#fff!important;
+      padding:13px 22px!important;
+      border-radius:14px!important;
+      font-size:14px!important;
+      font-weight:800!important;
+      opacity:0!important;
+      pointer-events:none!important;
+      z-index:300!important;
+      box-shadow:0 14px 30px -10px rgba(43,35,48,.5)!important;
+      transition:opacity .28s ease, transform .28s var(--xf-ease)!important;
+      max-width:calc(100% - 32px)!important;
+      text-align:center!important;
+    }
+    #toast.show{
+      opacity:1!important;
+      transform:translateX(-50%) translateY(0)!important;
+    }
+
+    @keyframes xfUp{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .page-wrap > *{
+      animation:xfUp .48s var(--xf-ease) both;
+    }
+    .topbar{
+      animation:none!important;
+    }
+
+    @media (min-width:820px){
+      body{
+        padding:24px 18px calc(40px + env(safe-area-inset-bottom));
+      }
+      .page-wrap{
+        padding:0 0 24px!important;
+        border:1px solid var(--xf-line);
+        border-radius:30px;
+        background:var(--xf-surface);
+        box-shadow:var(--xf-shadow);
+        overflow:hidden;
+      }
+      .topbar{
+        border-radius:0;
+      }
+      .rc-balance,
+      .rc-panel,
+      .method-card,
+      #senderUsernameWrap,
+      .rc-note-card,
+      .narration-box,
+      .status-bar,
+      .rc-important{
+        margin-inline:20px;
+      }
+      .rc-action{
+        padding-inline:20px;
+      }
+    }
+
+    @media (max-width:380px){
+      .amount-grid{
+        gap:8px;
+      }
+      .amt-chip{
+        min-height:54px;
+        border-radius:14px!important;
+      }
+      .amt-chip .amt-val{
+        font-size:12px;
+      }
+      .rc-balance,
+      .rc-panel,
+      .method-card,
+      #senderUsernameWrap,
+      .rc-note-card,
+      .narration-box,
+      .status-bar,
+      .rc-important{
+        margin-inline:12px;
+      }
+      .rc-action{
+        padding-inline:12px;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.001ms!important;
+        transition-duration:.001ms!important;
+      }
+    }
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
 <div class="page-wrap">
+
+  <!-- Top Bar -->
   <div class="topbar">
-    <a class="back-btn" href="dashboard.html">‹</a>
-    <span class="topbar-title"> Make a payment Wallet</span>
-    <div></div>
+    <a class="back-btn" href="dashboard.html" aria-label="Back to dashboard">‹</a>
+    <span class="topbar-title">Make a Payment</span>
+    <div style="width:42px"></div>
   </div>
 
-  <div class="balance-pill">Available account balance: <strong id="walBal">₦0.00</strong></div>
+  <!-- Balance hero -->
+  <section class="rc-balance">
+    <div class="rc-balance-inner">
+      <div class="rc-brand" aria-hidden="true">
+        <span class="rc-diamond"></span>
+        <span class="rc-word">XFusion</span>
+      </div>
+      <div class="rc-balance-label">Available account balance</div>
+      <strong id="walBal">₦0.00</strong>
+      <p class="rc-balance-note">Choose an amount below, or enter a custom amount. Minimum funding amount is ₦3,000.</p>
+    </div>
+  </section>
 
-  <div class="slabel" style="padding:0 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Select Amount</div>
-  <div class="amount-grid">
-    <div class="amt-chip" data-v="3000" onclick="pickAmt(this)"><div class="amt-val">₦3,000</div></div>
-    <div class="amt-chip" data-v="5000" onclick="pickAmt(this)"><div class="amt-val">₦5,000</div></div>
-    <div class="amt-chip" data-v="10000" onclick="pickAmt(this)"><div class="amt-val">₦10,000</div></div>
-    <div class="amt-chip" data-v="20000" onclick="pickAmt(this)"><div class="amt-val">₦20,000</div></div>
-    <div class="amt-chip" data-v="50000" onclick="pickAmt(this)"><div class="amt-val">₦50,000</div></div>
-    <div class="amt-chip" data-v="100000" onclick="pickAmt(this)"><div class="amt-val">₦100,000</div></div>
-  </div>
+  <!-- Amount selection -->
+  <section class="rc-panel">
+    <div class="rc-step">
+      <span class="bar"></span>
+      <h2>Select amount</h2>
+      <span class="num">Step 1</span>
+    </div>
 
-  <div style="padding:12px 16px 0">
-    <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px">Or enter custom amount</label>
-    <input class="field-input" type="number" id="customAmt" placeholder="Enter amount (min ₦3,000)" oninput="onCustomAmt(this.value)" />
-  </div>
+    <div class="amount-grid">
+      <div class="amt-chip" data-v="3000" onclick="pickAmt(this)"><div class="amt-val">₦3,000</div></div>
+      <div class="amt-chip" data-v="5000" onclick="pickAmt(this)"><div class="amt-val">₦5,000</div></div>
+      <div class="amt-chip" data-v="10000" onclick="pickAmt(this)"><div class="amt-val">₦10,000</div></div>
+      <div class="amt-chip" data-v="20000" onclick="pickAmt(this)"><div class="amt-val">₦20,000</div></div>
+      <div class="amt-chip" data-v="50000" onclick="pickAmt(this)"><div class="amt-val">₦50,000</div></div>
+      <div class="amt-chip" data-v="100000" onclick="pickAmt(this)"><div class="amt-val">₦100,000</div></div>
+    </div>
 
-  <div class="method-card" id="methodCard" style="margin-top:16px">
+    <div class="rc-field">
+      <label for="customAmt">Or enter custom amount <span class="opt">(min ₦3,000)</span></label>
+      <input class="field-input" type="number" id="customAmt" placeholder="Enter amount" oninput="onCustomAmt(this.value)" />
+      <p class="rc-hint">Typing a custom amount clears the quick-select chips automatically.</p>
+    </div>
+  </section>
+
+  <!-- Payment method -->
+  <div class="method-card" id="methodCard">
     <div id="methodBadge" class="method-badge mb-manual">Manual Bank Transfer</div>
     <div id="methodContent">
       <div class="transfer-info">
-        <div class="ti-row"><span class="ti-label">Bank</span><span class="ti-val" id="bankName">Loading…</span></div>
+        <div class="ti-row">
+          <span class="ti-label">Bank</span>
+          <span class="ti-val" id="bankName">Loading…</span>
+        </div>
         <div class="ti-row">
           <span class="ti-label">Account Number</span>
-          <span><span class="ti-val" id="acctNo">Loading…</span><button class="copy-btn" onclick="cp('acctNo')">COPY</button></span>
+          <span>
+            <span class="ti-val" id="acctNo">Loading…</span>
+            <button class="copy-btn" type="button" onclick="cp('acctNo')">COPY</button>
+          </span>
         </div>
-        <div class="ti-row"><span class="ti-label">Account Name</span><span class="ti-val" id="accountName">Loading…</span></div>
+        <div class="ti-row">
+          <span class="ti-label">Account Name</span>
+          <span class="ti-val" id="accountName">Loading…</span>
+        </div>
         <div class="ti-row">
           <span class="ti-label">Amount</span>
-          <span><span class="ti-val" id="ti-amt">—</span><button class="copy-btn" id="tiAmtCopy" onclick="cp('ti-amt')" style="display:none">COPY</button></span>
+          <span>
+            <span class="ti-val" id="ti-amt">—</span>
+            <button class="copy-btn" type="button" id="tiAmtCopy" onclick="cp('ti-amt')" style="display:none">COPY</button>
+          </span>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="senderUsernameWrap" style="margin:16px 16px 0">
-    <label for="senderBankUsername" style="display:block;font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">Bank username used for transfer</label>
-    <input class="field-input" type="text" id="senderBankUsername" maxlength="100" autocomplete="off" placeholder="Enter the bank username or sender name" />
-    <div style="font-size:11px;color:var(--muted);margin-top:5px">Enter the name or username shown on the bank account used to send this deposit.</div>
+  <!-- Manual transfer sender detail -->
+  <div id="senderUsernameWrap">
+    <div class="rc-step">
+      <span class="bar"></span>
+      <h2>Sender detail</h2>
+      <span class="num">Step 2</span>
+    </div>
+    <label for="senderBankUsername" style="display:block;font-size:12px;font-weight:800;color:var(--xf-mid);margin-bottom:7px">Bank username used for transfer</label>
+    <input class="field-input" type="text" id="senderBankUsername" maxlength="100" autocomplete="off" placeholder="Enter sender name or bank username" />
+    <p class="rc-hint">Enter the name or username shown on the bank account used to send this deposit. This helps support match your payment faster.</p>
   </div>
 
-  <!-- Shown only for Paystack — no static account number needed -->
-  <div id="paystackNote" style="display:none;margin:16px;background:var(--sky-light);border-radius:var(--radius-sm);padding:16px;text-align:center">
-    <div style="font-size:28px;margin-bottom:8px"></div>
-    <div style="font-size:14px;font-weight:700;color:var(--sky-dark);margin-bottom:4px">Secure Card & Bank Payment</div>
-    <div style="font-size:12px;color:var(--muted)">Click Continue to pay instantly via card, bank transfer, or USSD through Paystack's secure checkout.</div>
+  <!-- Paystack note -->
+  <div id="paystackNote" class="rc-note-card" style="display:none">
+    <div class="rc-note-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><path d="M6 15h4"/></svg>
+    </div>
+    <div class="rc-note-title">Secure Card & Bank Payment</div>
+    <p class="rc-note-text">Click Continue to pay instantly via card, bank transfer, or USSD through Paystack's secure checkout.</p>
   </div>
 
-  <!-- Shown only for iPayNG -->
-  <div id="ipayngNote" style="display:none;margin:16px;background:var(--purple-light);border-radius:var(--radius-sm);padding:16px;text-align:center">
-    <div style="font-size:28px;margin-bottom:8px"></div>
-    <div style="font-size:14px;font-weight:700;color:var(--purple);margin-bottom:4px">iPayNG Bank Transfer</div>
-    <div style="font-size:12px;color:var(--muted)">Click Continue to get your transfer details via iPayNG.</div>
+  <!-- iPayNG note -->
+  <div id="ipayngNote" class="rc-note-card" style="display:none">
+    <div class="rc-note-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
+    <div class="rc-note-title">iPayNG Bank Transfer</div>
+    <p class="rc-note-text">Click Continue to get your transfer details via iPayNG.</p>
   </div>
 
+  <!-- Narration -->
   <div class="narration-box" id="narrationBox" style="display:none">
     <div class="nar-label">Use this narration / description</div>
     <div class="nar-code" id="narCode">—</div>
-    <button class="copy-btn" style="margin-top:4px;padding:6px 14px;font-size:12px" onclick="cp('narCode')">COPY NARRATION</button>
-    <p class="nar-hint" style="margin-top:6px">Include this code in your bank transfer description</p>
+    <button class="copy-btn" type="button" style="padding:8px 14px;font-size:11px" onclick="cp('narCode')">COPY NARRATION</button>
+    <p class="nar-hint">Include this code in your bank transfer description for faster approval.</p>
   </div>
 
+  <!-- Status -->
   <div class="status-bar" id="statusBar"></div>
 
-  <div style="padding:16px">
-    <button class="btn btn-primary" id="rechBtn" disabled>Continue</button>
+  <!-- Continue -->
+  <div class="rc-action">
+    <button class="btn btn-primary" type="button" id="rechBtn" disabled>Continue</button>
   </div>
 
-  <div style="margin:0 16px;background:var(--sky-light);border-radius:var(--radius-sm);padding:14px">
-    <div style="font-size:11px;font-weight:700;color:var(--sky-dark);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px"> Important</div>
-    <ul style="list-style:none;display:flex;flex-direction:column;gap:5px">
-      <li style="font-size:12px;color:var(--sky-dark);padding-left:12px;position:relative">
-        <span style="position:absolute;left:0">•</span>Minimum payment: ₦3,000
-      </li>
-      <li style="font-size:12px;color:var(--sky-dark);padding-left:12px;position:relative">
-        <span style="position:absolute;left:0">•</span>Transfer the exact amount shown
-      </li>
-      <li style="font-size:12px;color:var(--sky-dark);padding-left:12px;position:relative">
-        <span style="position:absolute;left:0">•</span>Use the narration code for faster approval
-      </li>
-      <li style="font-size:12px;color:var(--sky-dark);padding-left:12px;position:relative">
-        <span style="position:absolute;left:0">•</span>Approval takes 5–30 minutes
-      </li>
+  <!-- Important -->
+  <section class="rc-important">
+    <div class="rc-important-title">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Important
+    </div>
+    <ul>
+      <li>Minimum payment: ₦3,000</li>
+      <li>Transfer the exact amount shown</li>
+      <li>Use the narration code for faster approval</li>
+      <li>Approval usually takes 5–30 minutes</li>
     </ul>
-  </div>
-  <div style="height:20px"></div>
+  </section>
+
+  <div style="height:12px"></div>
 </div>
 
 <div id="toast"></div>
+
+<!-- ===== SCRIPT STACK: preserved exactly, including Paystack ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
 <script src="https://js.paystack.co/v1/inline.js" defer></script>
 <script src="assets/js/icons.js" defer></script>
+
+<!-- ===== INLINE SCRIPT: VERBATIM except one brand word: Serlzo Investments -> XFusion ===== -->
 <script>
 (function(){
   var selAmt=0, userId="", userEmail="", activeMethod="manual", pollT=null, currentRef="";
@@ -261,7 +1010,7 @@
       btn.textContent="Waiting for approval…";
       var sb=document.getElementById("statusBar");
       sb.className="status-bar sb-pending show";
-      sb.textContent="Payment sent? We'll credit your Serlzo Investments account once approved.";
+      sb.textContent="Payment sent? We'll credit your XFusion account once approved.";
       startPoll(currentRef,"manual");
     }catch(e){ window.SerlzoAuth.toast("Network error"); btn.disabled=false; btn.textContent="Continue"; }
   }
@@ -317,5 +1066,4 @@
 })();
 </script>
 </body>
-  </html>
-  
+</html>
