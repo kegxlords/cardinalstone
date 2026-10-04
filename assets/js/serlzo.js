@@ -1,4 +1,4 @@
-/* CardinalStone shared interaction layer. */
+/* XFusion shared interaction layer. */
 (function () {
   "use strict";
 
@@ -28,7 +28,7 @@
     if (document.getElementById("cardinalstone-loader")) return;
     var loader = document.createElement("div");
     loader.id = "cardinalstone-loader";
-    loader.innerHTML = '<div class="loader-brand" aria-label="Loading CardinalStone"><span class="loader-orbit" aria-hidden="true"></span><span>CardinalStone</span></div>';
+    loader.innerHTML = '<div class="loader-brand" aria-label="Loading XFusion"><span class="loader-orbit" aria-hidden="true"></span><span>XFusion</span></div>';
     document.body.appendChild(loader);
   }
 
