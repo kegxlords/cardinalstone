@@ -1,14 +1,14 @@
-/* Greenew shared interaction layer. */
+/* XFusion shared interaction layer. */
 (function () {
   "use strict";
 
   var ready = false;
 
   function announce(message) {
-    var region = document.getElementById("greenew-status");
+    var region = document.getElementById("cardinalstone-status");
     if (!region) {
       region = document.createElement("div");
-      region.id = "greenew-status";
+      region.id = "cardinalstone-status";
       region.setAttribute("role", "status");
       region.setAttribute("aria-live", "polite");
       region.style.cssText = "position:fixed;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0";
@@ -18,17 +18,17 @@
   }
 
   function hideLoader() {
-    var loader = document.getElementById("greenew-loader");
+    var loader = document.getElementById("cardinalstone-loader");
     if (loader) loader.classList.add("is-ready");
     document.body.classList.remove("page-loading");
     ready = true;
   }
 
   function showLoader() {
-    if (document.getElementById("greenew-loader")) return;
+    if (document.getElementById("cardinalstone-loader")) return;
     var loader = document.createElement("div");
-    loader.id = "greenew-loader";
-    loader.innerHTML = '<div class="loader-brand" aria-label="Loading Greenew"><span class="loader-orbit" aria-hidden="true"></span><span>Greenew</span></div>';
+    loader.id = "cardinalstone-loader";
+    loader.innerHTML = '<div class="loader-brand" aria-label="Loading XFusion"><span class="loader-orbit" aria-hidden="true"></span><span>XFusion</span></div>';
     document.body.appendChild(loader);
   }
 
@@ -48,7 +48,7 @@
     }
   }
 
-  window.GreenewUI = {
+  window.SerlzoUI = {
     hideLoader: hideLoader,
     showLoader: showLoader,
     setBusy: setBusy,
@@ -65,7 +65,7 @@
       if (!href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0 || link.target === "_blank") return;
       link.addEventListener("click", function () {
         if (link.dataset.noLoader === "true") return;
-        var loader = document.getElementById("greenew-loader");
+        var loader = document.getElementById("cardinalstone-loader");
         if (loader) loader.classList.remove("is-ready");
         document.body.classList.add("page-loading");
       });
