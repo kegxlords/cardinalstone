@@ -3,16 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0056b3" />
-  <title>CardinalStone — Login</title>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — Login</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
-  
+
   <style>
-    /* Premium Login Page Overrides */
-    body { 
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0056b3 100%);
+    /* ===== XFusion Login Skin (pink · white · yellow · lemon) ===== */
+    :root {
+      --xf-ink: #2B2330;
+      --xf-mid: #4A3F52;
+      --xf-muted: #6F6478;
+      --xf-placeholder: #B8AEC0;
+      --xf-pink: #FF3D8B;
+      --xf-pink-deep: #D01563;
+      --xf-lemon: #FFE23D;
+      --xf-yellow: #FFC93C;
+      --xf-field-bg: #FFFAFC;
+      --xf-field-border: #F3DBE8;
+    }
+
+    body {
+      background: linear-gradient(135deg, #FFF1F7 0%, #FFFBE6 50%, #FFE8F2 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -20,197 +33,144 @@
       padding: 20px;
       position: relative;
       overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
     }
-    
-    /* Subtle background ambient glows */
+
     body::before {
       content: '';
       position: absolute;
-      top: -10%;
-      left: -10%;
-      width: 50vw;
-      height: 50vw;
-      background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, transparent 70%);
+      top: -10%; left: -10%;
+      width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(255, 61, 139, 0.10) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
     }
     body::after {
       content: '';
       position: absolute;
-      bottom: -10%;
-      right: -10%;
-      width: 40vw;
-      height: 40vw;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); /* Green accent glow */
+      bottom: -10%; right: -10%;
+      width: 40vw; height: 40vw;
+      background: radial-gradient(circle, rgba(255, 226, 61, 0.16) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
     }
 
-    .auth-wrap { 
+    .auth-wrap {
       width: 100%;
-      max-width: 440px; 
+      max-width: 440px;
       position: relative;
       z-index: 10;
       animation: fadeUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
     }
 
     .auth-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: #ffffff;
+      border: 1px solid rgba(255, 61, 139, 0.08);
       border-radius: 28px;
       padding: 40px 32px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 24px 48px -12px rgba(255, 61, 139, 0.18), 0 0 0 1px rgba(255, 61, 139, 0.05);
     }
 
-    .auth-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+    .auth-header { text-align: center; margin-bottom: 32px; }
 
-    .logo { 
-      font-size: 32px; 
-      font-weight: 800; 
-      letter-spacing: -0.5px; 
-      color: #0f172a;
-      margin-bottom: 8px; 
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--xf-ink);
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
     }
-    
+
     .logo-dot {
-      width: 12px;
-      height: 12px;
-      background: linear-gradient(135deg, #007bff, #10b981); /* Blue to Green accent */
+      width: 12px; height: 12px;
+      background: linear-gradient(135deg, var(--xf-pink) 0%, var(--xf-lemon) 100%);
       border-radius: 4px;
       transform: rotate(45deg);
-      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+      box-shadow: 0 0 0 4px rgba(255, 61, 139, 0.15);
     }
 
-    .logo-sub { 
-      font-size: 15px; 
-      color: #64748b; 
-      font-weight: 500;
-    }
+    .logo-sub { font-size: 15px; color: var(--xf-muted); font-weight: 500; }
 
-    .auth-title { 
-      font-size: 24px; 
-      font-weight: 800; 
-      color: #0f172a; 
-      margin-bottom: 8px; 
-      text-align: center;
-    }
-    
-    .auth-sub { 
-      font-size: 15px; 
-      color: #64748b; 
-      margin-bottom: 32px; 
-      text-align: center;
-      line-height: 1.5;
-    }
+    .auth-title { font-size: 24px; font-weight: 800; color: var(--xf-ink); margin-bottom: 8px; text-align: center; }
+    .auth-sub { font-size: 15px; color: var(--xf-muted); margin-bottom: 32px; text-align: center; line-height: 1.5; }
 
     .field { margin-bottom: 20px; }
-    
-    .field-label { 
-      display: block; 
-      margin-bottom: 8px; 
-      color: #334155; 
-      font-size: 14px; 
-      font-weight: 700; 
-    }
-    
-    .field-input { 
-      width: 100%; 
-      min-height: 52px; 
-      padding: 0 16px; 
-      color: #0f172a; 
-      background: #f8fafc; 
-      border: 1.5px solid #e2e8f0; 
-      border-radius: 14px; 
-      outline: none; 
-      font-size: 15px; 
+    .field-label { display: block; margin-bottom: 8px; color: var(--xf-mid); font-size: 14px; font-weight: 700; }
+    .field-input {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 16px;
+      color: var(--xf-ink);
+      background: var(--xf-field-bg);
+      border: 1.5px solid var(--xf-field-border);
+      border-radius: 14px;
+      outline: none;
+      font-size: 15px;
       font-weight: 500;
-      transition: all 0.2s ease; 
-    }
-    
-    .field-input::placeholder { color: #94a3b8; }
-    
-    .field-input:focus { 
-      border-color: #007bff; 
-      background: #ffffff; 
-      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1); 
-    }
-
-    .forgot { 
-      font-size: 14px; 
-      color: #007bff; 
-      font-weight: 700; 
-      text-align: right; 
-      display: block; 
-      margin-top: -8px; 
-      margin-bottom: 24px; 
-      transition: color 0.2s ease;
-    }
-    .forgot:hover { color: #0056b3; }
-
-    .btn-primary { 
-      width: 100%; 
-      min-height: 54px;
-      color: #ffffff; 
-      background: linear-gradient(135deg, #0056b3 0%, #007bff 100%); 
-      border: none;
-      border-radius: 14px; 
-      font-size: 16px; 
-      font-weight: 800; 
-      letter-spacing: 0.3px;
-      box-shadow: 0 10px 20px -5px rgba(0, 86, 179, 0.4);
+      font-family: inherit;
       transition: all 0.2s ease;
     }
-    
-    .btn-primary:hover { 
-      transform: translateY(-2px); 
-      box-shadow: 0 15px 25px -5px rgba(0, 86, 179, 0.5); 
-    }
-    
-    .btn-primary:active { 
-      transform: translateY(0); 
+    .field-input::placeholder { color: var(--xf-placeholder); }
+    .field-input:focus {
+      border-color: var(--xf-pink);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(255, 61, 139, 0.12);
     }
 
-    .auth-switch { 
-      text-align: center; 
-      font-size: 15px; 
-      color: #64748b; 
-      margin-top: 28px; 
-      font-weight: 500;
-    }
-    
-    .auth-switch a { 
-      color: #007bff; 
-      font-weight: 800; 
-      text-decoration: none;
+    .forgot {
+      font-size: 14px;
+      color: var(--xf-pink-deep);
+      font-weight: 700;
+      text-align: right;
+      display: block;
+      margin-top: -8px;
+      margin-bottom: 24px;
       transition: color 0.2s ease;
+      text-decoration: none;
     }
-    .auth-switch a:hover { color: #0056b3; }
+    .forgot:hover { color: #A80F4E; }
 
-    .alert { 
-      padding: 14px 16px; 
-      border-radius: 12px; 
-      font-size: 14px; 
-      font-weight: 600; 
-      margin-bottom: 24px; 
-      display: none; 
+    .btn-primary {
+      width: 100%;
+      min-height: 54px;
+      color: var(--xf-ink);
+      background: linear-gradient(135deg, var(--xf-pink) 0%, var(--xf-yellow) 55%, var(--xf-lemon) 100%);
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      box-shadow: 0 12px 24px -6px rgba(255, 61, 139, 0.40);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -6px rgba(255, 61, 139, 0.50); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .auth-switch { text-align: center; font-size: 15px; color: var(--xf-muted); margin-top: 28px; font-weight: 500; }
+    .auth-switch a { color: var(--xf-pink-deep); font-weight: 800; text-decoration: none; transition: color 0.2s ease; }
+    .auth-switch a:hover { color: #A80F4E; }
+
+    /* class names preserved exactly: .alert + .show + .alert-error/.alert-success */
+    .alert {
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      display: none;
     }
     .alert.show { display: block; animation: fadeUp 0.3s ease both; }
-    .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-    .alert-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .alert-error { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+    .alert-success { background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0; }
 
-    @keyframes fadeUp { 
-      from { opacity: 0; transform: translateY(15px); } 
-      to { opacity: 1; transform: translateY(0); } 
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 480px) {
       .auth-card { padding: 32px 24px; border-radius: 24px; }
@@ -225,13 +185,13 @@
       <div class="auth-header">
         <div class="logo">
           <span class="logo-dot"></span>
-          CardinalStone
+          XFusion
         </div>
-        <div class="logo-sub">Premium wealth management & investments.</div>
+        <div class="logo-sub">Fusion wealth management & investments.</div>
       </div>
 
       <div class="auth-title">Welcome back</div>
-      <div class="auth-sub">Sign in to your CardinalStone account to continue.</div>
+      <div class="auth-sub">Sign in to your XFusion account to continue.</div>
 
       <div id="alert" class="alert"></div>
 
@@ -263,7 +223,6 @@
     document.addEventListener("DOMContentLoaded", async function () {
       if (window.SerlzoReady) await window.SerlzoReady;
 
-      // Already logged in?
       if (window.sb) {
         window.sb.auth.getSession().then(function (r) {
           if (r.data?.session) location.href = "/dashboard.html";
@@ -278,17 +237,17 @@
 
         if (!email || !pass) {
           alert.textContent = "Please fill in all fields.";
-          alert.className = "alert alert-error show"; 
-          return;
-        }
-
-        if (!window.sb) {
-          alert.textContent = "CardinalStone access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY.";
           alert.className = "alert alert-error show";
           return;
         }
 
-        btn.disabled = true; 
+        if (!window.sb) {
+          alert.textContent = "XFusion access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY.";
+          alert.className = "alert alert-error show";
+          return;
+        }
+
+        btn.disabled = true;
         btn.textContent = "Signing in…";
         alert.className = "alert";
 
@@ -297,19 +256,18 @@
         if (error) {
           alert.textContent = error.message || "Invalid credentials.";
           alert.className = "alert alert-error show";
-          btn.disabled = false; 
-          btn.textContent = "Sign In"; 
+          btn.disabled = false;
+          btn.textContent = "Sign In";
           return;
         }
 
         location.href = "/dashboard.html";
       });
 
-      // Enter key support
       document.getElementById("password").addEventListener("keydown", function (e) {
         if (e.key === "Enter") document.getElementById("loginBtn").click();
       });
-      
+
       document.getElementById("email").addEventListener("keydown", function (e) {
         if (e.key === "Enter") document.getElementById("loginBtn").click();
       });
