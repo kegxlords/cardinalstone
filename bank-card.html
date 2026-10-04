@@ -1,46 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Payment methods</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — Payment Methods</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    .bc-item { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; margin:0 16px 12px; }
-    .bc-bank { font-size:15px; font-weight:800; color:var(--text); margin-bottom:2px; }
-    .bc-num  { font-size:18px; font-weight:700; color:var(--purple); letter-spacing:.1em; }
-    .bc-name { font-size:13px; color:var(--muted); margin-top:2px; }
-    .bc-actions { display:flex; gap:8px; margin-top:12px; }
-    .form-section { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; margin:0 16px; }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <style>
+    /* ===== XFusion payment shell. NOTE: classes the JS injects (.bc-*, .alert*, .field*, .btn*, .loader*, .empty*) are styled here as ENHANCEMENTS only — the JS markup is untouched. ===== */
+    *,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    :root{
+      --xf-bg:#fff8fb;--xf-surface:#ffffff;--xf-surface-2:#fdf3f8;--xf-line:rgba(255,61,139,.14);--xf-line-2:#f0dde7;
+      --xf-text:#2b2330;--xf-mid:#4a3f52;--xf-muted:#6f6478;--xf-ph:#b8aec0;--xf-ink:#2b2330;
+      --xf-accent:#d01563;--xf-accent-2:#ff3d8b;--xf-pink-soft:#ffe3ef;--xf-lemon:#ffe23d;--xf-yellow:#ffc93c;--xf-hero-dark:#8a0e42;--xf-danger:#e11d48;
+      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
+      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 52%,#ff3d8b 100%);
+      --xf-ease:cubic-bezier(.23,1,.32,1);
+      --xf-shadow-sm:0 8px 20px -12px rgba(208,21,99,.22);
+    }
+    body{background:radial-gradient(circle at 0% 0%,rgba(255,61,139,.06),transparent 30rem),radial-gradient(circle at 100% 0%,rgba(255,226,61,.10),transparent 34rem),var(--xf-bg)!important;color:var(--xf-text)!important}
+    .page-wrap{padding-bottom:30px}
+
+    /* topbar (reuse global .topbar/.back-btn/.topbar-title, just lift the surface) */
+    .topbar{background:rgba(255,255,255,.86)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .topbar-title{font-family:'Playfair Display',serif!important;letter-spacing:-.01em}
+
+    /* mini hero */
+    .pm-hero{position:relative;overflow:hidden;margin:14px 16px 0;padding:20px 20px 22px;border-radius:22px;color:#fff;background:var(--xf-hero);box-shadow:0 16px 36px -18px rgba(138,14,66,.5)}
+    .pm-hero::before{content:'';position:absolute;top:-60px;right:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,61,.3),transparent 70%)}
+    .pm-hero .ph-mark{position:relative;z-index:1;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .pm-hero .ph-diamond{width:12px;height:12px;border-radius:4px;transform:rotate(45deg);background:var(--xf-sweep);box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+    .pm-hero .ph-word{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:800;letter-spacing:.02em}
+    .pm-hero h2{position:relative;z-index:1;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+    .pm-hero p{position:relative;z-index:1;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.9);max-width:340px}
+
+    /* section label */
+    .xf-sec{display:flex;align-items:center;gap:10px;padding:24px 16px 12px}
+    .xf-sec .bar{width:4px;height:15px;border-radius:3px;background:var(--xf-sweep)}
+    .xf-sec .lbl{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--xf-muted)}
+    .xf-sec .count{margin-left:auto;font-size:11px;font-weight:800;color:var(--xf-accent);background:var(--xf-pink-soft);border-radius:99px;padding:3px 9px}
+
+    /* saved-list zone */
+    #cardList{padding:0 16px}
+
+    /* ---- enhance the JS-injected .bc-item into a payment-card tile (CSS only) ---- */
+    .bc-item{position:relative!important;overflow:hidden!important;background:var(--xf-surface)!important;border:1px solid var(--xf-line)!important;
+      border-radius:20px!important;padding:18px 18px 16px 22px!important;margin:0 0 12px!important;box-shadow:var(--xf-shadow-sm)!important;
+      transition:transform .18s var(--xf-ease),box-shadow .18s,border-color .18s}
+    .bc-item:hover{transform:translateY(-2px);box-shadow:0 14px 30px -16px rgba(208,21,99,.3);border-color:var(--xf-accent-2)!important}
+    .bc-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--xf-sweep)}
+    .bc-item::after{content:'';position:absolute;top:-40px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,61,.16),transparent 70%);pointer-events:none}
+    .bc-bank{font-size:15px!important;font-weight:800!important;color:var(--xf-text)!important;letter-spacing:-.01em;position:relative;z-index:1}
+    .bc-num{font-size:19px!important;font-weight:700!important;color:var(--xf-accent)!important;letter-spacing:.16em!important;font-variant-numeric:tabular-nums;margin-top:4px;position:relative;z-index:1}
+    .bc-name{font-size:12.5px!important;color:var(--xf-muted)!important;font-weight:600;margin-top:3px;position:relative;z-index:1}
+    /* lemon ribbon for the default account (overrides JS inline font-size:10px) */
+    .bc-bank .pill,.bc-bank .pill-purple{font-size:10px!important;font-weight:800!important;letter-spacing:.04em;text-transform:uppercase;
+      background:var(--xf-lemon)!important;color:#5a3d00!important;border:1px solid #f4d000!important;padding:3px 8px!important;border-radius:99px!important;vertical-align:middle;margin-left:4px}
+    .bc-actions{margin-top:14px;position:relative;z-index:1}
+    /* danger ghost remove button (overrides JS inline styles) */
+    .bc-actions .btn-ghost,.bc-actions .btn-sm{color:var(--xf-danger)!important;border:1.5px solid rgba(225,29,72,.4)!important;background:rgba(225,29,72,.06)!important;
+      border-radius:11px!important;font-weight:800!important;font-size:12.5px!important;min-height:38px;padding:9px 16px!important;transition:background .18s,transform .18s var(--xf-ease)}
+    .bc-actions .btn-ghost:hover{background:rgba(225,29,72,.12)!important;transform:translateY(-1px)}
+
+    /* empty + loader (JS-injected) */
+    #cardList .empty{background:var(--xf-surface);border:1px dashed var(--xf-line);border-radius:20px;padding:30px 18px;text-align:center;color:var(--xf-muted)}
+    #cardList .empty-icon{width:46px;height:46px;margin:0 auto 12px;border-radius:14px;background:var(--xf-pink-soft);display:flex;align-items:center;justify-content:center}
+    #cardList .empty-icon::before{content:'';width:20px;height:20px;border:2px solid var(--xf-accent);border-radius:50%}
+    #cardList .empty p{font-size:13.5px;font-weight:600}
+    .loader-wrap{padding:30px;display:flex;justify-content:center}
+    .loader{width:28px;height:28px;border:3px solid var(--xf-pink-soft);border-top-color:var(--xf-accent);border-right-color:var(--xf-accent-2);border-radius:50%;animation:xfSpin .8s linear infinite}
+
+    /* add-account form panel with icon rail */
+    .form-section{position:relative;overflow:hidden;background:var(--xf-surface)!important;border:1px solid var(--xf-line)!important;border-radius:22px!important;
+      margin:0 16px!important;padding:22px 20px 20px 24px!important;box-shadow:var(--xf-shadow-sm)!important}
+    .form-section::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--xf-sweep)}
+    .fs-head{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+    .fs-head .ic{width:38px;height:38px;flex:0 0 38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--xf-pink-soft)}
+    .fs-head .ic svg{width:20px;height:20px;stroke:var(--xf-accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .fs-head b{font-size:15px;font-weight:800;color:var(--xf-text);letter-spacing:-.01em}
+    .fs-head span{display:block;font-size:11.5px;color:var(--xf-muted);font-weight:600;margin-top:1px}
+
+    /* alert (JS toggles .alert .alert-error .show) */
+    #formAlert.alert{display:none;margin:0 0 14px;padding:12px 14px;border-radius:13px;font-size:13px;font-weight:700;line-height:1.45}
+    #formAlert.alert.show{display:block}
+    #formAlert.alert-error{background:#ffe4e9!important;color:#9f1239!important;border:1px solid #ffc2cf!important}
+
+    /* fields (global .field/.field-label/.field-input already pink via styles.css; tighten here) */
+    .form-section .field{margin-bottom:14px}
+    .form-section .field-label{color:var(--xf-mid)!important;font-size:12px!important;font-weight:800!important;letter-spacing:.01em}
+    .form-section .field-input{background:var(--xf-surface-2)!important;border:1.5px solid var(--xf-line)!important;border-radius:14px!important;min-height:52px!important;font-size:16px!important;color:var(--xf-text)!important}
+    .form-section .field-input::placeholder{color:var(--xf-ph)!important}
+    .form-section .field-input:focus{border-color:var(--xf-accent-2)!important;background:#fff!important;box-shadow:0 0 0 4px rgba(255,61,139,.16)!important}
+    #acctNum{letter-spacing:.12em;font-variant-numeric:tabular-nums}
+
+    /* default checkbox row */
+    .default-row{display:flex;align-items:center;gap:10px;margin:2px 0 16px;padding:12px 14px;background:var(--xf-surface-2);border:1px solid var(--xf-line);border-radius:14px}
+    .default-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--xf-accent)!important;flex:0 0 18px;cursor:pointer}
+    .default-row label{font-size:13px;font-weight:700;color:var(--xf-mid);cursor:pointer}
+    .default-row label small{display:block;font-size:11px;font-weight:600;color:var(--xf-muted);margin-top:1px}
+
+    /* save button (global .btn.btn-primary; lift to fusion sweep) */
+    .form-section .btn-primary{width:100%;min-height:54px;border-radius:15px!important;background:var(--xf-sweep)!important;color:var(--xf-ink)!important;
+      font-weight:800!important;font-size:15px!important;letter-spacing:.01em;box-shadow:0 14px 28px -10px rgba(208,21,99,.45)!important;
+      display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .18s var(--xf-ease),box-shadow .18s}
+    .form-section .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -10px rgba(208,21,99,.55)!important}
+    .form-section .btn-primary:active{transform:scale(.985)}
+
+    .pm-tip{margin:14px 16px 0;font-size:11.5px;line-height:1.5;color:var(--xf-muted);text-align:center}
+    .pm-tip b{color:var(--xf-accent)}
+
+    @keyframes xfSpin{to{transform:rotate(360deg)}}
+    @keyframes xfUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .page-wrap>*{animation:xfUp .5s var(--xf-ease) both}
+    .topbar{animation:none}
+    @media(min-width:820px){.page-wrap{max-width:560px}}
+    @media(max-width:380px){.pm-hero,#cardList,.form-section,.xf-sec,.pm-tip{margin-inline:12px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
   <div class="topbar">
     <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title"> Payment methods</span>
+    <span class="topbar-title">Payment Methods</span>
     <div></div>
   </div>
 
-  <div style="padding:16px 16px 8px;font-size:15px;font-weight:700">Saved Accounts</div>
+  <!-- mini hero -->
+  <section class="pm-hero">
+    <div class="ph-mark"><span class="ph-diamond"></span><span class="ph-word">XFUSION</span></div>
+    <h2>Your payout accounts</h2>
+    <p>Add the bank account you want refunds and withdrawals sent to. Mark one as default and we'll use it automatically.</p>
+  </section>
+
+  <!-- saved accounts (container + initial loader preserved for JS) -->
+  <div class="xf-sec"><span class="bar"></span><span class="lbl">Saved Accounts</span></div>
   <div id="cardList"><div class="loader-wrap"><div class="loader"></div></div></div>
 
-  <div style="padding:16px 16px 8px;font-size:15px;font-weight:700;margin-top:8px">Add New Account</div>
+  <!-- add new account -->
+  <div class="xf-sec"><span class="bar"></span><span class="lbl">Add New Account</span></div>
   <div class="form-section">
-    <div id="formAlert" class="alert"></div>
-    <div class="field"><label class="field-label">Bank Name</label><input class="field-input" id="bankName" placeholder="e.g. OPay, GTBank, Access Bank"/></div>
-    <div class="field"><label class="field-label">Account Number</label><input class="field-input" id="acctNum" type="tel" maxlength="10" placeholder="10-digit account number"/></div>
-    <div class="field"><label class="field-label">Account Name</label><input class="field-input" id="acctName" placeholder="As it appears on your bank"/></div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-      <input type="checkbox" id="isDefault" style="width:16px;height:16px;accent-color:var(--purple)"/>
-      <label for="isDefault" style="font-size:13px;font-weight:600;color:var(--text2)">Set as default refund account</label>
+    <div class="fs-head">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
+      <div><b>Bank details</b><span>Verified against your name on file</span></div>
     </div>
+
+    <div id="formAlert" class="alert"></div>
+
+    <div class="field"><label class="field-label" for="bankName">Bank Name</label><input class="field-input" id="bankName" placeholder="e.g. OPay, GTBank, Access Bank"/></div>
+    <div class="field"><label class="field-label" for="acctNum">Account Number</label><input class="field-input" id="acctNum" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit account number"/></div>
+    <div class="field"><label class="field-label" for="acctName">Account Name</label><input class="field-input" id="acctName" placeholder="As it appears on your bank"/></div>
+
+    <div class="default-row">
+      <input type="checkbox" id="isDefault"/>
+      <label for="isDefault">Set as default refund account<small>Used automatically for payouts</small></label>
+    </div>
+
     <button class="btn btn-primary" onclick="addCard()">Save Account</button>
   </div>
+
+  <p class="pm-tip">Tip: keep your <b>default</b> account current so withdrawals never stall.</p>
   <div style="height:20px"></div>
 </div>
 <div id="toast"></div>
+
+<!-- ===== SCRIPT BLOCK: VERBATIM from the original. Do not edit. ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
@@ -103,5 +231,4 @@
 })();
 </script>
 </body>
-    </html>
-  
+</html>
