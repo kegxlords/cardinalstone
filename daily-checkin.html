@@ -1,59 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Serlzo Investments — Daily Check-In</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#FF3D8B" />
+  <title>XFusion — Daily Check-In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
-  <style>
-    .checkin-card {
-      background:linear-gradient(135deg,var(--purple),var(--sky));
-      border-radius:24px; margin:16px; padding:32px 24px; text-align:center; color:#fff;
-      box-shadow:0 8px 32px rgba(124,58,237,.3);
-    }
-    .checkin-icon { font-size:56px; margin-bottom:12px; }
-    .checkin-amount { font-size:48px; font-weight:800; letter-spacing:-1px; }
-    .checkin-label { font-size:14px; opacity:.8; margin-top:4px; }
-    .checkin-btn {
-      background:#fff; color:var(--purple); border:none;
-      padding:16px 48px; border-radius:50px; font-size:18px; font-weight:800;
-      cursor:pointer; margin-top:24px; width:100%; transition:opacity .15s;
-    }
-    .checkin-btn:disabled { opacity:.4; cursor:not-allowed; }
-    .streak-row { display:flex; gap:6px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
-    .streak-day {
-      width:36px; height:36px; border-radius:10px; border:2px solid rgba(255,255,255,.3);
-      display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:rgba(255,255,255,.6);
-    }
-    .streak-day.done { background:rgba(255,255,255,.25); color:#fff; border-color:transparent; }
-    .streak-day.today { background:#fff; color:var(--purple); border-color:#fff; }
-  </style>
   <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <style>
+    /* ===== XFusion Daily Check-In shell. JS-injected ids/classes preserved; only paint + structure are new. ===== */
+    *,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    :root{
+      --xf-bg:#fff8fb;--xf-surface:#ffffff;--xf-surface-2:#fdf3f8;--xf-line:rgba(255,61,139,.14);
+      --xf-text:#2b2330;--xf-mid:#4a3f52;--xf-muted:#6f6478;--xf-ph:#b8aec0;--xf-ink:#2b2330;
+      --xf-accent:#d01563;--xf-accent-2:#ff3d8b;--xf-pink-soft:#ffe3ef;--xf-lemon:#ffe23d;--xf-yellow:#ffc93c;--xf-hero-dark:#8a0e42;--xf-success:#16a34a;
+      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
+      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 50%,#ff3d8b 100%);
+      --xf-ease:cubic-bezier(.23,1,.32,1);
+      --xf-shadow-sm:0 8px 20px -12px rgba(208,21,99,.22);
+    }
+    body{background:radial-gradient(circle at 0% 0%,rgba(255,61,139,.06),transparent 30rem),radial-gradient(circle at 100% 0%,rgba(255,226,61,.10),transparent 34rem),var(--xf-bg)!important;color:var(--xf-text)!important}
+    .page-wrap{padding-bottom:30px}
+    .topbar{background:rgba(255,255,255,.86)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .topbar-title{font-family:'Playfair Display',serif!important;letter-spacing:-.01em}
+
+    /* ---- check-in hero card ---- */
+    .checkin-card{
+      position:relative;overflow:hidden;margin:16px;padding:30px 22px 26px;text-align:center;color:#fff;
+      border-radius:26px;background:var(--xf-hero);
+      box-shadow:0 22px 48px -20px rgba(138,14,66,.6)!important;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .checkin-card::before{content:'';position:absolute;top:-90px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,61,.4),transparent 68%)}
+    .checkin-card::after{content:'';position:absolute;bottom:-110px;left:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+    .ck-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:180px;font-weight:800;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;user-select:none}
+    .ck-inner{position:relative;z-index:1}
+
+    .checkin-icon{
+      width:74px;height:74px;margin:0 auto 14px;border-radius:22px;display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 10px 24px -10px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.3);
+      color:#fff;backdrop-filter:blur(6px);
+    }
+    .checkin-icon svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    .checkin-amount{font-size:clamp(40px,12vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1;text-shadow:0 4px 18px rgba(0,0,0,.25)}
+    .checkin-label{font-size:13.5px;opacity:.9;margin-top:8px;font-weight:600;letter-spacing:.01em}
+
+    .checkin-btn{
+      position:relative;overflow:hidden;width:100%;margin-top:22px;min-height:56px;border:0;border-radius:50px;cursor:pointer;
+      font-family:inherit;font-size:17px;font-weight:800;letter-spacing:.01em;color:var(--xf-accent);
+      background:#fff;box-shadow:0 14px 30px -12px rgba(0,0,0,.4);
+      transition:transform .18s var(--xf-ease),box-shadow .18s,opacity .15s;
+    }
+    .checkin-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 32%,rgba(255,61,139,.18) 50%,transparent 68%);transform:translateX(-120%);transition:transform .6s}
+    .checkin-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 36px -12px rgba(0,0,0,.45)}
+    .checkin-btn:hover:not(:disabled)::after{transform:translateX(120%)}
+    .checkin-btn:active:not(:disabled){transform:scale(.98)}
+    .checkin-btn:disabled{cursor:default;background:var(--xf-lemon);color:#5a3d00;box-shadow:0 10px 24px -12px rgba(90,61,0,.5)}
+
+    /* ---- streak track ---- */
+    .streak-row{display:flex;gap:7px;justify-content:center;margin-top:20px;flex-wrap:nowrap;position:relative;z-index:1}
+    .streak-day{
+      flex:1 1 0;min-width:0;max-width:46px;height:42px;border-radius:12px;
+      border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);
+      display:flex;align-items:center;justify-content:center;
+      font-size:10px;font-weight:800;letter-spacing:.02em;color:rgba(255,255,255,.62);
+      transition:transform .18s var(--xf-ease);
+    }
+    .streak-day.done{background:rgba(255,255,255,.92);color:var(--xf-accent);border-color:transparent;box-shadow:0 6px 14px -6px rgba(0,0,0,.3)}
+    .streak-day.today{background:var(--xf-lemon);color:#5a3d00;border-color:#fff;box-shadow:0 0 0 3px rgba(255,226,61,.35);animation:ckPulse 1.8s var(--xf-ease) infinite}
+    @keyframes ckPulse{0%,100%{box-shadow:0 0 0 3px rgba(255,226,61,.30)}50%{box-shadow:0 0 0 6px rgba(255,226,61,.12)}}
+
+    /* ---- recent panel ---- */
+    .section{margin:18px 16px}
+    .card.card-pad{background:var(--xf-surface)!important;border:1px solid var(--xf-line)!important;border-radius:22px!important;box-shadow:var(--xf-shadow-sm)!important;padding:20px!important}
+    .rc-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .rc-head .bar{width:4px;height:15px;border-radius:3px;background:var(--xf-sweep)}
+    .rc-head h3{font-size:14px!important;font-weight:800!important;color:var(--xf-text)!important;margin:0!important;letter-spacing:-.01em}
+    /* tidy the JS-injected history rows (CSS only) */
+    #checkinActivity > div:last-child{border-bottom:0!important}
+    #checkinActivity > div{transition:background .15s}
+    #checkinActivity > div:hover{background:var(--xf-surface-2);border-radius:10px}
+
+    @keyframes xfUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .page-wrap>*{animation:xfUp .5s var(--xf-ease) both}
+    .topbar{animation:none}
+    @media(min-width:820px){.page-wrap{max-width:560px}}
+    @media(max-width:380px){.checkin-card,.section{margin-inline:12px}.streak-day{height:38px;font-size:9px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+  </style>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
   <div class="topbar">
     <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title"> Daily Check-In</span>
+    <span class="topbar-title">Daily Check-In</span>
     <div></div>
   </div>
 
-  <div class="checkin-card">
-    <div class="checkin-icon g-icon" id="checkinIcon" data-icon="calendar" aria-hidden="true"></div>
-    <div class="checkin-amount" id="checkinAmount">₦50</div>
-    <div class="checkin-label">Daily bonus — claim every day!</div>
-    <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">Claim ₦50 Bonus</button>
-    <div class="streak-row" id="streakRow"></div>
-  </div>
+  <section class="checkin-card">
+    <div class="ck-watermark" aria-hidden="true">%</div>
+    <div class="ck-inner">
+      <div class="checkin-icon g-icon" id="checkinIcon" data-icon="calendar" aria-hidden="true"></div>
+      <div class="checkin-amount" id="checkinAmount">₦50</div>
+      <div class="checkin-label">Daily bonus — claim every day to keep your streak alive.</div>
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">Claim ₦50 Bonus</button>
+      <div class="streak-row" id="streakRow"></div>
+    </div>
+  </section>
 
   <div class="section">
     <div class="card card-pad">
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px">Recent Check-Ins</h3>
+      <div class="rc-head"><span class="bar"></span><h3>Recent Check-Ins</h3></div>
       <div id="checkinActivity"><div class="loader-wrap"><div class="loader"></div></div></div>
     </div>
   </div>
 </div>
 <div id="toast"></div>
+
+<!-- ===== SCRIPT BLOCK: VERBATIM. Do not edit. ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="assets/js/serlzo.js" defer></script>
 <script src="assets/js/supabase.js" defer></script>
@@ -133,5 +202,4 @@
 })();
 </script>
 </body>
-  </html>
-  
+</html>
