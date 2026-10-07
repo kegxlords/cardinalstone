@@ -3,116 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#FF3D8B" />
-  <title>XFusion — Login</title>
+  <meta name="theme-color" content="#D90429" />
+  <title>Redpay — Login</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    :root{
-      --xf-bg:#fff8fb;--xf-surface:#ffffff;--xf-surface-2:#fdf3f8;--xf-line:rgba(255,61,139,.14);
-      --xf-text:#2b2330;--xf-mid:#4a3f52;--xf-muted:#6f6478;--xf-ph:#b8aec0;--xf-ink:#2b2330;
-      --xf-accent:#d01563;--xf-accent-2:#ff3d8b;--xf-pink-soft:#ffe3ef;--xf-lemon:#ffe23d;--xf-yellow:#ffc93c;--xf-hero-dark:#8a0e42;
-      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
-      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 52%,#ff3d8b 100%);
-      --xf-ease:cubic-bezier(.23,1,.32,1);
-    }
-    html,body{min-height:100%}
-    body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--xf-text);
-      background:radial-gradient(circle at 0% 0%,rgba(255,61,139,.08),transparent 32rem),radial-gradient(circle at 100% 100%,rgba(255,226,61,.12),transparent 34rem),var(--xf-bg);
-      display:flex;align-items:center;justify-content:center;padding:clamp(14px,4vw,40px);
-      padding-bottom:calc(clamp(14px,4vw,40px) + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%;overflow-x:hidden}
-    .xf-shell{width:min(100%,980px);background:var(--xf-surface);border:1px solid var(--xf-line);border-radius:28px;
-      box-shadow:0 30px 70px -24px rgba(208,21,99,.28),0 0 0 1px rgba(255,61,139,.04);overflow:hidden;animation:xfUp .6s var(--xf-ease) both}
-    .xf-brand{position:relative;color:#fff;padding:24px 22px;background:var(--xf-hero);overflow:hidden}
-    .xf-brand::before{content:'';position:absolute;top:-60px;right:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,61,.3),transparent 70%)}
-    .xf-mark{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
-    .xf-diamond{width:15px;height:15px;border-radius:5px;transform:rotate(45deg);background:var(--xf-sweep);box-shadow:0 0 0 5px rgba(255,255,255,.18)}
-    .xf-word{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800}
-    .xf-tag{position:relative;z-index:1;margin-top:5px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.82);font-weight:600}
-    .xf-form{padding:clamp(22px,5vw,38px)}
-    .xf-eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--xf-accent)}
-    .xf-h{margin-top:6px;font-family:'Playfair Display',serif;font-size:clamp(1.5rem,5vw,1.95rem);font-weight:800;letter-spacing:-.02em;color:var(--xf-text)}
-    .xf-sub{margin-top:8px;font-size:.86rem;line-height:1.6;color:var(--xf-muted)}
-
-    /* JS hook: #alert with classes alert / show / alert-error / alert-success */
-    .alert{display:none;margin:18px 0 4px;padding:13px 15px;border-radius:14px;font-size:.82rem;font-weight:700;line-height:1.45}
-    .alert.show{display:block;animation:xfUp .3s var(--xf-ease) both}
-    .alert-error{background:#ffe4e9;color:#9f1239;border:1px solid #ffc2cf}
-    .alert-success{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0}
-
-    .xf-fields{margin-top:18px;display:grid;gap:15px}
-    .xf-field label{display:block;margin-bottom:7px;font-size:.74rem;font-weight:800;color:var(--xf-mid)}
-    .xf-iw{position:relative;display:flex;align-items:center}
-    .xf-iw>.ic{position:absolute;left:14px;width:18px;height:18px;stroke:var(--xf-ph);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none;transition:stroke .18s}
-    .xf-iw input{width:100%;min-height:54px;padding:0 16px 0 44px;font-family:inherit;font-size:16px;font-weight:500;color:var(--xf-text);
-      background:var(--xf-surface-2);border:1.5px solid var(--xf-line);border-radius:15px;outline:none;transition:border-color .18s,box-shadow .18s,background .18s}
-    .xf-iw input::placeholder{color:var(--xf-ph)}
-    .xf-iw input:focus{background:#fff;border-color:var(--xf-accent-2);box-shadow:0 0 0 4px rgba(255,61,139,.16)}
-    .xf-iw:focus-within>.ic{stroke:var(--xf-accent)}
-    .xf-row{display:flex;align-items:center;justify-content:flex-end;margin-top:4px}
-    .forgot{font-size:.78rem;font-weight:800;color:var(--xf-accent);text-decoration:none}
-    .forgot:hover{color:#a80f4e;text-decoration:underline}
-
-    .btn{width:100%;min-height:56px;margin-top:18px;border:0;border-radius:16px;cursor:pointer;font-family:inherit;font-size:1rem;font-weight:800;
-      color:var(--xf-ink);background:var(--xf-sweep);box-shadow:0 14px 28px -8px rgba(208,21,99,.42);position:relative;overflow:hidden;
-      transition:transform .18s var(--xf-ease),box-shadow .18s,opacity .18s}
-    .btn::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s}
-    .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 34px -8px rgba(208,21,99,.5)}
-    .btn:hover:not(:disabled)::after{transform:translateX(120%)}
-    .btn:active:not(:disabled){transform:scale(.985)}
-    .btn:disabled{opacity:.62;cursor:wait}
-    .xf-foot{margin-top:20px;text-align:center;font-size:.84rem;color:var(--xf-muted)}
-    .xf-foot a{color:var(--xf-accent);font-weight:800;text-decoration:none}
-    .xf-foot a:hover{color:var(--xf-pink-deep);text-decoration:underline}
-    @keyframes xfUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-    @media(min-width:900px){.xf-shell{display:grid;grid-template-columns:.92fr 1.08fr;min-height:560px}
-      .xf-brand{display:flex;align-items:center;padding:46px 42px}.xf-form{display:flex;flex-direction:column;justify-content:center;padding:46px 44px}}
-    @media(max-width:899px){.xf-brand{padding:20px 22px}.xf-mark .xf-word{font-size:1.3rem}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
-  </style>
+  <link rel="stylesheet" href="assets/css/premium-pages.css" />
+  <link rel="stylesheet" href="assets/css/redpay.css" />
 </head>
-<!-- config placeholders = ORIGINAL login (kept exactly) -->
-<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<body class="rp-auth-body" data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 
-  <div class="xf-shell">
-    <aside class="xf-brand">
-      <div class="xf-mark"><span class="xf-diamond"></span><span class="xf-word">XFusion</span></div>
-      <p class="xf-tag">Premium Investing · Reimagined</p>
+  <main class="rp-auth-card">
+    <aside class="rp-auth-brand">
+      <div class="rp-auth-brand-inner">
+        <div class="rp-brand">
+          <span class="rp-diamond"></span>
+          <span class="rp-word">Redpay</span>
+        </div>
+        <p class="rp-auth-tag">Fast payouts · Secure wallet · Daily income</p>
+      </div>
     </aside>
 
-    <section class="xf-form">
-      <p class="xf-eyebrow">Members area</p>
-      <h1 class="xf-h">Welcome back</h1>
-      <p class="xf-sub">Sign in to your XFusion account to continue.</p>
+    <section class="rp-auth-panel">
+      <p class="rp-eyebrow">Members area</p>
+      <h1 class="rp-h">Welcome back</h1>
+      <p class="rp-sub">Sign in to your Redpay account to continue.</p>
 
       <div id="alert" class="alert"></div>
 
-      <!-- NO <form>; button type=button (matches original click-based JS) -->
-      <div class="xf-fields">
-        <div class="xf-field">
+      <div class="rp-fields">
+        <div class="rp-field">
           <label for="email">Email Address</label>
-          <div class="xf-iw"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            <input type="email" id="email" placeholder="you@example.com" autocomplete="email" /></div>
+          <div class="rp-input-wrap">
+            <svg class="rp-ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <input class="rp-input" type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+          </div>
         </div>
-        <div class="xf-field">
+
+        <div class="rp-field">
           <label for="password">Password</label>
-          <div class="xf-iw"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" /></div>
+          <div class="rp-input-wrap">
+            <svg class="rp-ico" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            <input class="rp-input" type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+          </div>
         </div>
       </div>
 
-      <div class="xf-row"><a href="forgot-password.html" class="forgot">Forgot password?</a></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+        <a href="forgot-password.html" class="section-link">Forgot password?</a>
+      </div>
 
-      <button class="btn" type="button" id="loginBtn">Sign In</button>
-      <p class="xf-foot">Don't have an account? <a href="register.html">Create one</a></p>
+      <button class="rp-btn" type="button" id="loginBtn">Sign In</button>
+
+      <p class="rp-foot">Don't have an account? <a href="register.html">Create one</a></p>
     </section>
-  </div>
+  </main>
 
-  <!-- script-tag defer pattern = ORIGINAL login (all four defer) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="assets/js/serlzo.js" defer></script>
   <script src="assets/js/supabase.js" defer></script>
@@ -141,7 +90,7 @@
         }
 
         if (!window.sb) {
-          alert.textContent = "XFusion access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY.";
+          alert.textContent = "Redpay access is not configured yet. Ask the site administrator to set SUPABASE_URL and SUPABASE_ANON_KEY.";
           alert.className = "alert alert-error show";
           return;
         }
@@ -173,5 +122,7 @@
       });
     });
   </script>
+  <!-- PASTE YOUR EXISTING LOGIN SCRIPT BLOCK HERE -->
+  <!-- Only change: "XFusion access..." -> "Redpay access..." -->
 </body>
 </html>
