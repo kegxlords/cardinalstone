@@ -3128,3 +3128,35 @@ body.rp-auth-body {
     transition-duration: 0.001ms !important;
   }
 }
+/* ===== REDPAY HOTFIX: hooks the base sheet missed ===== */
+
+/* 1. icon sizes the global stroke-list forgot (kills the giant logout + flat tier glyphs) */
+.logout-btn svg{ width:20px; height:20px; flex:0 0 20px; }
+.vt-icon svg{ width:18px; height:18px; }
+.menu-icon::before,
+.vt-icon::before,
+.logout-btn::before{ display:none !important; content:none !important; }
+
+/* 2. lock the logout button to a real bar height so nothing can stretch it */
+.logout-btn{
+  height:54px !important;
+  min-height:54px !important;
+  padding:0 18px !important;
+  overflow:hidden !important;
+  flex-direction:row !important;
+  white-space:nowrap;
+}
+
+/* 3. give the payments header the padding it never had */
+.dc-header{ padding:20px 18px !important; }
+.dc-header > *{ position:relative; z-index:1; }
+
+/* 4. tier tiles: hide any stray emoji/text, force crisp distinct glyphs */
+.vt-icon{ font-size:0; line-height:0; }
+.vt-icon svg{
+  stroke:currentColor; fill:none;
+  stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;
+}
+
+/* 5. section bar = solid brand red, not a gradient sliver */
+.rp-bar, .section-label .bar, .wd-step .bar, .gc-head .bar{ background:var(--rp-primary) !important; }
