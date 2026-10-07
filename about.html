@@ -1,212 +1,542 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#FF3D8B" />
-  <title>XFusion — About Us</title>
+  <meta name="theme-color" content="#D90429" />
+  <title>Redpay — About Us</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="stylesheet" href="assets/css/premium-pages.css"/>
+  <link rel="stylesheet" href="assets/css/premium-pages.css" />
+  <link rel="stylesheet" href="assets/css/redpay.css" />
+
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    :root{
-      --xf-bg:#fff8fb;--xf-surface:#ffffff;--xf-surface-2:#fdf3f8;--xf-line:rgba(255,61,139,.14);--xf-line-2:#f0dde7;
-      --xf-text:#2b2330;--xf-mid:#4a3f52;--xf-muted:#6f6478;--xf-ph:#b8aec0;--xf-ink:#2b2330;
-      --xf-accent:#d01563;--xf-accent-2:#ff3d8b;--xf-pink-soft:#ffe3ef;--xf-lemon:#ffe23d;--xf-yellow:#ffc93c;--xf-hero-dark:#8a0e42;
-      --xf-success:#16a34a;
-      --xf-sweep:linear-gradient(135deg,#ff3d8b 0%,#ffc93c 55%,#ffe23d 100%);
-      --xf-hero:linear-gradient(135deg,#8a0e42 0%,#d01563 52%,#ff3d8b 100%);
-      --xf-ease:cubic-bezier(.23,1,.32,1);
-      --xf-shadow:0 18px 40px -20px rgba(208,21,99,.28);
-      --xf-shadow-sm:0 8px 20px -12px rgba(208,21,99,.22);
+    body{
+      padding-bottom:calc(96px + env(safe-area-inset-bottom)) !important;
     }
-    html,body{min-height:100%}
-    body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--xf-text);
-      background:radial-gradient(circle at 0% 0%,rgba(255,61,139,.06),transparent 30rem),radial-gradient(circle at 100% 0%,rgba(255,226,61,.10),transparent 34rem),var(--xf-bg);
-      min-height:100vh;padding-bottom:96px;-webkit-text-size-adjust:100%;overflow-x:hidden}
-    .page-wrap{width:100%;max-width:760px;margin:0 auto;padding-bottom:100px;background:transparent}
 
-    /* topbar */
-    .topbar-premium{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:14px 18px;background:rgba(255,255,255,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--xf-line)}
-    .topbar-title{font-size:16px;font-weight:800;color:var(--xf-text);letter-spacing:-.01em}
-    .back-btn-premium{width:40px;height:40px;border-radius:12px;background:var(--xf-surface-2);border:1px solid var(--xf-line);
-      display:flex;align-items:center;justify-content:center;color:var(--xf-text);text-decoration:none;font-size:20px;font-weight:700;
-      transition:transform .18s var(--xf-ease),background .18s,border-color .18s}
-    .back-btn-premium:hover{background:var(--xf-pink-soft);border-color:var(--xf-accent-2);transform:translateX(-2px)}
-    .topbar-spacer{width:40px}
+    .topbar-premium{
+      animation:none !important;
+    }
 
-    /* hero */
-    .about-hero{position:relative;overflow:hidden;color:#fff;background:var(--xf-hero);padding:34px 22px 56px;text-align:center}
-    .about-hero::before{content:'';position:absolute;top:-70px;right:-40px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,61,.32),transparent 70%)}
-    .about-hero::after{content:'';position:absolute;bottom:-90px;left:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
-    .about-hero-inner{position:relative;z-index:1}
-    .ah-mark{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px}
-    .ah-diamond{width:14px;height:14px;border-radius:5px;transform:rotate(45deg);background:var(--xf-sweep);box-shadow:0 0 0 5px rgba(255,255,255,.18)}
-    .ah-word{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:800;letter-spacing:.02em}
-    .about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,6vw,2.2rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
-    .about-hero h1 em{font-style:normal;color:var(--xf-lemon)}
-    .about-hero p{font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.9);max-width:360px;margin:0 auto}
-    /* floating assurance chips overlapping hero bottom */
-    .ah-chips{position:relative;z-index:2;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:-30px 16px 0}
-    .ah-chip{display:flex;align-items:center;gap:8px;background:var(--xf-surface);border:1px solid var(--xf-line);border-radius:14px;
-      padding:11px 14px;box-shadow:var(--xf-shadow-sm);font-size:12.5px;font-weight:700;color:var(--xf-text)}
-    .ah-chip .dot{width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 26px}
-    .ah-chip .dot svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-    .ah-chip.c1 .dot{background:linear-gradient(135deg,#ff3d8b,#d01563)}
-    .ah-chip.c2 .dot{background:linear-gradient(135deg,#ffe23d,#ffc93c)}
-    .ah-chip.c2 .dot svg{stroke:#5a3d00}
-    .ah-chip.c3 .dot{background:linear-gradient(135deg,#c04cff,#ff3d8b)}
+    .rp-about-hero{
+      border-radius:0;
+      border:0;
+      box-shadow:none;
+      padding:34px 22px 56px;
+      text-align:center;
+      color:#fff;
+      background:var(--rp-hero);
+      position:relative;
+      overflow:hidden;
+    }
 
-    /* mission band */
-    .mission{margin:26px 16px 0;padding:22px 22px 22px 24px;background:var(--xf-surface);border:1px solid var(--xf-line);border-radius:22px;
-      box-shadow:var(--xf-shadow-sm);position:relative;overflow:hidden}
-    .mission::before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--xf-sweep)}
-    .mission .quote{font-family:'Playfair Display',serif;font-size:1.18rem;line-height:1.45;font-weight:700;color:var(--xf-text);letter-spacing:-.01em}
-    .mission .quote b{color:var(--xf-accent)}
-    .mission .byline{margin-top:12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--xf-muted)}
+    .rp-about-hero::before{
+      content:'';
+      position:absolute;
+      top:-90px;
+      right:-55px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,183,3,.34), transparent 68%);
+      pointer-events:none;
+    }
 
-    /* section label */
-    .xf-sec{padding:26px 16px 12px;display:flex;align-items:center;gap:10px}
-    .xf-sec .bar{width:4px;height:15px;border-radius:3px;background:var(--xf-sweep)}
-    .xf-sec .lbl{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--xf-muted)}
+    .rp-about-hero::after{
+      content:'';
+      position:absolute;
+      bottom:-120px;
+      left:-50px;
+      width:230px;
+      height:230px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
+      pointer-events:none;
+    }
 
-    /* value cards grid */
-    .values{display:grid;grid-template-columns:1fr;gap:12px;padding:0 16px}
-    .value-card{background:var(--xf-surface);border:1px solid var(--xf-line);border-radius:20px;padding:20px;box-shadow:var(--xf-shadow-sm);
-      transition:transform .18s var(--xf-ease),box-shadow .18s,border-color .18s}
-    .value-card:hover{transform:translateY(-3px);box-shadow:var(--xf-shadow);border-color:var(--xf-accent-2)}
-    .vc-top{display:flex;align-items:center;gap:13px;margin-bottom:12px}
-    .vc-tile{width:46px;height:46px;flex:0 0 46px;border-radius:14px;display:flex;align-items:center;justify-content:center;position:relative}
-    .vc-tile svg{width:23px;height:23px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-    .vc-tile .num{position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;background:var(--xf-surface);border:1px solid var(--xf-line);
-      display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--xf-accent)}
-    .value-card.t1 .vc-tile{background:linear-gradient(135deg,#ff3d8b,#d01563)}
-    .value-card.t2 .vc-tile{background:linear-gradient(135deg,#ffe23d,#ffc93c)} .value-card.t2 .vc-tile svg{stroke:#5a3d00}
-    .value-card.t3 .vc-tile{background:linear-gradient(135deg,#c04cff,#ff3d8b)}
-    .vc-title{font-size:16px;font-weight:800;color:var(--xf-text);letter-spacing:-.01em}
-    .value-card p{font-size:13.5px;line-height:1.65;color:var(--xf-muted)}
+    .rp-about-hero h1,
+    .rp-about-hero p,
+    .rp-about-hero .rp-brand{
+      position:relative;
+      z-index:1;
+    }
 
-    /* credibility strip */
-    .cred{margin:18px 16px 0;background:linear-gradient(135deg,var(--xf-pink-soft),#fffbe6);border:1px solid var(--xf-line);border-radius:20px;padding:18px 16px;
-      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
-    .cred .ci{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .cred .ci svg{width:22px;height:22px;stroke:var(--xf-accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-    .cred .ci b{font-size:12.5px;font-weight:800;color:var(--xf-text)}
-    .cred .ci span{font-size:10.5px;color:var(--xf-muted);font-weight:600}
+    .rp-about-hero h1{
+      font-family:'Sora',sans-serif;
+      font-size:clamp(1.7rem,6vw,2.2rem);
+      font-weight:800;
+      letter-spacing:-.03em;
+      line-height:1.1;
+      color:#fff;
+      margin:0;
+    }
 
-    /* support panel */
-    .support{margin:18px 16px 0;background:var(--xf-surface);border:1px solid var(--xf-line);border-radius:22px;padding:24px 20px;text-align:center;box-shadow:var(--xf-shadow-sm)}
-    .support .ico{width:54px;height:54px;margin:0 auto 14px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--xf-pink-soft)}
-    .support .ico svg{width:27px;height:27px;stroke:var(--xf-accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-    .support h2{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:var(--xf-text);margin-bottom:8px;letter-spacing:-.01em}
-    .support p{font-size:13.5px;line-height:1.6;color:var(--xf-muted);max-width:340px;margin:0 auto 18px}
-    .btn-support{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:320px;min-height:52px;border-radius:15px;border:0;
-      background:var(--xf-sweep);color:var(--xf-ink);font-family:inherit;font-size:15px;font-weight:800;text-decoration:none;cursor:pointer;
-      box-shadow:0 14px 28px -10px rgba(208,21,99,.45);transition:transform .18s var(--xf-ease),box-shadow .18s}
-    .btn-support:hover{transform:translateY(-2px);box-shadow:0 18px 34px -10px rgba(208,21,99,.55)}
-    .btn-support svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    .rp-about-hero p{
+      font-size:14.5px;
+      line-height:1.65;
+      color:rgba(255,255,255,.9);
+      max-width:360px;
+      margin:12px auto 0;
+      font-weight:600;
+    }
 
-    /* bottom nav */
-    .bottom-nav-premium{position:fixed;bottom:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:repeat(5,1fr);
-      background:rgba(255,255,255,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--xf-line);
-      box-shadow:0 -6px 22px -10px rgba(208,21,99,.18);padding:10px 4px calc(10px + env(safe-area-inset-bottom))}
-    .nav-item-premium{display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 4px;border:0;background:none;cursor:pointer;
-      color:var(--xf-muted);font-size:10.5px;font-weight:700;font-family:inherit;transition:color .18s,transform .18s var(--xf-ease)}
-    .nav-item-premium:hover{transform:translateY(-2px)}
-    .nav-item-premium.active{color:var(--xf-accent)}
-    .nav-icon-premium{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
-    .nav-icon-premium svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .rp-chips{
+      position:relative;
+      z-index:2;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin:-30px 16px 0;
+    }
 
-    @keyframes xfUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-    .page-wrap>*{animation:xfUp .5s var(--xf-ease) both}
-    .topbar-premium{animation:none}
-    @media(min-width:560px){.values{grid-template-columns:1fr 1fr}.value-card.full{grid-column:1/-1}}
-    @media(min-width:820px){body{padding:24px 18px 40px}.page-wrap{padding:0 0 24px;border:1px solid var(--xf-line);border-radius:30px;background:var(--xf-surface);box-shadow:var(--xf-shadow);overflow:hidden}
-      .topbar-premium{border-radius:0}.bottom-nav-premium{display:none}body{padding-bottom:40px}}
-    @media(max-width:380px){.ah-chips{margin-inline:12px}.cred{grid-template-columns:1fr;gap:14px}.cred .ci{flex-direction:row;justify-content:flex-start;text-align:left}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+    .rp-chip{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:var(--rp-surface);
+      border:1px solid var(--rp-line);
+      border-radius:14px;
+      padding:11px 14px;
+      box-shadow:var(--rp-shadow-sm);
+      font-size:12.5px;
+      font-weight:800;
+      color:var(--rp-text);
+    }
+
+    .rp-chip .dot{
+      width:26px;
+      height:26px;
+      border-radius:9px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 26px;
+      color:#fff;
+    }
+
+    .rp-chip .dot svg{
+      width:15px;
+      height:15px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2.4;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .rp-chip.c1 .dot{ background:linear-gradient(135deg,#ff4d5d,#d90429); }
+    .rp-chip.c2 .dot{ background:linear-gradient(135deg,#ffd166,#ffb703); color:#5a3d00; }
+    .rp-chip.c3 .dot{ background:linear-gradient(135deg,#a855f7,#d90429); }
+
+    .rp-mission{
+      margin:26px 16px 0;
+      padding:22px;
+      background:var(--rp-surface);
+      border:1px solid var(--rp-line);
+      border-radius:22px;
+      box-shadow:var(--rp-shadow-sm);
+      position:relative;
+    }
+
+    .rp-mission::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:14px;
+      bottom:14px;
+      width:4px;
+      border-radius:0 4px 4px 0;
+      background:var(--rp-sweep);
+    }
+
+    .rp-quote{
+      font-family:'Sora',sans-serif;
+      font-size:1.18rem;
+      line-height:1.45;
+      font-weight:800;
+      color:var(--rp-text);
+      letter-spacing:-.02em;
+      margin:0;
+    }
+
+    .rp-quote b{
+      color:var(--rp-primary);
+    }
+
+    .rp-principle{
+      margin-top:12px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--rp-muted);
+    }
+
+    .rp-values{
+      display:grid;
+      gap:12px;
+      padding:0 16px;
+    }
+
+    .value-card{
+      padding:20px;
+      background:var(--rp-surface);
+      border:1px solid var(--rp-line);
+      border-radius:22px;
+      box-shadow:var(--rp-shadow-sm);
+      transition:transform .18s var(--rp-ease), border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .value-card:hover{
+      transform:translateY(-3px);
+      border-color:var(--rp-primary-2);
+    }
+
+    .vc-top{
+      display:flex;
+      align-items:center;
+      gap:13px;
+      margin-bottom:12px;
+    }
+
+    .vc-tile{
+      width:46px;
+      height:46px;
+      flex:0 0 46px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      position:relative;
+    }
+
+    .vc-tile svg{
+      width:23px;
+      height:23px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .vc-tile .num{
+      position:absolute;
+      top:-7px;
+      right:-7px;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:var(--rp-surface);
+      border:1px solid var(--rp-line);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:10px;
+      font-weight:800;
+      color:var(--rp-primary);
+    }
+
+    .value-card.t1 .vc-tile{ background:linear-gradient(135deg,#ff4d5d,#d90429); }
+    .value-card.t2 .vc-tile{ background:linear-gradient(135deg,#ffd166,#ffb703); color:#5a3d00; }
+    .value-card.t3 .vc-tile{ background:linear-gradient(135deg,#a855f7,#d90429); }
+
+    .vc-title{
+      font-size:16px;
+      font-weight:800;
+      color:var(--rp-text);
+      letter-spacing:-.02em;
+    }
+
+    .value-card p{
+      font-size:13.5px;
+      line-height:1.65;
+      color:var(--rp-muted);
+      margin:0;
+    }
+
+    .rp-cred{
+      margin:18px 16px 0;
+      background:linear-gradient(135deg,#fff1f3,#fff8e8);
+      border:1px solid var(--rp-line);
+      border-radius:20px;
+      padding:18px 16px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      text-align:center;
+    }
+
+    .rp-cred .ci{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+    }
+
+    .rp-cred .ci svg{
+      width:22px;
+      height:22px;
+      stroke:var(--rp-primary);
+      fill:none;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .rp-cred .ci b{
+      font-size:12.5px;
+      font-weight:800;
+      color:var(--rp-text);
+    }
+
+    .rp-cred .ci span{
+      font-size:10.5px;
+      color:var(--rp-muted);
+      font-weight:700;
+    }
+
+    .rp-support{
+      margin:18px 16px 0;
+      padding:24px 20px;
+      text-align:center;
+      background:var(--rp-surface);
+      border:1px solid var(--rp-line);
+      border-radius:22px;
+      box-shadow:var(--rp-shadow-sm);
+    }
+
+    .rp-support .ico{
+      width:54px;
+      height:54px;
+      margin:0 auto 14px;
+      border-radius:17px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--rp-primary-soft);
+      color:var(--rp-primary);
+    }
+
+    .rp-support .ico svg{
+      width:27px;
+      height:27px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .rp-support h2{
+      font-family:'Sora',sans-serif;
+      font-size:1.25rem;
+      font-weight:800;
+      color:var(--rp-text);
+      margin:0 0 8px;
+      letter-spacing:-.02em;
+    }
+
+    .rp-support p{
+      font-size:13.5px;
+      line-height:1.6;
+      color:var(--rp-muted);
+      max-width:340px;
+      margin:0 auto 18px;
+      font-weight:600;
+    }
+
+    @media (min-width:820px){
+      .rp-values{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .value-card.full{
+        grid-column:1 / -1;
+      }
+    }
+
+    @media (max-width:380px){
+      .rp-chips,
+      .rp-mission,
+      .rp-values,
+      .rp-cred,
+      .rp-support{
+        margin-inline:12px;
+        padding-inline:12px;
+      }
+
+      .rp-values{
+        padding:0;
+      }
+
+      .rp-cred{
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+
+      .rp-cred .ci{
+        flex-direction:row;
+        justify-content:flex-start;
+        text-align:left;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="page-wrap">
+
+  <main class="page-wrap rp-fade-up">
+
     <header class="topbar-premium">
       <a class="back-btn-premium" href="profile.html" aria-label="Back to profile">‹</a>
-      <div class="topbar-title">About XFusion</div>
-      <div class="topbar-spacer" aria-hidden="true"></div>
+      <div class="topbar-title">About Redpay</div>
+      <div class="rp-spacer"></div>
     </header>
 
-    <!-- HERO -->
-    <section class="about-hero">
-      <div class="about-hero-inner">
-        <div class="ah-mark"><span class="ah-diamond"></span><span class="ah-word">XFUSION</span></div>
-        <h1>Investing, <em>fused</em><br />for real life.</h1>
-        <p>Payments, plans, account activity and support — brought together in one dependable portal built around how people actually manage money.</p>
+    <section class="rp-about-hero">
+      <div class="rp-brand" style="justify-content:center;margin-bottom:14px;">
+        <span class="rp-diamond"></span>
+        <span class="rp-word">REDPAY</span>
       </div>
+      <h1>Payments and plans,<br/>built for real life.</h1>
+      <p>Redpay brings deposits, investment plans, account activity, referrals, and support into one dependable portal.</p>
     </section>
-    <div class="ah-chips">
-      <div class="ah-chip c1"><span class="dot"><svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg></span>Transparent by design</div>
-      <div class="ah-chip c2"><span class="dot"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>Plans that grow</div>
-      <div class="ah-chip c3"><span class="dot"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Support that answers</div>
+
+    <div class="rp-chips">
+      <div class="rp-chip c1">
+        <span class="dot"><svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg></span>
+        Secure by design
+      </div>
+      <div class="rp-chip c2">
+        <span class="dot"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+        Daily income
+      </div>
+      <div class="rp-chip c3">
+        <span class="dot"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+        Support that answers
+      </div>
     </div>
 
-    <!-- MISSION -->
-    <section class="mission">
-      <p class="quote">We think financial services should feel <b>clear, responsive and honest</b> — never hidden behind jargon or delay.</p>
-      <p class="byline">The XFusion principle</p>
+    <section class="rp-mission">
+      <p class="rp-quote">We think financial services should feel <b>clear, responsive and honest</b> — never hidden behind jargon or delay.</p>
+      <div class="rp-principle">The Redpay principle</div>
     </section>
 
-    <!-- VALUES -->
-    <div class="xf-sec"><span class="bar"></span><span class="lbl">What guides us</span></div>
-    <section class="values">
+    <div class="section-label">
+      <span class="bar rp-bar"></span>
+      <span>What guides us</span>
+    </div>
+
+    <section class="rp-values">
       <article class="value-card t1">
         <div class="vc-top">
-          <div class="vc-tile"><span class="num">1</span><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="vc-tile">
+            <span class="num">1</span>
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
           <div class="vc-title">Reliable service</div>
         </div>
-        <p>Clear status, dependable operations and practical support — so you always know where your money stands and what happens next.</p>
+        <p>Clear status, dependable operations and practical support — so you always know where your money stands.</p>
       </article>
+
       <article class="value-card t2">
         <div class="vc-top">
-          <div class="vc-tile"><span class="num">2</span><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="vc-tile">
+            <span class="num">2</span>
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
           <div class="vc-title">Smarter choices</div>
         </div>
-        <p>Plans designed to help you decide with confidence — visible terms, realistic returns and no surprises buried in the fine print.</p>
+        <p>Plans designed to help you decide with confidence — visible terms and no surprises buried in the fine print.</p>
       </article>
+
       <article class="value-card t3 full">
         <div class="vc-top">
-          <div class="vc-tile"><span class="num">3</span><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+          <div class="vc-tile">
+            <span class="num">3</span>
+            <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          </div>
           <div class="vc-title">Responsible growth</div>
         </div>
-        <p>A sustainable future built on better visibility and thoughtful service — growth that lasts because it's managed, not guessed.</p>
+        <p>A sustainable future built on better visibility and thoughtful service — growth that lasts because it's managed.</p>
       </article>
     </section>
 
-    <!-- CREDIBILITY STRIP -->
-    <section class="cred">
-      <div class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><b>Secured</b><span>Protected accounts</span></div>
-      <div class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Fast</span><b>Responsive</b></div>
-      <div class="ci"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><b>People‑first</b><span>Real support team</span></div>
+    <section class="rp-cred">
+      <div class="ci">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <b>Secured</b>
+        <span>Protected accounts</span>
+      </div>
+      <div class="ci">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <b>Responsive</b>
+        <span>Fast support flow</span>
+      </div>
+      <div class="ci">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <b>People-first</b>
+        <span>Real support team</span>
+      </div>
     </section>
 
-    <!-- SUPPORT -->
-    <section class="support">
-      <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <section class="rp-support">
+      <div class="ico">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
       <h2>Our team is ready when you are.</h2>
       <p>Use the support and message tools inside your account for help with payments, plans or any service question.</p>
-      <a class="btn-support" href="contact.html"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact XFusion Support</a>
+      <a class="rp-btn" href="contact.html" style="max-width:320px;margin:0 auto;">Contact Redpay Support</a>
     </section>
+
+    <div style="height:20px"></div>
   </main>
 
   <nav class="bottom-nav-premium" aria-label="Primary">
-    <button class="nav-item-premium" onclick="location.href='dashboard.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><span>Home</span></button>
-    <button class="nav-item-premium" onclick="location.href='products.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><span>Plans</span></button>
-    <button class="nav-item-premium" onclick="location.href='team.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span>Team</span></button>
-    <button class="nav-item-premium" onclick="location.href='notifications.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><span>Alerts</span></button>
-    <button class="nav-item-premium active" onclick="location.href='profile.html'"><div class="nav-icon-premium"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span>Profile</span></button>
+    <button class="nav-item-premium" type="button" onclick="location.href='dashboard.html'">
+      <div class="nav-icon-premium">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      </div>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-item-premium" type="button" onclick="location.href='products.html'">
+      <div class="nav-icon-premium">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      </div>
+      <span>Plans</span>
+    </button>
+
+    <button class="nav-item-premium" type="button" onclick="location.href='team.html'">
+      <div class="nav-icon-premium">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <span>Team</span>
+    </button>
+
+    <button class="nav-item-premium" type="button" onclick="location.href='notifications.html'">
+      <div class="nav-icon-premium">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      </div>
+      <span>Alerts</span>
+    </button>
+
+    <button class="nav-item-premium active" type="button" onclick="location.href='profile.html'">
+      <div class="nav-icon-premium">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </div>
+      <span>Profile</span>
+    </button>
   </nav>
+
+  <script src="assets/js/serlzo.js" defer></script>
+  <script src="assets/js/icons.js" defer></script>
 </body>
 </html>
