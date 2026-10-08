@@ -1,85 +1,45 @@
-/* Redpay shared interaction layer. */
+/* ===== REDPAY canvas injector — guarantees the sky on EVERY page =====
+   serlzo.js loads everywhere; inline !important + an injected `html body`
+   rule beat each page's own background no matter which CSS it links.
+   Covers the un-rebuilt pages (history/messages/contact/...) too. */
 (function () {
   "use strict";
+  var SKY =
+    "radial-gradient(1200px 620px at 50% -12%, rgba(56,189,248,.30), transparent 60%)," +
+    "radial-gradient(900px 520px at 100% 0%, rgba(34,211,238,.20), transparent 55%)," +
+    "linear-gradient(180deg,#e0f2fe 0%, #eff8ff 46%, #f5fbfe 100%)";
 
-  var ready = false;
+  function paint() {
+    if (!document.body) return;
 
-  function announce(message) {
-    var region = document.getElementById("cardinalstone-status");
-    if (!region) {
-      region = document.createElement("div");
-      region.id = "cardinalstone-status";
-      region.setAttribute("role", "status");
-      region.setAttribute("aria-live", "polite");
-      region.style.cssText = "position:fixed;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0";
-      document.body.appendChild(region);
+    /* 1) absolute-top priority (also beats any inline style="" attribute) */
+    document.body.style.setProperty("background", SKY, "important");
+    document.body.style.setProperty("background-attachment", "fixed", "important");
+
+    /* 2) injected sheet: out-specifics every page's inline <style> body rule,
+          keeps the desktop framed card white, matches the splash loader */
+    if (!document.getElementById("rp-sky-style")) {
+      var s = document.createElement("style");
+      s.id = "rp-sky-style";
+      s.textContent =
+        "html body{background:" + SKY + " !important;background-attachment:fixed !important}" +
+        "@media (min-width:820px){.page-wrap,.rp-app{background:#ffffff !important}}" +
+        "#cardinalstone-loader{background:" + SKY + " !important}" +
+        ".loader{border-color:rgba(29,78,216,.18) !important;border-top-color:#1d4ed8 !important;border-right-color:#38bdf8 !important}" +
+        ".loader-brand span,.loader-brand{color:#0a2472 !important}";
+      document.head.appendChild(s);
     }
-    region.textContent = message || "";
+
+    /* 3) best-effort status bar (theme-color is read at load — see note) */
+    try {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute("content", "#0284c7");
+    } catch (e) {}
   }
 
-  function hideLoader() {
-    var loader = document.getElementById("cardinalstone-loader");
-    if (loader) loader.classList.add("is-ready");
-    document.body.classList.remove("page-loading");
-    ready = true;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", paint);
+  } else {
+    paint();
   }
-
-  function showLoader() {
-    if (document.getElementById("cardinalstone-loader")) return;
-    var loader = document.createElement("div");
-    loader.id = "cardinalstone-loader";
-    loader.innerHTML = '<div class="loader-brand" aria-label="Loading Redpay"><span class="loader-orbit" aria-hidden="true"></span><span>Redpay</span></div>';
-    document.body.appendChild(loader);
-  }
-
-  function setBusy(button, busy, label) {
-    if (!button) return;
-    if (busy) {
-      if (!button.dataset.originalLabel) button.dataset.originalLabel = button.textContent;
-      button.disabled = true;
-      button.setAttribute("aria-busy", "true");
-      button.textContent = label || "Working…";
-      announce(label || "Working");
-    } else {
-      button.disabled = false;
-      button.removeAttribute("aria-busy");
-      if (button.dataset.originalLabel) button.textContent = button.dataset.originalLabel;
-      announce("");
-    }
-  }
-
-  window.SerlzoUI = {
-    hideLoader: hideLoader,
-    showLoader: showLoader,
-    setBusy: setBusy,
-    announce: announce,
-    isReady: function () { return ready; }
-  };
-
-  document.addEventListener("DOMContentLoaded", function () {
-    showLoader();
-    document.body.classList.add("page-loading");
-
-    document.querySelectorAll("a[href]").forEach(function (link) {
-      var href = link.getAttribute("href") || "";
-      if (!href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0 || link.target === "_blank") return;
-      link.addEventListener("click", function () {
-        if (link.dataset.noLoader === "true") return;
-        var loader = document.getElementById("cardinalstone-loader");
-        if (loader) loader.classList.remove("is-ready");
-        document.body.classList.add("page-loading");
-      });
-    });
-
-    document.querySelectorAll("form").forEach(function (form) {
-      form.addEventListener("submit", function () {
-        var submit = form.querySelector("button[type=submit], button:not([type])");
-        if (submit) setBusy(submit, true, "Saving…");
-      });
-    });
-
-    window.setTimeout(hideLoader, 420);
-  });
-
-  window.addEventListener("load", hideLoader);
 })();
