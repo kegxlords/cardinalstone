@@ -3303,3 +3303,51 @@ body{
 #cardinalstone-loader{ color:#0a0e1a !important; }
 .loader-brand span,.loader-brand{ color:#1d4ed8 !important; }
 .loader-orbit{ border-color:rgba(29,78,216,.2) !important; border-top-color:#1d4ed8 !important; }
+/* =========================================================
+   REDPAY — BLUE & BLACK, PART 2: flip the XFusion namespace
+   These pages still ship --xf-* tokens with !important grads.
+   Changing the TOKEN value beats any !important, because the
+   rule just reads var(--xf-hero). Green/red kept semantic.
+   ========================================================= */
+:root{
+  --xf-bg:#eef2f9; --xf-surface:#ffffff; --xf-surface-2:#eaf0fb; --xf-surface-3:#f6f8fc;
+  --xf-line:rgba(29,78,216,.13); --xf-line-strong:rgba(29,78,216,.24);
+  --xf-text:#0a0e1a; --xf-mid:#28324b; --xf-muted:#5c6779; --xf-ph:#9aa6b8; --xf-ink:#0a0e1a;
+  --xf-accent:#1d4ed8; --xf-accent-2:#3b82f6; --xf-hero-dark:#020617; --xf-pink-soft:#e1ebff;
+  --xf-lemon:#38bdf8; --xf-yellow:#38bdf8;            /* gold -> azure highlight */
+  --xf-violet:#1e40af; --xf-amber:#1d4ed8;
+  --xf-success:#16a34a; --xf-success-soft:#dcfce7;    /* kept semantic */
+  --xf-danger:#e11d48;  --xf-danger-soft:#ffe4e9;     /* kept semantic */
+  --xf-sweep:linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);
+  --xf-hero:linear-gradient(135deg,#020617 0%,#0a2472 48%,#1d4ed8 100%);
+  --xf-shadow-sm:0 8px 20px -12px rgba(29,78,216,.22);
+}
+
+/* hero corner glow was gold -> azure (covers inline duplicates too) */
+.rp-hero::before,.wallet-hero::before,.summary-card::before,.balance-summary::before,
+.ref-hero::before,.gift-hero::before,.checkin-card::before,.dc-header::before,
+.product-header::before,.profile-hero::before,.rp-about-hero::before{
+  background:radial-gradient(circle, rgba(56,189,248,.30), transparent 68%) !important;
+}
+
+/* belt-and-suspenders: if any hero was a LITERAL hex (not a token),
+   this !important rule flips it too — place it last so it wins ties */
+.rp-hero,.wallet-hero,.summary-card,.balance-summary,.ref-hero,.gift-hero,
+.checkin-card,.dc-header,.product-header,.profile-hero,.rp-about-hero{
+  background:var(--rp-hero) !important;
+}
+.product-header.locked{ background:linear-gradient(135deg,#334155,#0b1220) !important; }
+
+/* force hero text legible on the now-dark navy (kills the ghost price) */
+.product-name,.product-price,.dc-label,.dc-amount,.dc-sub,.checkin-amount,.checkin-label,
+.gift-title,.gift-sub,.wallet-balance,.wallet-label,.summary-val,.summary-label,
+.bal-amount,.bal-label,.ref-hero-title,.ref-code,.nar-label{ color:#ffffff !important; }
+.ref-code span,.profile-ref span,.wallet-ref span{ color:var(--rp-accent) !important; } /* azure ref */
+
+/* share button sits on the dark hero -> white, not blue-on-frost */
+.share-btn,.share-btn svg{ color:#ffffff !important; stroke:#ffffff !important; }
+.toggle-manual-btn{ color:var(--rp-primary) !important; }   /* this one is on white, keep blue */
+
+/* tier glyph COLOR -> blue (the 4-identical-shape problem is separate, see note) */
+.vt-icon{ color:var(--rp-primary) !important; }
+.vip-tier.unlocked .vt-icon{ color:var(--rp-success) !important; }
