@@ -3160,3 +3160,13 @@ body.rp-auth-body {
 
 /* 5. section bar = solid brand red, not a gradient sliver */
 .rp-bar, .section-label .bar, .wd-step .bar, .gc-head .bar{ background:var(--rp-primary) !important; }
+/* ===== REDPAY HOTFIX v2: hero wallet buttons (the one svg hook v1 missed) ===== */
+.wallet-action-btn svg{ width:20px; height:20px; flex:0 0 20px; }
+
+/* polish: stop "View All" clipping at the right edge on narrow phones */
+.section-label > span:not(.bar){
+  flex:1 1 auto; min-width:0;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.section-label > a,
+.section-label > .section-link{ flex:0 0 auto; white-space:nowrap; }
