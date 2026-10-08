@@ -3351,3 +3351,55 @@ body{
 /* tier glyph COLOR -> blue (the 4-identical-shape problem is separate, see note) */
 .vt-icon{ color:var(--rp-primary) !important; }
 .vip-tier.unlocked .vt-icon{ color:var(--rp-success) !important; }
+/* =========================================================
+   REDPAY — PART 3: quick-action tiles = cyan/sky, icons = white
+   (scoped to .quick-icon-circle ONLY — do NOT globalize white
+    or the bottom-nav + bell icons vanish on the white page)
+   ========================================================= */
+
+/* the fix: these svgs had no stroke rule, so they rendered black-filled */
+.quick-icon-circle{ color:#ffffff !important; }
+.quick-icon-circle svg{
+  stroke:#ffffff !important;
+  fill:none !important;
+  stroke-width:2 !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+  filter:drop-shadow(0 1px 1px rgba(2,32,71,.35)); /* keeps white crisp on the light corner */
+}
+
+/* tile backgrounds -> cyan / sky-blue family (mid-deep so white reads) */
+.quick-icon-circle.invest  { background:linear-gradient(135deg,#38bdf8,#0284c7) !important; }
+.quick-icon-circle.deposit { background:linear-gradient(135deg,#22d3ee,#0891b2) !important; }
+.quick-icon-circle.withdraw{ background:linear-gradient(135deg,#0ea5e9,#0369a1) !important; }
+.quick-icon-circle.gift    { background:linear-gradient(135deg,#22d3ee,#0e7490) !important; }
+.quick-icon-circle.referral{ background:linear-gradient(135deg,#06b6d4,#0e7490) !important; }
+
+/* --- OPTIONAL: if by "background" you meant the PAGE, uncomment --- */
+/*
+body{ background:linear-gradient(180deg,#e0f2fe 0%,#f0f9ff 40%,#eef2f9 100%) !important; }
+*/
+/* --- OPTIONAL: if you also want the HERO cyan instead of black/navy, uncomment --- */
+/*
+:root{ --rp-hero:linear-gradient(135deg,#0e7490 0%,#0284c7 50%,#38bdf8 100%) !important; }
+*/
+/* =========================================================
+   REDPAY — PART 4: the SITE CANVAS itself -> sky / cyan
+   (html body out-specifies any inline body{...!important},
+    so this wins no matter which page version is live)
+   ========================================================= */
+:root{ --rp-bg:#e0f2fe !important; --xf-bg:#e0f2fe !important; }   /* base token, for any other consumer */
+
+html body{
+  background:
+    radial-gradient(1200px 620px at 50% -12%, rgba(56,189,248,.30), transparent 60%),
+    radial-gradient(900px 520px at 100% 0%,  rgba(34,211,238,.20), transparent 55%),
+    linear-gradient(180deg,#e0f2fe 0%, #eff8ff 46%, #f5fbfe 100%) !important;
+  background-attachment:fixed !important;   /* glows stay put on scroll = calmer */
+}
+
+/* the desktop framed shell stays a clean WHITE card floating on the sky
+   (so lists/inputs keep their separation). leave as-is unless you want glass. */
+@media (min-width:820px){
+  .page-wrap,.rp-app{ background:#ffffff !important; }
+}
