@@ -3170,3 +3170,136 @@ body.rp-auth-body {
 }
 .section-label > a,
 .section-label > .section-link{ flex:0 0 auto; white-space:nowrap; }
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   REDPAY — BLUE & BLACK RE-SKIN  (append-only override)
+   Blue = brand/action · Black = structure/text · azure = highlight
+   Green(success) + red(error/delete) intentionally kept semantic.
+   ========================================================= */
+
+:root{
+  --rp-bg:#eef2f9; --rp-surface:#ffffff; --rp-surface-2:#eaf0fb; --rp-surface-3:#f6f8fc;
+  --rp-line:rgba(29,78,216,.13); --rp-line-strong:rgba(29,78,216,.24);
+  --rp-text:#0a0e1a; --rp-mid:#28324b; --rp-muted:#5c6779; --rp-ph:#9aa6b8; --rp-ink:#0a0e1a;
+  --rp-primary:#1d4ed8; --rp-primary-2:#3b82f6; --rp-primary-dark:#0a2472; --rp-primary-soft:#e1ebff;
+  --rp-accent:#38bdf8; --rp-accent-soft:#e0f2fe;                 /* azure highlight (was gold) */
+  --rp-violet:#1e40af; --rp-violet-soft:#dbe6ff;                 /* deep blue (was purple)     */
+  --rp-success:#16a34a; --rp-success-soft:#dcfce7;               /* kept semantic              */
+  --rp-danger:#e11d48;  --rp-danger-soft:#ffe4e9;                /* kept semantic              */
+  --rp-hero:linear-gradient(135deg,#020617 0%,#0a2472 48%,#1d4ed8 100%);
+  --rp-sweep:linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);
+  --rp-soft-wash:linear-gradient(135deg,#eef3ff 0%,#f6f8fc 100%);
+}
+
+/* page canvas washes (were red + gold) */
+body{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(29,78,216,.08), transparent 28rem),
+    radial-gradient(circle at 100% 0%, rgba(56,189,248,.12), transparent 32rem),
+    var(--rp-bg) !important;
+}
+
+/* hero corner glow (was gold) — covers base + every inline duplicate */
+.rp-hero::before,.wallet-hero::before,.summary-card::before,.balance-summary::before,
+.ref-hero::before,.gift-hero::before,.checkin-card::before,.dc-header::before,
+.product-header::before,.profile-hero::before,.rp-about-hero::before{
+  background:radial-gradient(circle, rgba(56,189,248,.32), transparent 68%) !important;
+}
+
+/* brand diamond -> solid azure so it always pops on the dark hero */
+.rp-diamond{ background:var(--rp-accent) !important; }
+
+/* sweep buttons: white text on blue, blue shadows (was dark-on-gold) */
+.rp-btn,.btn-primary,.btn-primary-premium,.btn-buy,.btn-claim,.wd-submit,
+#wrechBtn.btn.btn-primary,#rechBtn.btn.btn-primary,#regBtn,#loginBtn,#forgotBtn,#resetBtn,
+#confirmBtn,.wallet-action-btn.primary,.welcome-action.primary,.btn-modal.confirm,.gift-input button{
+  color:#ffffff !important;
+  box-shadow:0 14px 30px -12px rgba(29,78,216,.5) !important;
+}
+.rp-btn:hover:not(:disabled),.btn-primary:hover:not(:disabled),.btn-primary-premium:hover:not(:disabled),
+.btn-buy:hover:not(:disabled),.btn-claim:hover:not(:disabled),.wd-submit:hover:not(:disabled),
+#wrechBtn:hover:not(:disabled),#rechBtn.btn.btn-primary:hover:not(:disabled),#regBtn:hover:not(:disabled),
+#loginBtn:hover:not(:disabled),#forgotBtn:hover:not(:disabled),#resetBtn:hover:not(:disabled),
+#confirmBtn:hover:not(:disabled),.wallet-action-btn.primary:hover,.welcome-action.primary:hover,
+.btn-modal.confirm:hover:not(:disabled),.gift-input button:hover{
+  box-shadow:0 18px 36px -12px rgba(29,78,216,.6) !important;
+}
+/* keep disabled sweep buttons legible (grey, not white-on-grey) */
+.rp-btn:disabled,.btn-primary:disabled,.btn-primary-premium:disabled,.btn-buy:disabled,
+.btn-claim:disabled,.wd-submit:disabled,#rechBtn.btn.btn-primary:disabled,#regBtn:disabled,
+#loginBtn:disabled,#forgotBtn:disabled,#resetBtn:disabled,#confirmBtn:disabled,
+.btn-modal.confirm:disabled,.gift-input button:disabled{
+  color:var(--rp-ph) !important; background:var(--rp-surface-2) !important;
+}
+
+/* azure highlight text fixes (were dark-brown on gold) */
+.streak-day.today{ color:#06243f !important; box-shadow:0 0 0 3px rgba(56,189,248,.35) !important; }
+.checkin-btn:disabled{ color:#06243f !important; }
+.default-badge,.pill,.pill-purple{ color:#06243f !important; border-color:rgba(2,32,71,.18) !important; }
+.notif-item.unread::after{ color:#06243f !important; box-shadow:0 0 0 3px rgba(56,189,248,.22) !important; }
+
+/* quick-action mosaic: blue + black tiles (were red/gold) */
+.quick-icon-circle.invest{ background:linear-gradient(135deg,#3b82f6,#1d4ed8) !important; color:#fff !important; }
+.quick-icon-circle.deposit{ background:linear-gradient(135deg,#0b1220,#1e293b) !important; color:#fff !important; }
+.quick-icon-circle.withdraw{ background:linear-gradient(135deg,#1d4ed8,#0a2472) !important; color:#fff !important; }
+.quick-icon-circle.gift{ background:linear-gradient(135deg,#38bdf8,#2563eb) !important; color:#06243f !important; }
+.quick-icon-circle.referral{ background:linear-gradient(135deg,#0b1220,#1d4ed8) !important; color:#fff !important; }
+
+/* about value tiles + chips: blue + black */
+.value-card.t1 .vc-tile{ background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; color:#fff !important; }
+.value-card.t2 .vc-tile{ background:linear-gradient(135deg,#0b1220,#334155) !important; color:#fff !important; }
+.value-card.t3 .vc-tile{ background:linear-gradient(135deg,#38bdf8,#2563eb) !important; color:#06243f !important; }
+.rp-chip.c1 .dot{ background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; color:#fff !important; }
+.rp-chip.c2 .dot{ background:linear-gradient(135deg,#0b1220,#334155) !important; color:#fff !important; }
+.rp-chip.c3 .dot{ background:linear-gradient(135deg,#38bdf8,#2563eb) !important; color:#06243f !important; }
+
+/* method + pending badges (were gold) -> blue ; paystack stays green (semantic) */
+.mb-manual{ background:#e8f0ff !important; color:#1e40af !important; border-bottom-color:rgba(37,99,235,.22) !important; }
+.sb-pending{ background:#e8f0ff !important; color:#1e40af !important; border-color:rgba(37,99,235,.25) !important; }
+
+/* locked / paused system state -> slate-black (was brand red) */
+.locked-banner{ background:#f1f5f9 !important; border-color:rgba(15,23,42,.12) !important; }
+.locked-banner-title{ color:#0f172a !important; }
+.locked-banner-desc{ color:#475569 !important; }
+.locked-banner-icon{ background:#e2e8f0 !important; color:#0b1220 !important; }
+.product-header.locked{ background:linear-gradient(135deg,#334155,#0b1220) !important; }
+
+/* narration + credentials washes (were pink/cream) */
+.narration-box{ border-color:rgba(29,78,216,.32) !important; background:linear-gradient(135deg,#f3f7ff,#eef6ff) !important; }
+.rp-cred{ background:linear-gradient(135deg,#eef3ff,#e6f4ff) !important; }
+.saved-card-premium.selected{ background:linear-gradient(135deg,#eef3ff,#e6f4ff) !important; box-shadow:0 14px 30px -18px rgba(29,78,216,.45) !important; }
+
+/* selected/active glows (were red) */
+.amt-chip.on{ box-shadow:0 12px 24px -14px rgba(29,78,216,.65) !important; }
+.ltab.on{ box-shadow:0 10px 22px -14px rgba(29,78,216,.7) !important; }
+.wd-policy li::before,.rc-important li::before{ box-shadow:0 0 0 4px rgba(29,78,216,.1) !important; }
+
+/* sign-out -> neutral black outline (session end, not destructive) */
+.logout-btn{ background:rgba(11,18,32,.04) !important; border-color:rgba(11,18,32,.18) !important; color:#0b1220 !important; }
+.logout-btn:hover{ background:rgba(11,18,32,.08) !important; }
+
+/* leftover warm text on cool tints */
+.menu-icon.orange{ color:#1d4ed8 !important; }
+.tx-ico.bonus{ color:#1d4ed8 !important; }
+
+/* pulse ring (was gold) */
+@keyframes rpPulse{
+  0%,100%{ box-shadow:0 0 0 3px rgba(56,189,248,.28); }
+  50%{ box-shadow:0 0 0 7px rgba(56,189,248,.08); }
+}
+
+/* best-effort: splash loader (harmless if your markup differs) */
+#cardinalstone-loader{ color:#0a0e1a !important; }
+.loader-brand span,.loader-brand{ color:#1d4ed8 !important; }
+.loader-orbit{ border-color:rgba(29,78,216,.2) !important; border-top-color:#1d4ed8 !important; }
