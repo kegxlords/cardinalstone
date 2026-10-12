@@ -265,24 +265,97 @@ module.exports = async function(req, res) {
   }
 
   if(action==="process-withdrawal") {
-    const { withdrawal_id, act, note } = req.body;
-    if(!withdrawal_id||!["approve","reject"].includes(act)) return res.status(400).json({ error:"withdrawal_id and act required" });
-    const { data:w } = await supabase.from("withdrawals").select("*").eq("id",withdrawal_id).single();
+    const { withdrawal_id, act, note } = req.body || {};
+    if(!withdrawal_id || !["approve","reject"].includes(act)) {
+      return res.status(400).json({ error:"withdrawal_id and act required" });
+    }
+
+    const { data:w, error:loadError } = await supabase
+      .from("withdrawals").select("*").eq("id", withdrawal_id).single();
+    if(loadError) return res.status(500).json({ error:loadError.message });
     if(!w) return res.status(404).json({ error:"Not found" });
     if(w.status!=="pending") return res.json({ ok:true, note:"already_processed" });
-    await supabase.from("withdrawals").update({ status:act==="approve"?"approved":"rejected", note:note||null, processed_by:admin_id, processed_at:new Date().toISOString() }).eq("id",withdrawal_id);
-    if(act==="reject") {
-      // Refund the wallet (FIXED: supabase.raw() is not a real function in
-      // supabase-js v2 — that was a Knex-style call that would always throw).
-      const { data:wallet } = await supabase.from("wallets").select("balance,total_withdrawn").eq("user_id",w.user_id).single();
-      const newBal = Number(wallet?.balance||0) + Number(w.amount);
-      const newWithdrawn = Math.max(0, Number(wallet?.total_withdrawn||0) - Number(w.amount));
-      await supabase.from("wallets").update({ balance:newBal, total_withdrawn:newWithdrawn, updated_at:new Date().toISOString() }).eq("user_id",w.user_id);
-      await supabase.from("wallet_transactions").insert({ user_id:w.user_id, type:"withdrawal_refund", amount:w.amount, description:"Withdrawal refunded" });
-    }
-    return res.json({ ok:true, action:act });
-  }
 
+    const now = new Date().toISOString();
+
+    if(act==="reject") {
+      // The user-side endpoint reserved only the gross requested amount.
+      // Refund exactly that amount; no fee was charged at submission.
+      const { data:wallet, error:walletError } = await supabase
+        .from("wallets").select("balance,total_withdrawn")
+        .eq("user_id", w.user_id).single();
+      if(walletError) return res.status(500).json({ error:walletError.message });
+
+      const newBal = Number(wallet?.balance || 0) + Number(w.amount);
+      const newWithdrawn = Math.max(0, Number(wallet?.total_withdrawn || 0) - Number(w.amount));
+      const { error:updateWalletError} = await supabase.from("wallets").update({
+        balance:newBal,
+        total_withdrawn:newWithdrawn,
+        updated_at:now,
+      }).eq("user_id", w.user_id);
+      if(updateWalletError) return res.status(500).json({ error:updateWalletError.message });
+
+      await supabase.from("wallet_transactions").insert({
+        user_id:w.user_id,
+        type:"withdrawal_refund",
+        amount:Number(w.amount),
+        description:"Withdrawal refunded after admin rejection",
+        reference:withdrawal_id,
+      });
+
+      const { error:statusError } = await supabase.from("withdrawals").update({
+        status:"rejected",
+        note:note || "Rejected by admin",
+        processed_by:admin_id,
+        processed_at:now,
+      }).eq("id", withdrawal_id).eq("status", "pending");
+      if(statusError) return res.status(500).json({ error:statusError.message });
+      return res.json({ ok:true, action:"rejected", refunded:Number(w.amount), fee:0 });
+    }
+
+    // Calculate the fee only when the admin approves the withdrawal.
+    const { data:feeSetting } = await supabase.from("site_settings")
+      .select("value").eq("key", "withdrawal_fee_percent").single();
+    const feePercent = Math.max(0, Number(feeSetting?.value || 0));
+    const fee = Math.round(Number(w.amount) * feePercent) / 100;
+    const netAmount = Number(w.amount) - fee;
+    if(netAmount < 0) return res.status(400).json({ error:"Withdrawal fee cannot exceed the requested amount" });
+
+    // The request already reserved the gross amount. Convert its pending
+    // ledger entry to the final payout and add the admin-calculated fee.
+    const { data:pendingTx } = await supabase.from("wallet_transactions")
+      .select("id").eq("user_id", w.user_id).eq("type", "withdrawal")
+      .eq("amount", -Number(w.amount)).order("created_at", { ascending:false }).limit(1).maybeSingle();
+    if(pendingTx?.id) {
+      const { error:txUpdateError } = await supabase.from("wallet_transactions").update({
+        description:"Withdrawal paid after admin approval",
+        reference:withdrawal_id,
+        metadata:{ gross_amount:Number(w.amount), fee, fee_percent:feePercent, net_amount:netAmount, fee_calculated_by:"admin" },
+      }).eq("id", pendingTx.id);
+      if(txUpdateError) return res.status(500).json({ error:txUpdateError.message });
+    }
+    if(fee > 0) {
+      const { error:feeError } = await supabase.from("wallet_transactions").insert({
+        user_id:w.user_id,
+        type:"withdrawal_fee",
+        amount:-fee,
+        description:`Withdrawal fee (${feePercent}%) calculated by admin`,
+        reference:withdrawal_id,
+        metadata:{ gross_amount:Number(w.amount), fee_percent:feePercent, net_amount:netAmount },
+      });
+      if(feeError) return res.status(500).json({ error:feeError.message });
+    }
+
+    const { error:statusError } = await supabase.from("withdrawals").update({
+      status:"approved",
+      note:[note, `Gross ₦${Number(w.amount).toLocaleString()} · Fee ₦${fee.toLocaleString()} (${feePercent}%) · Net ₦${netAmount.toLocaleString()}`].filter(Boolean).join(" | "),
+      processed_by:admin_id,
+      processed_at:now,
+    }).eq("id", withdrawal_id).eq("status", "pending");
+    if(statusError) return res.status(500).json({ error:statusError.message });
+
+    return res.json({ ok:true, action:"approved", gross_amount:Number(w.amount), fee, fee_percent:feePercent, net_amount:netAmount });
+  }
   if(action==="send-message") {
     const { user_id, title, content } = req.body;
     if(!title||!content) return res.status(400).json({ error:"title and content required" });
