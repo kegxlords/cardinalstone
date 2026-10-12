@@ -543,13 +543,11 @@
         requireReferral = !!policy.require_referral;
         
         var policyParts = [];
-        if(feePercent > 0) policyParts.push("Processing fee: "+feePercent+"%");
+        if(feePercent > 0) policyParts.push("Any processing fee is calculated by admin at approval");
+        else policyParts.push("Admin approval required before payout");
         if(requireInvest) policyParts.push("Active investment plan required");
         if(requireReferral) policyParts.push("Active referral required");
-        
-        document.getElementById("policyNote").innerHTML = policyParts.length 
-          ? policyParts.join(" · ") 
-          : "<strong>No withdrawal fees</strong> apply to your account.";
+        document.getElementById("policyNote").innerHTML = policyParts.join(" · ");
       } catch(e) { 
         document.getElementById("policyNote").textContent = "Withdrawal policy unavailable"; 
       }
@@ -629,10 +627,10 @@
         return; 
       }
       
-      var fee = Math.round(amt * feePercent) / 100;
-      var totalDebit = amt + fee;
-      if(totalDebit > balance){ 
-        showAlert("Insufficient balance to cover the amount and processing fee.", "error"); 
+      // The requested amount may equal the full available balance.
+      // Fees are calculated by the admin only when approving the request.
+      if(amt > balance){ 
+        showAlert("Insufficient balance.", "error"); 
         return; 
       }
 
@@ -659,7 +657,7 @@
         if(d.ok){
           showAlert("Withdrawal request submitted successfully! We'll process it shortly.", "success");
           btn.textContent = "Submitted";
-          balance -= totalDebit;
+          balance -= amt;
           document.getElementById("balance").textContent = "₦" + Number(balance).toLocaleString();
           setTimeout(function(){ location.href = "withdrawal-history.html"; }, 1500);
         } else {
